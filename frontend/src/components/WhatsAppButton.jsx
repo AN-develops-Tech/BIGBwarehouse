@@ -1,0 +1,25 @@
+import { MessageCircle } from 'lucide-react';
+import { useCompany } from '../context/CompanyContext';
+
+const WhatsAppButton = () => {
+    const { company } = useCompany();
+
+    if (!company || !company.whatsapp) return null;
+
+    return (
+        <a
+            href={`https://wa.me/${company.whatsapp.replace(/\D/g, '')}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="fixed bottom-6 right-6 z-50 bg-[#25D366] hover:bg-[#20bd5a] text-white p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 flex items-center justify-center group"
+            aria-label="Chat on WhatsApp"
+        >
+            <MessageCircle className="w-6 h-6" />
+            <span className="max-w-0 overflow-hidden whitespace-nowrap group-hover:max-w-xs group-hover:ml-3 transition-all duration-300 font-medium">
+                Chat with us
+            </span>
+        </a>
+    );
+};
+
+export default WhatsAppButton;

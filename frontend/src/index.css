@@ -1,0 +1,162 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-brand-blue: #0f2c4d;
+  --color-brand-orange: #f07409;
+  --color-brand-dark: #0a1b31;
+  --color-industrial-zinc: #182232;
+  --color-steel-accent: #24364e;
+}
+
+/* Optimized, smooth logo animation without layer repaints */
+@keyframes drawB {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.animate-logo-b {
+  display: inline-block;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  will-change: transform;
+}
+
+.animate-logo-b:hover {
+  transform: scale(1.12);
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Ken Burns background zoom animation for hero slideshow with hardware acceleration */
+@keyframes kenBurnsZoom {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.04);
+  }
+  100% {
+    transform: scale(1.02);
+  }
+}
+
+.animate-ken-burns {
+  animation: kenBurnsZoom 15s ease-in-out infinite alternate;
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+/* Pulse Glow for Live Industrial Status Badges */
+@keyframes pulseGlow {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 2.5s ease-in-out infinite;
+}
+
+@keyframes pulseOrangeGlow {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+.animate-orange-glow {
+  animation: pulseOrangeGlow 2.5s ease-in-out infinite;
+}
+
+/* Continuous Horizontal Ticker for Industrial Stats */
+@keyframes tickerSlide {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.animate-ticker {
+  display: flex;
+  width: max-content;
+  animation: tickerSlide 30s linear infinite;
+  will-change: transform;
+}
+
+.animate-ticker:hover {
+  animation-play-state: paused;
+}
+
+/* Industrial Utility Patterns */
+.blueprint-grid-pattern {
+  background-size: 32px 32px;
+  background-image: 
+    linear-gradient(to right, rgba(240, 116, 9, 0.07) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(240, 116, 9, 0.07) 1px, transparent 1px);
+}
+
+.steel-glass-card {
+  background: linear-gradient(135deg, rgba(15, 44, 77, 0.92) 0%, rgba(10, 27, 49, 0.97) 100%);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(240, 116, 9, 0.25);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.4);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.steel-glass-card:hover {
+  border-color: rgba(240, 116, 9, 0.7);
+  box-shadow: 0 12px 30px -5px rgba(240, 116, 9, 0.2);
+}
+
+.light-steel-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.96) 0%, rgba(241, 245, 249, 0.98) 100%);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(240, 116, 9, 0.3);
+  box-shadow: 0 10px 25px -5px rgba(15, 44, 77, 0.08);
+}
+
+.cta-light-sweep {
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-light-sweep::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    60deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.25) 50%,
+    transparent 70%
+  );
+  transform: rotate(30deg) translateX(-100%);
+  transition: transform 0.8s ease;
+}
+
+.cta-light-sweep:hover::after {
+  transform: rotate(30deg) translateX(100%);
+}
+
+
+
