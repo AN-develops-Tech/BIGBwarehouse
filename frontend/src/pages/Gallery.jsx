@@ -46,7 +46,7 @@ const Gallery = () => {
 
     if (loading) {
         return (
-            <div className="min-h-screen flex items-center justify-center bg-brand-dark text-brand-orange font-mono text-xl pt-20">
+            <div className="min-h-screen flex items-center justify-center bg-white text-brand-orange font-mono text-xl pt-20">
                 LOADING PHOTO GALLERY...
             </div>
         );
@@ -64,17 +64,18 @@ const Gallery = () => {
     };
 
     return (
-        <div className="bg-brand-dark text-white min-h-screen font-sans">
+        <div className="bg-white text-slate-900 min-h-screen font-sans">
             {/* Header */}
-            <div className="py-20 bg-slate-950 border-b border-brand-orange/40 text-center">
+            <div className="py-20 bg-slate-50 border-b border-slate-200 text-center">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <span className="text-brand-orange font-mono text-xs uppercase tracking-widest">VISUAL INSPECTION</span>
-                    <h1 className="text-4xl sm:text-5xl font-black uppercase tracking-tight text-white mt-2 mb-4">
+                    <span className="text-brand-orange font-mono text-xs uppercase tracking-widest font-extrabold">VISUAL INSPECTION</span>
+                    <h1 className="text-4xl sm:text-5xl font-black uppercase tracking-tight text-slate-900 mt-2 mb-4">
                         WAREHOUSE PARK GALLERY
                     </h1>
-                    <p className="text-xl text-gray-300 max-w-2xl mx-auto font-normal">
+                    <p className="text-xl text-slate-600 max-w-2xl mx-auto font-normal">
                         Photorealistic visual tour of our high-bay storage bays, 50-ton weighbridge, and logistics docks.
                     </p>
+                    <div className="mt-4 h-1.5 w-24 bg-brand-orange mx-auto rounded-full"></div>
                 </div>
             </div>
 
@@ -87,7 +88,7 @@ const Gallery = () => {
                             onClick={() => setFilter(cat)}
                             className={`px-6 py-2.5 rounded-lg font-mono text-xs uppercase tracking-wider transition-all duration-300 ${filter === cat
                                 ? 'bg-brand-orange text-white shadow-lg font-bold border border-orange-400'
-                                : 'bg-gray-900 text-gray-300 border border-gray-800 hover:border-brand-orange hover:text-white'
+                                : 'bg-slate-100 text-slate-700 border border-slate-200 hover:border-brand-orange hover:text-brand-orange hover:bg-orange-50/50'
                                 }`}
                         >
                             {cat}
@@ -105,7 +106,7 @@ const Gallery = () => {
                         return (
                             <div
                                 key={img.id || index}
-                                className="group relative cursor-pointer overflow-hidden rounded-xl border border-gray-800 steel-glass-card aspect-video"
+                                className="group relative cursor-pointer overflow-hidden rounded-xl border border-slate-200 bg-slate-900 shadow-sm hover:shadow-2xl aspect-video transition-all"
                                 onClick={() => openLightbox(index)}
                             >
                                 <img
@@ -113,13 +114,13 @@ const Gallery = () => {
                                     alt={img.title || "Gallery Item"}
                                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                                 />
-                                <div className="absolute inset-0 bg-gradient-to-t from-brand-dark via-brand-dark/40 to-transparent opacity-90 group-hover:opacity-100 transition-opacity p-6 flex flex-col justify-end">
+                                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent opacity-90 group-hover:opacity-100 transition-opacity p-6 flex flex-col justify-end">
                                     <div className="flex justify-between items-end">
                                         <div>
                                             <span className="text-brand-orange text-xs font-mono font-bold uppercase">{img.category}</span>
                                             <h3 className="text-white font-black text-lg uppercase mt-1">{img.title}</h3>
                                         </div>
-                                        <div className="w-10 h-10 rounded-full bg-brand-orange/80 text-white flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                                        <div className="w-10 h-10 rounded-full bg-brand-orange/90 text-white flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
                                             <ZoomIn className="w-5 h-5" />
                                         </div>
                                     </div>
@@ -130,7 +131,7 @@ const Gallery = () => {
                 </div>
 
                 {filteredImages.length === 0 && (
-                    <div className="text-center py-20 text-gray-400 font-mono text-lg">NO IMAGES FOUND FOR THIS CATEGORY.</div>
+                    <div className="text-center py-20 text-slate-500 font-mono text-lg">NO IMAGES FOUND FOR THIS CATEGORY.</div>
                 )}
             </div>
 

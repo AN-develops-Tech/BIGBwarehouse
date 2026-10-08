@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Phone, Mail, MapPin, ArrowUp } from 'lucide-react';
+import { Phone, Mail, MapPin, ArrowUp, ExternalLink, ShieldCheck, CheckCircle2 } from 'lucide-react';
 import { useCompany } from '../context/CompanyContext';
 import Logo from './Logo';
 import footerMapBgImg from '../assets/images/footer_map_bg.jpg';
@@ -11,80 +11,216 @@ const Footer = () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
+    const phoneNumber = company?.phone || '+91 7909294488';
+    const cleanPhone = phoneNumber.replace(/\s+/g, '');
+    const emailAddress = company?.email || 'contact@bigbwarehouse.com';
+    const facilityAddress = company?.address || 'Ezhippuram, ESI Back Road, Parippally, Kerala 691574';
+
     return (
-        <footer className="bg-[#060c16] text-white relative overflow-hidden border-t border-brand-orange/30">
+        <footer className="bg-[#050b14] text-white relative overflow-hidden border-t border-slate-800/80">
             
-            {/* User Provided Google Satellite Map Background Blended at 45% Visibility */}
-            <div className="absolute inset-0 opacity-[0.45] pointer-events-none overflow-hidden select-none z-0">
+            {/* Aerial Satellite Map Background with Vignette Gradient Overlay */}
+            <div className="absolute inset-0 opacity-25 pointer-events-none overflow-hidden select-none z-0">
                 <img
                     src={footerMapBgImg}
                     alt="Big B Traders Location Map"
-                    className="w-full h-full object-cover filter contrast-110 brightness-90 mix-blend-luminosity"
+                    className="w-full h-full object-cover filter contrast-125 brightness-75 mix-blend-luminosity"
                 />
-                {/* Dark Vignette Overlay for High Text Readability */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#060c16] via-[#060c16]/50 to-[#060c16]/75"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-[#050b14] via-[#050b14]/85 to-[#050b14]/90"></div>
             </div>
 
-            {/* Top Banner section */}
-            <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 grid grid-cols-1 md:grid-cols-4 gap-12">
-                <div className="md:col-span-1 space-y-4">
-                    <Logo lightTheme={true} />
-                    <p className="text-gray-300 text-sm leading-relaxed max-w-xs mt-6 font-medium">
-                        Reliable Warehouse Space for Your Business
+            {/* Main Footer Container */}
+            <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 sm:pt-16 pb-12">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-8">
+                    
+                    {/* Brand Info & Overview */}
+                    <div className="sm:col-span-2 lg:col-span-4 space-y-4">
+                        <div className="inline-block">
+                            <Logo lightTheme={true} />
+                        </div>
+                        <p className="text-slate-300 text-xs sm:text-sm leading-relaxed max-w-sm font-medium">
+                            {company?.description || 'Modern, heavy-duty industrial storage, 50-Ton weighbridge scale, and logistics infrastructure in Parippally, Kerala.'}
+                        </p>
+                        
+                        {/* Industrial Credibility Badges */}
+                        <div className="pt-2 flex flex-wrap gap-2">
+                            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-900/90 border border-slate-700/70 text-[11px] font-mono font-medium text-slate-300">
+                                <span className="w-1.5 h-1.5 rounded-full bg-brand-orange"></span>
+                                50T Weighbridge
+                            </span>
+                            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-900/90 border border-slate-700/70 text-[11px] font-mono font-medium text-slate-300">
+                                <span className="w-1.5 h-1.5 rounded-full bg-brand-orange"></span>
+                                Hydra Crane
+                            </span>
+                            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-900/90 border border-slate-700/70 text-[11px] font-mono font-medium text-slate-300">
+                                <span className="w-1.5 h-1.5 rounded-full bg-brand-orange"></span>
+                                Union-Free Labor
+                            </span>
+                        </div>
+                    </div>
+
+                    {/* Quick Links */}
+                    <div className="sm:col-span-1 lg:col-span-2">
+                        <div className="flex items-center gap-2 mb-4 sm:mb-6">
+                            <span className="w-1 h-4 bg-brand-orange rounded-full"></span>
+                            <h3 className="text-xs sm:text-sm font-black uppercase tracking-wider text-white">
+                                QUICK LINKS
+                            </h3>
+                        </div>
+                        <ul className="space-y-2.5 sm:space-y-3 text-xs sm:text-sm font-semibold text-slate-300">
+                            <li>
+                                <Link to="/" onClick={scrollToTop} className="hover:text-brand-orange transition-colors inline-block py-0.5">
+                                    Home
+                                </Link>
+                            </li>
+                            <li>
+                                <Link to="/about" className="hover:text-brand-orange transition-colors inline-block py-0.5">
+                                    About Us
+                                </Link>
+                            </li>
+                            <li>
+                                <Link to="/facilities" className="hover:text-brand-orange transition-colors inline-block py-0.5">
+                                    Facilities
+                                </Link>
+                            </li>
+                            <li>
+                                <Link to="/gallery" className="hover:text-brand-orange transition-colors inline-block py-0.5">
+                                    Gallery
+                                </Link>
+                            </li>
+                            <li>
+                                <Link to="/contact" className="hover:text-brand-orange transition-colors inline-block py-0.5">
+                                    Contact & Location
+                                </Link>
+                            </li>
+                        </ul>
+                    </div>
+
+                    {/* Key Facilities */}
+                    <div className="sm:col-span-1 lg:col-span-3">
+                        <div className="flex items-center gap-2 mb-4 sm:mb-6">
+                            <span className="w-1 h-4 bg-brand-orange rounded-full"></span>
+                            <h3 className="text-xs sm:text-sm font-black uppercase tracking-wider text-white">
+                                OUR FACILITIES
+                            </h3>
+                        </div>
+                        <ul className="space-y-2.5 sm:space-y-3 text-xs sm:text-sm font-semibold text-slate-300">
+                            <li>
+                                <Link to="/facilities" className="flex items-center gap-2 group hover:text-brand-orange transition-colors py-0.5">
+                                    <span className="w-1.5 h-1.5 rounded-full bg-brand-orange shrink-0 group-hover:scale-125 transition-transform"></span>
+                                    <span>High-Bay Warehouse Storage</span>
+                                </Link>
+                            </li>
+                            <li>
+                                <Link to="/facilities" className="flex items-center gap-2 group hover:text-brand-orange transition-colors py-0.5">
+                                    <span className="w-1.5 h-1.5 rounded-full bg-brand-orange shrink-0 group-hover:scale-125 transition-transform"></span>
+                                    <span>50-Ton Heavy Weighbridge</span>
+                                </Link>
+                            </li>
+                            <li>
+                                <Link to="/facilities" className="flex items-center gap-2 group hover:text-brand-orange transition-colors py-0.5">
+                                    <span className="w-1.5 h-1.5 rounded-full bg-brand-orange shrink-0 group-hover:scale-125 transition-transform"></span>
+                                    <span>Hydra Crane Heavy Lifting</span>
+                                </Link>
+                            </li>
+                            <li>
+                                <Link to="/facilities" className="flex items-center gap-2 group hover:text-brand-orange transition-colors py-0.5">
+                                    <span className="w-1.5 h-1.5 rounded-full bg-brand-orange shrink-0 group-hover:scale-125 transition-transform"></span>
+                                    <span>Union-Free Loading Docks</span>
+                                </Link>
+                            </li>
+                            <li>
+                                <Link to="/facilities" className="flex items-center gap-2 group hover:text-brand-orange transition-colors py-0.5">
+                                    <span className="w-1.5 h-1.5 rounded-full bg-brand-orange shrink-0 group-hover:scale-125 transition-transform"></span>
+                                    <span>Heavy Trailer Parking Yard</span>
+                                </Link>
+                            </li>
+                        </ul>
+                    </div>
+
+                    {/* Contact Desk */}
+                    <div className="sm:col-span-2 lg:col-span-3">
+                        <div className="flex items-center gap-2 mb-4 sm:mb-6">
+                            <span className="w-1 h-4 bg-brand-orange rounded-full"></span>
+                            <h3 className="text-xs sm:text-sm font-black uppercase tracking-wider text-white">
+                                CONTACT DESK
+                            </h3>
+                        </div>
+                        <ul className="space-y-3.5 text-xs sm:text-sm font-medium text-slate-300">
+                            <li>
+                                <a 
+                                    href={`tel:${cleanPhone}`}
+                                    className="flex items-start gap-3 hover:text-brand-orange transition-colors group p-2 rounded-xl bg-slate-900/60 border border-slate-800/80 hover:border-brand-orange/40"
+                                >
+                                    <div className="p-2 rounded-lg bg-slate-900 border border-slate-700/80 text-brand-orange group-hover:scale-105 shrink-0 mt-0.5 transition-transform">
+                                        <Phone className="w-4 h-4" />
+                                    </div>
+                                    <div className="min-w-0">
+                                        <span className="text-[10px] uppercase font-mono text-slate-400 block font-bold">Direct Hotline</span>
+                                        <span className="font-bold text-white group-hover:text-brand-orange transition-colors text-sm">{phoneNumber}</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a 
+                                    href={`mailto:${emailAddress}`}
+                                    className="flex items-start gap-3 hover:text-brand-orange transition-colors group p-2 rounded-xl bg-slate-900/60 border border-slate-800/80 hover:border-brand-orange/40"
+                                >
+                                    <div className="p-2 rounded-lg bg-slate-900 border border-slate-700/80 text-brand-orange group-hover:scale-105 shrink-0 mt-0.5 transition-transform">
+                                        <Mail className="w-4 h-4" />
+                                    </div>
+                                    <div className="min-w-0">
+                                        <span className="text-[10px] uppercase font-mono text-slate-400 block font-bold">Email Support</span>
+                                        <span className="font-bold text-white group-hover:text-brand-orange transition-colors break-all text-xs sm:text-sm">{emailAddress}</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <Link 
+                                    to="/contact"
+                                    className="flex items-start gap-3 hover:text-brand-orange transition-colors group p-2 rounded-xl bg-slate-900/60 border border-slate-800/80 hover:border-brand-orange/40"
+                                >
+                                    <div className="p-2 rounded-lg bg-slate-900 border border-slate-700/80 text-brand-orange group-hover:scale-105 shrink-0 mt-0.5 transition-transform">
+                                        <MapPin className="w-4 h-4" />
+                                    </div>
+                                    <div className="min-w-0">
+                                        <span className="text-[10px] uppercase font-mono text-slate-400 block font-bold">Facility Address</span>
+                                        <span className="text-slate-300 leading-relaxed text-xs block group-hover:text-white transition-colors">{facilityAddress}</span>
+                                    </div>
+                                </Link>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+
+            {/* Bottom Bar: Copyright & Integrated Back-To-Top */}
+            <div className="border-t border-slate-800/80 relative z-10 bg-[#03060c]/90 backdrop-blur-sm">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col md:flex-row items-center justify-between gap-4 text-xs font-mono tracking-wider text-slate-400">
+                    <p className="text-center md:text-left">
+                        &copy; {new Date().getFullYear()} <span className="font-bold text-slate-300">BIGB WAREHOUSE PARK</span>. All Rights Reserved.
                     </p>
-                </div>
 
-                <div>
-                    <h3 className="text-sm font-bold mb-6 tracking-wider text-white uppercase">QUICK LINKS</h3>
-                    <ul className="space-y-4 text-sm font-semibold text-brand-orange">
-                        <li><Link to="/" className="hover:text-white transition-colors">Home</Link></li>
-                        <li><Link to="/about" className="hover:text-white transition-colors">About</Link></li>
-                        <li><Link to="/facilities" className="hover:text-white transition-colors">Facilities</Link></li>
-                        <li><Link to="/gallery" className="hover:text-white transition-colors">Gallery</Link></li>
-                        <li><Link to="/contact" className="hover:text-white transition-colors">Contact & Location</Link></li>
-                    </ul>
-                </div>
+                    <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-6">
+                        <span className="flex items-center gap-2 text-emerald-400 text-[11px]">
+                            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                            24/7 Operations Active
+                        </span>
+                        <span className="text-slate-600 hidden sm:inline">•</span>
+                        <span className="text-slate-400 text-[11px]">Parippally, Kerala</span>
 
-                <div>
-                    <h3 className="text-sm font-bold mb-6 tracking-wider text-white uppercase">OUR FACILITIES</h3>
-                    <ul className="space-y-4 text-sm font-semibold text-brand-orange">
-                        <li>Warehouse</li>
-                        <li>Weigh Bridge</li>
-                        <li>Loading & Unloading</li>
-                        <li>Ample Parking</li>
-                        <li className="flex items-center gap-1.5">
-                            <span>Hydra Crane</span>
-                        </li>
-                    </ul>
+                        {/* Responsive Integrated Back-to-Top Button */}
+                        <button
+                            onClick={scrollToTop}
+                            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700/80 hover:border-brand-orange text-slate-300 hover:text-brand-orange text-xs font-mono font-semibold transition-all cursor-pointer group active:scale-95"
+                            title="Back to Top"
+                        >
+                            <span>Top</span>
+                            <ArrowUp className="w-3.5 h-3.5 text-brand-orange group-hover:-translate-y-0.5 transition-transform" />
+                        </button>
+                    </div>
                 </div>
-
-                <div>
-                    <h3 className="text-sm font-bold mb-6 tracking-wider text-white uppercase">CONTACT US</h3>
-                    <ul className="space-y-4 text-sm font-semibold text-brand-orange">
-                        <li className="flex items-center gap-3">
-                            <Phone className="w-4 h-4 text-brand-orange shrink-0" />
-                            <span>{company?.phone || '+91 7909294488'}</span>
-                        </li>
-                        <li className="flex items-center gap-3">
-                            <Mail className="w-4 h-4 text-brand-orange shrink-0" />
-                            <span className="break-all">{company?.email || 'test@bigb.com'}</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            {/* Horizontal Divider & Copyright */}
-            <div className="border-t border-slate-800/80 relative z-10">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col items-center justify-center text-xs font-mono tracking-wider text-gray-400">
-                    <p>&copy; {new Date().getFullYear()} BIGB WAREHOUSE PARK. All Rights Reserved.</p>
-                </div>
-                <button
-                    onClick={scrollToTop}
-                    className="absolute right-4 md:right-10 -top-6 bg-slate-900 border border-brand-orange/50 text-brand-orange hover:bg-brand-orange hover:text-white rounded-full p-3 transition-all shadow-xl z-20 cursor-pointer"
-                    title="Back to top"
-                >
-                    <ArrowUp className="w-5 h-5" />
-                </button>
             </div>
         </footer>
     );

@@ -2,6 +2,7 @@ from django.db import models
 
 class EnquiryStatus(models.TextChoices):
     NEW = 'NEW', 'New'
+    VERIFIED = 'VERIFIED', 'Verified'
     CONTACTED = 'CONTACTED', 'Contacted'
     IN_PROGRESS = 'IN_PROGRESS', 'In Progress'
     CLOSED = 'CLOSED', 'Closed'

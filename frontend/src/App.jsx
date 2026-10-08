@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { CompanyProvider } from './context/CompanyContext';
+import ScrollToTop from './components/ScrollToTop';
 import MainLayout from './layouts/MainLayout';
 import Home from './pages/Home';
 import About from './pages/About';
@@ -12,6 +13,7 @@ import AdminPortal from './pages/AdminPortal';
 function App() {
   return (
     <Router>
+      <ScrollToTop />
       <CompanyProvider>
         <Routes>
           <Route path="/" element={<MainLayout />}>

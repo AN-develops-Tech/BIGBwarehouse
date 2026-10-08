@@ -112,20 +112,18 @@ const Facilities = () => {
     }
 
     return (
-        <div className="bg-gray-50 text-slate-900 min-h-screen font-sans">
+        <div className="bg-white text-slate-900 min-h-screen font-sans">
 
             {/* Modern Header Banner */}
-            <div className="relative py-20 bg-gray-900 text-white border-b border-gray-800 overflow-hidden">
+            <div className="relative py-20 bg-slate-50 border-b border-slate-200 overflow-hidden blueprint-grid-pattern">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-                    <div className="inline-flex items-center gap-2 bg-brand-orange/20 border border-brand-orange/50 text-brand-orange px-4 py-1.5 rounded-full text-xs font-mono mb-4 uppercase tracking-wider font-bold">
-                        <Sparkles className="w-4 h-4" /> MODERN LOGISTICS INFRASTRUCTURE
-                    </div>
-                    <h1 className="text-4xl sm:text-5xl font-black uppercase tracking-tight text-white mb-4">
+                    <h1 className="text-4xl sm:text-6xl font-black uppercase tracking-tight text-slate-900 mb-4">
                         FACILITIES & ADVANTAGES
                     </h1>
-                    <p className="text-lg sm:text-xl text-gray-300 max-w-3xl mx-auto font-normal leading-relaxed">
+                    <p className="text-base sm:text-xl text-slate-600 max-w-3xl mx-auto font-medium leading-relaxed">
                         Engineered for maximum supply chain efficiency with on-site Hydra Crane heavy lifting, 50-ton weighbridge, union-free loading docks, abundant power supply, and in-house labor workforce.
                     </p>
+                    <div className="mt-6 h-1.5 w-24 bg-brand-orange mx-auto rounded-full"></div>
                 </div>
             </div>
 
@@ -133,10 +131,10 @@ const Facilities = () => {
             <div className="bg-white border-b border-gray-200 shadow-sm py-8">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="grid grid-cols-2 md:grid-cols-5 gap-4 text-center">
-                        <div className="p-4 bg-orange-50/80 rounded-xl border border-brand-orange/50 flex flex-col items-center hover:bg-orange-100 transition-colors shadow-sm">
+                        <div className="p-4 bg-slate-50 rounded-xl border border-slate-200/80 flex flex-col items-center hover:bg-slate-100 transition-colors">
                             <Truck className="w-7 h-7 text-brand-orange mb-2" />
-                            <span className="font-black text-sm uppercase text-brand-orange">HYDRA CRANE LIFTING</span>
-                            <span className="text-xs text-orange-700 font-bold mt-0.5">On-Site Heavy Duty Crane</span>
+                            <span className="font-black text-sm uppercase text-slate-900">HYDRA CRANE LIFTING</span>
+                            <span className="text-xs text-gray-500 mt-0.5">On-Site Heavy Duty Crane</span>
                         </div>
                         <div className="p-4 bg-slate-50 rounded-xl border border-slate-200/80 flex flex-col items-center hover:bg-slate-100 transition-colors">
                             <Scale className="w-7 h-7 text-amber-600 mb-2" />

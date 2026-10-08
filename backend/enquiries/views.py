@@ -14,3 +14,9 @@ class EnquiryViewSet(viewsets.ModelViewSet):
     queryset = Enquiry.objects.all().order_by('-created_at')
     serializer_class = EnquirySerializer
     permission_classes = [EnquiryPermission]
+
+    def perform_create(self, serializer):
+        if not (self.request.user and self.request.user.is_staff):
+            serializer.save(status='NEW')
+        else:
+            serializer.save()

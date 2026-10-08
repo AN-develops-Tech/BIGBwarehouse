@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, Warehouse, Scale, Truck, ParkingCircle, CheckCircle, PhoneCall, MessageCircle, Mail, Zap, ShieldCheck, Layers } from 'lucide-react';
 import { useCompany } from '../context/CompanyContext';
 import api from '../api/axios';
+import CtaBanner from '../components/CtaBanner';
 
 // Import photorealistic warehouse visual assets
 import bigbWarehouseImg from '../assets/images/bigb_warehouse.png';
@@ -173,7 +174,7 @@ const Home = () => {
                             <span className="text-4xl sm:text-6xl md:text-8xl tracking-tight text-white font-extrabold">
                                 BIG
                             </span>
-                            <span className="text-4xl sm:text-6xl md:text-8xl text-brand-orange tracking-tight animate-logo-b ml-1 font-extrabold drop-shadow-[0_0_15px_rgba(240,116,9,0.8)]">
+                            <span className="text-4xl sm:text-6xl md:text-8xl text-brand-orange tracking-tight animate-logo-b ml-1 font-extrabold">
                                 B
                             </span>
                         </div>
@@ -337,27 +338,27 @@ const Home = () => {
                 </div>
             </section>
 
-            {/* About Section with Photorealistic Warehouse Interior Asset */}
-            <section className="py-24 bg-gray-950 border-y border-gray-800">
+            {/* About Section with Photorealistic Warehouse Interior Asset - White Theme */}
+            <section className="py-24 bg-white text-slate-900 border-y border-slate-200">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
 
                         {/* Interactive Photorealistic Interior Image */}
-                        <div className="relative rounded-2xl overflow-hidden shadow-2xl border-2 border-brand-orange/40 group">
+                        <div className="relative rounded-2xl overflow-hidden shadow-xl border-2 border-brand-orange/30 group">
                             <img
                                 src={interiorImg}
                                 alt="BigB Warehouse Interior Racks"
                                 className="w-full h-[520px] object-cover transition-transform duration-700 group-hover:scale-105"
                             />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent"></div>
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent"></div>
 
                             {/* Floating Specifications Badge */}
-                            <div className="absolute bottom-6 left-6 right-6 steel-glass-card p-5 rounded-xl border border-brand-orange/40">
+                            <div className="absolute bottom-6 left-6 right-6 bg-slate-950/80 backdrop-blur-md p-5 rounded-xl border border-brand-orange/40 shadow-xl">
                                 <div className="flex items-center justify-between text-white font-mono text-xs mb-2">
                                     <span className="text-brand-orange font-bold">INSIDE BIGB PARK</span>
-                                    <span className="text-emerald-400">STATUS: FORKLIFT ACTIVE</span>
+                                    <span className="text-emerald-400 font-bold">STATUS: FORKLIFT ACTIVE</span>
                                 </div>
-                                <div className="text-sm font-bold text-gray-200">
+                                <div className="text-sm font-bold text-gray-100">
                                     High-bay pallet storage racks with 30ft vertical clearance & heavy-load epoxy floors.
                                 </div>
                             </div>
@@ -365,16 +366,16 @@ const Home = () => {
 
                         {/* Content */}
                         <div className="space-y-6">
-                            <div className="inline-flex items-center gap-2 text-brand-orange font-mono text-xs uppercase tracking-widest">
+                            <div className="inline-flex items-center gap-2 text-brand-orange font-mono text-xs uppercase tracking-widest font-extrabold">
                                 <span className="w-2 h-2 bg-brand-orange rounded-full"></span>
                                 ABOUT BIGB WAREHOUSE PARK
                             </div>
 
-                            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white uppercase tracking-tight leading-tight">
+                            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 uppercase tracking-tight leading-tight">
                                 {company?.tagline || 'Built for Business Storage & High-Efficiency Logistics'}
                             </h2>
 
-                            <p className="text-gray-300 leading-relaxed text-base sm:text-lg">
+                            <p className="text-slate-600 leading-relaxed text-base sm:text-lg font-normal">
                                 {company?.about_text || company?.description || 'BigB Warehouse Park is engineered specifically for commercial storage, heavy truck transport, and fast loading operations.'}
                             </p>
 
@@ -389,9 +390,9 @@ const Home = () => {
                                     "24/7 CCTV & gated security",
                                     "Direct highway connectivity"
                                 ].map((item, idx) => (
-                                    <div key={idx} className="flex items-center gap-3 bg-brand-dark/60 p-3 rounded-lg border border-gray-800">
+                                    <div key={idx} className="flex items-center gap-3 bg-slate-50 hover:bg-orange-50/50 p-3.5 rounded-xl border border-slate-200 hover:border-brand-orange/40 transition-all shadow-sm">
                                         <CheckCircle className="text-brand-orange w-5 h-5 shrink-0" />
-                                        <span className="text-gray-200 font-semibold text-sm">{item}</span>
+                                        <span className="text-slate-800 font-semibold text-sm">{item}</span>
                                     </div>
                                 ))}
                             </div>
@@ -399,7 +400,7 @@ const Home = () => {
                             <div className="pt-6">
                                 <Link
                                     to="/facilities"
-                                    className="cta-light-sweep inline-flex bg-brand-orange text-white px-8 py-4 rounded font-bold uppercase tracking-wider hover:bg-orange-600 transition-colors items-center gap-3 shadow-xl"
+                                    className="cta-light-sweep inline-flex bg-brand-orange text-white px-8 py-4 rounded-xl font-bold uppercase tracking-wider hover:bg-orange-600 transition-colors items-center gap-3 shadow-xl"
                                 >
                                     EXPLORE ALL FACILITIES <ArrowRight className="w-5 h-5" />
                                 </Link>
@@ -462,53 +463,8 @@ const Home = () => {
             </section>
 
             {/* Industrial Contact Banner Section */}
-            <section className="bg-black py-16 border-t border-brand-orange/40">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="flex flex-col lg:flex-row justify-between items-center gap-8 bg-brand-dark p-8 sm:p-12 rounded-2xl border border-gray-800 shadow-2xl">
+            <CtaBanner />
 
-                        <div className="text-white text-center lg:text-left">
-                            <div className="inline-flex items-center gap-2 text-emerald-400 font-mono text-xs uppercase mb-2">
-                                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse-glow"></span>
-                                IMMEDIATE SPACE AVAILABILITY
-                            </div>
-                            <h2 className="text-3xl font-black uppercase tracking-tight text-white mb-2">HAVE A WAREHOUSE REQUIREMENT?</h2>
-                            <p className="text-brand-orange font-bold text-lg">Contact our facility operations team today.</p>
-                        </div>
-
-                        <div className="flex flex-col sm:flex-row items-center gap-8">
-                            <div className="flex items-center gap-4 text-white">
-                                <div className="bg-brand-orange/20 text-brand-orange p-3 rounded-xl border border-brand-orange/50">
-                                    <PhoneCall className="w-7 h-7" />
-                                </div>
-                                <div>
-                                    <p className="text-xs font-bold text-gray-400 font-mono">DIRECT LINE</p>
-                                    <p className="font-bold text-xl text-white">{company?.phone || '+91 7909294488'}</p>
-                                </div>
-                            </div>
-
-                            <div className="flex items-center gap-4 text-white">
-                                <div className="bg-emerald-950/80 text-emerald-400 p-3 rounded-xl border border-emerald-500/50">
-                                    <MessageCircle className="w-7 h-7" />
-                                </div>
-                                <div>
-                                    <p className="text-xs font-bold text-gray-400 font-mono">WHATSAPP DESK</p>
-                                    <p className="font-bold text-sm text-emerald-400">Available 24/7</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div>
-                            <Link
-                                to="/contact"
-                                className="cta-light-sweep bg-brand-orange text-white px-8 py-4 rounded-xl font-black text-sm uppercase tracking-wider hover:bg-orange-600 transition-colors shadow-2xl flex items-center gap-2"
-                            >
-                                SEND ENQUIRY <ArrowRight className="w-5 h-5" />
-                            </Link>
-                        </div>
-
-                    </div>
-                </div>
-            </section>
 
         </div>
     );

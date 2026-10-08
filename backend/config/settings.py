@@ -179,8 +179,11 @@ MAILERS = {
     },
 }
 
-cors_origins_env = os.environ.get('CORS_ALLOWED_ORIGINS', '')
-CORS_ALLOWED_ORIGINS = [url.strip() for url in cors_origins_env.split(',')] if cors_origins_env else []
+if DEBUG:
+    CORS_ALLOW_ALL_ORIGINS = True
+else:
+    cors_origins_env = os.environ.get('CORS_ALLOWED_ORIGINS', '')
+    CORS_ALLOWED_ORIGINS = [url.strip() for url in cors_origins_env.split(',')] if cors_origins_env else []
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { Mail, Phone, MapPin, Loader2, CheckCircle2, AlertCircle, MessageCircle, Clock, Navigation } from 'lucide-react';
+import { Mail, Phone, MapPin, Loader2, CheckCircle2, AlertCircle, Clock, Navigation } from 'lucide-react';
 import { useCompany } from '../context/CompanyContext';
+import WhatsAppIcon from '../components/WhatsAppIcon';
 import SectionTitle from '../components/SectionTitle';
 import api from '../api/axios';
 
@@ -33,14 +34,17 @@ const Contact = () => {
             `📞 *Phone:* ${encodeURIComponent(formData.phone)}%0A` +
             `✉️ *Email:* ${encodeURIComponent(formData.email)}%0A` +
             `📦 *Requirement:* ${encodeURIComponent(formData.requirement)}%0A` +
-            `💬 *Message:* ${encodeURIComponent(formData.message)}`;
+            `💬 *Message:* ${encodeURIComponent(formData.message ? formData.message : 'None')}`;
 
         const nativeUrl = `whatsapp://send?phone=${targetPhone}&text=${formattedMsg}`;
         const webUrl = `https://wa.me/${targetPhone}?text=${formattedMsg}`;
         setWaLink(webUrl);
 
         // Record enquiry in backend database
-        api.post('/enquiries/', formData).catch(err => {
+        api.post('/enquiries/', {
+            ...formData,
+            message: formData.message || 'None'
+        }).catch(err => {
             console.warn('Backend enquiry record:', err);
         });
 
@@ -72,15 +76,16 @@ const Contact = () => {
     const mapIframeSrc = company?.google_maps_url || "https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d268.88578880065893!2d76.74759820103648!3d8.804608495159428!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1sBigB!5e1!3m2!1sen!2sin!4v1788549504015!5m2!1sen!2sin";
 
     return (
-        <div className="pt-20 pb-20 bg-gray-50">
+        <div className="bg-slate-50 text-slate-900 min-h-screen font-sans">
 
             {/* Header Banner */}
-            <div className="bg-gray-900 text-white py-16">
+            <div className="bg-white text-slate-900 py-16 border-b border-slate-200">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                    <h1 className="text-4xl md:text-5xl font-black uppercase tracking-tight mb-4">CONTACT & LOCATION</h1>
-                    <p className="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto font-medium">
+                    <h1 className="text-4xl md:text-5xl font-black uppercase tracking-tight text-slate-900 mb-4">CONTACT & LOCATION</h1>
+                    <p className="text-lg md:text-xl text-slate-600 max-w-2xl mx-auto font-medium">
                         Get in touch with our operations team or visit BigB Warehouse Park in Parippally, Kerala.
                     </p>
+                    <div className="mt-4 h-1.5 w-24 bg-brand-orange mx-auto rounded-full"></div>
                 </div>
             </div>
 
@@ -108,7 +113,7 @@ const Contact = () => {
 
                                     <div className="flex items-start gap-4">
                                         <div className="bg-emerald-100 p-3 rounded-xl text-emerald-600 shrink-0">
-                                            <MessageCircle className="w-6 h-6" />
+                                            <WhatsAppIcon className="w-6 h-6 text-[#25D366]" />
                                         </div>
                                         <div>
                                             <h4 className="font-semibold text-gray-900 text-lg">WhatsApp Desk</h4>
@@ -174,7 +179,7 @@ const Contact = () => {
                                             rel="noopener noreferrer"
                                             className="bg-[#25D366] hover:bg-[#20bd5a] text-white px-4 py-2 rounded-lg font-bold text-xs flex items-center gap-2 shrink-0 shadow-sm transition-colors"
                                         >
-                                            <MessageCircle className="w-4 h-4" /> Open WhatsApp Directly
+                                            <WhatsAppIcon className="w-4 h-4" /> Open WhatsApp Directly
                                         </a>
                                     )}
                                 </div>
@@ -201,7 +206,6 @@ const Contact = () => {
                                             onChange={handleChange}
                                             required
                                             className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors"
-                                            placeholder="John Doe"
                                         />
                                     </div>
                                     <div>
@@ -212,7 +216,6 @@ const Contact = () => {
                                             value={formData.company_name}
                                             onChange={handleChange}
                                             className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors"
-                                            placeholder="Your Company Ltd"
                                         />
                                     </div>
                                     <div>
@@ -224,7 +227,6 @@ const Contact = () => {
                                             onChange={handleChange}
                                             required
                                             className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors"
-                                            placeholder="john@example.com"
                                         />
                                     </div>
                                     <div>
@@ -239,7 +241,6 @@ const Contact = () => {
                                             pattern="[0-9]{10}"
                                             required
                                             className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors font-mono"
-                                            placeholder="e.g. 9876543210"
                                         />
                                         <p className="text-xs text-gray-500 mt-1">Must be a valid 10-digit mobile number</p>
                                     </div>
@@ -263,12 +264,11 @@ const Contact = () => {
                                 </div>
 
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-2">Additional Message *</label>
+                                    <label className="block text-sm font-medium text-gray-700 mb-2">Additional Message (Optional)</label>
                                     <textarea
                                         name="message"
                                         value={formData.message}
                                         onChange={handleChange}
-                                        required
                                         rows={4}
                                         className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition-colors resize-none"
                                         placeholder="Tell us more about your specific needs..."
@@ -287,8 +287,8 @@ const Contact = () => {
                                         </>
                                     ) : (
                                         <>
-                                            <MessageCircle className="w-5 h-5 fill-white text-[#25D366]" />
-                                            Send Message via WhatsApp (+91 7909294488)
+                                            <WhatsAppIcon className="w-5 h-5 text-white" />
+                                            Send Message via WhatsApp
                                         </>
                                     )}
                                 </button>
