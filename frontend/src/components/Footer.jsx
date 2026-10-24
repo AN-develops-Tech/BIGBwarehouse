@@ -33,12 +33,12 @@ const Footer = () => {
             <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 sm:pt-16 pb-12">
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-8 sm:gap-10 lg:gap-8">
                     
-                    {/* Brand Info & Overview */}
-                    <div className="sm:col-span-2 lg:col-span-4 space-y-4">
+                    {/* Brand Info & Overview: Full top row on tablet (<992px), left column on desktop */}
+                    <div className="col-span-1 sm:col-span-2 lg:col-span-5 space-y-4">
                         <div className="inline-block">
                             <Logo lightTheme={true} />
                         </div>
-                        <p className="text-slate-300 text-xs sm:text-sm leading-relaxed max-w-sm font-medium">
+                        <p className="text-slate-300 text-xs sm:text-sm leading-relaxed max-w-sm sm:max-w-xl lg:max-w-sm font-medium">
                             {company?.description || 'Modern, heavy-duty industrial storage, 50-Ton weighbridge scale, and logistics infrastructure in Parippally, Kerala.'}
                         </p>
                         
@@ -59,8 +59,8 @@ const Footer = () => {
                         </div>
                     </div>
 
-                    {/* Quick Links */}
-                    <div className="sm:col-span-1 lg:col-span-2">
+                    {/* Quick Links: Splits row below brand on tablet, middle column on desktop */}
+                    <div className="col-span-1 sm:col-span-1 lg:col-span-3">
                         <div className="flex items-center gap-2 mb-4 sm:mb-6">
                             <span className="w-1 h-4 bg-brand-orange rounded-full"></span>
                             <h3 className="text-xs sm:text-sm font-black uppercase tracking-wider text-white">
@@ -96,50 +96,8 @@ const Footer = () => {
                         </ul>
                     </div>
 
-                    {/* Key Facilities */}
-                    <div className="sm:col-span-1 lg:col-span-3">
-                        <div className="flex items-center gap-2 mb-4 sm:mb-6">
-                            <span className="w-1 h-4 bg-brand-orange rounded-full"></span>
-                            <h3 className="text-xs sm:text-sm font-black uppercase tracking-wider text-white">
-                                OUR FACILITIES
-                            </h3>
-                        </div>
-                        <ul className="space-y-2.5 sm:space-y-3 text-xs sm:text-sm font-semibold text-slate-300">
-                            <li>
-                                <Link to="/facilities" className="flex items-center gap-2 group hover:text-brand-orange transition-colors py-0.5">
-                                    <span className="w-1.5 h-1.5 rounded-full bg-brand-orange shrink-0 group-hover:scale-125 transition-transform"></span>
-                                    <span>High-Bay Warehouse Storage</span>
-                                </Link>
-                            </li>
-                            <li>
-                                <Link to="/facilities" className="flex items-center gap-2 group hover:text-brand-orange transition-colors py-0.5">
-                                    <span className="w-1.5 h-1.5 rounded-full bg-brand-orange shrink-0 group-hover:scale-125 transition-transform"></span>
-                                    <span>50-Ton Heavy Weighbridge</span>
-                                </Link>
-                            </li>
-                            <li>
-                                <Link to="/facilities" className="flex items-center gap-2 group hover:text-brand-orange transition-colors py-0.5">
-                                    <span className="w-1.5 h-1.5 rounded-full bg-brand-orange shrink-0 group-hover:scale-125 transition-transform"></span>
-                                    <span>Hydra Crane Heavy Lifting</span>
-                                </Link>
-                            </li>
-                            <li>
-                                <Link to="/facilities" className="flex items-center gap-2 group hover:text-brand-orange transition-colors py-0.5">
-                                    <span className="w-1.5 h-1.5 rounded-full bg-brand-orange shrink-0 group-hover:scale-125 transition-transform"></span>
-                                    <span>Union-Free Loading Docks</span>
-                                </Link>
-                            </li>
-                            <li>
-                                <Link to="/facilities" className="flex items-center gap-2 group hover:text-brand-orange transition-colors py-0.5">
-                                    <span className="w-1.5 h-1.5 rounded-full bg-brand-orange shrink-0 group-hover:scale-125 transition-transform"></span>
-                                    <span>Heavy Trailer Parking Yard</span>
-                                </Link>
-                            </li>
-                        </ul>
-                    </div>
-
-                    {/* Contact Desk */}
-                    <div className="sm:col-span-2 lg:col-span-3">
+                    {/* Contact Desk: Splits row below brand on tablet, right column on desktop */}
+                    <div className="col-span-1 sm:col-span-1 lg:col-span-4">
                         <div className="flex items-center gap-2 mb-4 sm:mb-6">
                             <span className="w-1 h-4 bg-brand-orange rounded-full"></span>
                             <h3 className="text-xs sm:text-sm font-black uppercase tracking-wider text-white">
@@ -195,14 +153,16 @@ const Footer = () => {
                 </div>
             </div>
 
-            {/* Bottom Bar: Copyright & Integrated Back-To-Top */}
+            {/* Bottom Bar: Auto-wrapping, sequentially center-stacked on mobile */}
             <div className="border-t border-slate-800/80 relative z-10 bg-[#03060c]/90 backdrop-blur-sm">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col md:flex-row items-center justify-between gap-4 text-xs font-mono tracking-wider text-slate-400">
-                    <p className="text-center md:text-left">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col md:flex-row items-center justify-between gap-4 text-xs font-mono tracking-wider text-slate-400 flex-wrap">
+                    {/* Copyright Line */}
+                    <p className="text-center md:text-left order-1">
                         &copy; {new Date().getFullYear()} <span className="font-bold text-slate-300">BIGB WAREHOUSE PARK</span>. All Rights Reserved.
                     </p>
 
-                    <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-6">
+                    {/* Operational Status Info & Back-to-Top Button */}
+                    <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6 order-2 text-center flex-wrap">
                         <span className="flex items-center gap-2 text-emerald-400 text-[11px]">
                             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
                             24/7 Operations Active
@@ -213,7 +173,7 @@ const Footer = () => {
                         {/* Responsive Integrated Back-to-Top Button */}
                         <button
                             onClick={scrollToTop}
-                            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700/80 hover:border-brand-orange text-slate-300 hover:text-brand-orange text-xs font-mono font-semibold transition-all cursor-pointer group active:scale-95"
+                            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700/80 hover:border-brand-orange text-slate-300 hover:text-brand-orange text-xs font-mono font-semibold transition-all cursor-pointer group active:scale-95 mt-1 sm:mt-0"
                             title="Back to Top"
                         >
                             <span>Top</span>

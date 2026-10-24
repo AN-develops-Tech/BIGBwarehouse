@@ -47,10 +47,22 @@ api.interceptors.response.use(
                     localStorage.removeItem('access_token');
                     localStorage.removeItem('refresh_token');
                     delete api.defaults.headers.common['Authorization'];
+                    if (originalRequest.headers) {
+                        delete originalRequest.headers.Authorization;
+                    }
+                    if (originalRequest.method?.toLowerCase() === 'get') {
+                        return api(originalRequest);
+                    }
                 }
             } else {
                 localStorage.removeItem('access_token');
                 delete api.defaults.headers.common['Authorization'];
+                if (originalRequest.headers) {
+                    delete originalRequest.headers.Authorization;
+                }
+                if (originalRequest.method?.toLowerCase() === 'get') {
+                    return api(originalRequest);
+                }
             }
         }
         return Promise.reject(error);

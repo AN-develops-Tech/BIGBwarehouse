@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Warehouse, Scale, Truck, ParkingCircle, CheckCircle, PhoneCall, MessageCircle, Mail, Zap, ShieldCheck, Layers } from 'lucide-react';
+import { ArrowRight, Warehouse, Scale, Truck, ParkingCircle, CheckCircle, CheckCircle2, RotateCcw, PhoneCall, MessageCircle, Mail, Zap, ShieldCheck, Layers, Users } from 'lucide-react';
 import { useCompany } from '../context/CompanyContext';
 import api from '../api/axios';
 import CtaBanner from '../components/CtaBanner';
@@ -21,13 +21,21 @@ const Home = () => {
     const [facilities, setFacilities] = useState([]);
     const [gallery, setGallery] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [flippedCards, setFlippedCards] = useState({});
+
+    const toggleFlip = (index) => {
+        setFlippedCards((prev) => (prev[index] ? {} : { [index]: true }));
+    };
 
     // Hero slideshow sequence featuring official BigB Warehouse Park facilities
     const heroSlides = [
         {
-            image: bigbWarehouseImg,
-            title: "BIGB WAREHOUSE PARK",
-            subtitle: "State-of-the-art high-bay industrial warehouse facility & logistics hub"
+            image: (company?.hero_image_display && company.hero_image_display.trim()) ||
+                   (company?.hero_image && company.hero_image.trim()) ||
+                   (company?.hero_image_url && company.hero_image_url.trim()) ||
+                   bigbWarehouseImg,
+            title: company?.name || "BIGB WAREHOUSE PARK",
+            subtitle: company?.hero_subtitle || "State-of-the-art high-bay industrial warehouse facility & logistics hub"
         },
         {
             image: orangeHydraCraneImg,
@@ -72,9 +80,10 @@ const Home = () => {
                     api.get('/facilities/'),
                     api.get('/gallery/')
                 ]);
-                setFacilities(facRes.data.results || facRes.data || []);
-                const allImgs = galRes.data.results || galRes.data || [];
-                setGallery(allImgs.slice(0, 5));
+                const facList = facRes.data.results || facRes.data || [];
+                setFacilities(facList.filter(f => f.is_active !== false));
+                const allImgs = (galRes.data.results || galRes.data || []).filter(img => img.is_active !== false);
+                setGallery(allImgs.slice(0, 6));
             } catch (err) {
                 console.error('Failed to load data', err);
             } finally {
@@ -86,9 +95,34 @@ const Home = () => {
 
     if (companyLoading || loading) {
         return (
-            <div className="h-screen flex flex-col items-center justify-center bg-brand-dark text-white font-mono">
-                <div className="w-12 h-12 border-4 border-brand-orange border-t-transparent rounded-full animate-spin mb-4"></div>
-                <div className="text-xl font-bold tracking-widest text-brand-orange">INITIALIZING WAREHOUSE PARK SYSTEMS...</div>
+            <div className="h-screen w-screen flex flex-col items-center justify-center bg-[#07090e] text-white relative overflow-hidden px-4 blueprint-grid-pattern select-none">
+                {/* Ambient Brand Orange & Amber Glow */}
+                <div className="absolute w-[500px] h-[500px] bg-brand-orange/15 rounded-full blur-3xl pointer-events-none animate-pulse"></div>
+
+                <div className="relative z-10 flex flex-col items-center justify-center">
+                    {/* Glowing BigB Architectural Emblem */}
+                    <div className="relative">
+                        {/* Outer Orbiting Dashed Ring */}
+                        <div
+                            className="absolute -inset-3 sm:-inset-3.5 rounded-[28px] sm:rounded-[32px] border border-dashed border-brand-orange/40 animate-spin pointer-events-none"
+                            style={{ animationDuration: '14s' }}
+                        ></div>
+
+                        {/* Central Brand Badge */}
+                        <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-2xl sm:rounded-3xl bg-gradient-to-b from-slate-900 to-[#07090e] border-2 border-brand-orange/60 shadow-[0_0_45px_-5px_rgba(240,116,9,0.4)] flex flex-col items-center justify-center relative overflow-hidden">
+                            {/* Subtle internal sweep glow */}
+                            <div className="absolute -top-10 -left-10 w-24 h-24 bg-brand-orange/20 rounded-full blur-xl pointer-events-none"></div>
+
+                            <div className="flex items-baseline font-black leading-none drop-shadow-md">
+                                <span className="text-4xl sm:text-5xl tracking-tighter text-white font-sans">BIG</span>
+                                <span className="text-4xl sm:text-5xl tracking-tighter text-brand-orange font-sans drop-shadow-[0_0_24px_rgba(240,116,9,0.9)] ml-0.5">B</span>
+                            </div>
+                            <span className="text-[9px] sm:text-[10px] font-mono font-black tracking-[0.28em] text-slate-300 uppercase mt-2">
+                                WAREHOUSE PARK
+                            </span>
+                        </div>
+                    </div>
+                </div>
             </div>
         );
     }
@@ -99,35 +133,65 @@ const Home = () => {
             desc: "Spacious heavy-duty warehouse bays with high ceiling clearance suitable for pallet racking and bulk storage.",
             icon: <Warehouse className="w-9 h-9" />,
             image: interiorImg,
-            stat: "50,000+ SQ. FT."
+            stat: "50,000+ SQ. FT.",
+            specs: [
+                "30 Ft clear vertical ceiling height",
+                "Epoxy heavy-duty load-bearing flooring",
+                "Industrial fire hydrants & safety sensors",
+                "Wide bays for forklift pallet maneuvering"
+            ]
         },
         {
             title: "50-TON WEIGHBRIDGE",
             desc: "In-house heavy capacity weighbridge for accurate truck gross & tare weight verification.",
             icon: <Scale className="w-9 h-9" />,
             image: weighbridgeImg,
-            stat: "50-TON CAPACITY"
+            stat: "50-TON CAPACITY",
+            specs: [
+                "50 Metric Ton max load capacity",
+                "12-Meter heavy industrial scale platform",
+                "Instant digital readout & printed slips",
+                "Govt Legal Metrology certified & calibrated"
+            ]
         },
         {
             title: "HYDRA CRANE LIFTING",
             desc: "On-site heavy mobile Hydra Crane for fast loading, unloading, and precision machinery placement.",
             icon: <Truck className="w-9 h-9" />,
             image: hydraCraneImg,
-            stat: "HEAVY LIFTING"
+            stat: "HEAVY LIFTING",
+            specs: [
+                "Heavy-duty mobile hydraulic crane on-site",
+                "Telescopic boom for precision positioning",
+                "Certified professional crane operator",
+                "Rapid turnaround for coils, sheets & machines"
+            ]
         },
         {
             title: "LOADING & UNLOADING DOCKS",
             desc: "Dedicated dock bays with hydraulic levelers and fork-lift assistance for rapid cargo turnaround.",
             icon: <Truck className="w-9 h-9" />,
             image: loadingDocksImg,
-            stat: "24/7 BAY ACCESS"
+            stat: "24/7 BAY ACCESS",
+            specs: [
+                "Dedicated multi-truck dock bays",
+                "Hydraulic dock levelers for seamless entry",
+                "Weather-protected canopy loading zones",
+                "Forklift & pallet truck accessibility"
+            ]
         },
         {
             title: "LOGISTICS PARKING YARD",
             desc: "Secure paved parking and trailer staging yard with wide turning radii and perimeter fencing.",
             icon: <ParkingCircle className="w-9 h-9" />,
             image: parkingYardImg,
-            stat: "AMPLE TRUCK BAYS"
+            stat: "AMPLE TRUCK BAYS",
+            specs: [
+                "Spacious paved truck staging yard",
+                "Accommodates multi-axle trailers & 18-wheelers",
+                "24/7 CCTV surveillance & perimeter lighting",
+                "Direct NH-66 highway entry & exit points"
+            ]
         },
     ];
 
@@ -140,6 +204,47 @@ const Home = () => {
     ];
 
     const displayGallery = gallery.length > 0 ? gallery : fallbackGalleryItems;
+
+    const getFacilityIcon = (iconName) => {
+        switch (iconName?.toLowerCase()) {
+            case 'scale':
+                return <Scale className="w-9 h-9" />;
+            case 'truck':
+                return <Truck className="w-9 h-9" />;
+            case 'parkingcircle':
+            case 'parking':
+                return <ParkingCircle className="w-9 h-9" />;
+            case 'users':
+                return <Users className="w-9 h-9" />;
+            case 'zap':
+            case 'power':
+                return <Zap className="w-9 h-9" />;
+            case 'shieldcheck':
+            case 'shield':
+                return <ShieldCheck className="w-9 h-9" />;
+            case 'warehouse':
+            default:
+                return <Warehouse className="w-9 h-9" />;
+        }
+    };
+
+    const displayCoreFacilities = facilities.length > 0
+        ? facilities.map((fac, idx) => {
+            const fallback = coreFacilities[idx % coreFacilities.length] || coreFacilities[0];
+            return {
+                id: fac.id || idx,
+                title: fac.title,
+                desc: fac.description || fallback.desc,
+                icon: fac.icon ? getFacilityIcon(fac.icon) : fallback.icon,
+                image: (fac.image_display && fac.image_display.trim()) ||
+                       (fac.image && fac.image.trim()) ||
+                       (fac.image_url && fac.image_url.trim()) ||
+                       fallback.image,
+                stat: fac.spec || fallback.stat,
+                specs: fac.specs || fallback.specs
+            };
+        })
+        : coreFacilities;
 
     return (
         <div className="flex flex-col bg-gray-900 text-gray-100 font-sans">
@@ -168,114 +273,120 @@ const Home = () => {
                 {/* Hero Main Content - Mobile View Optimized for Unobstructed Background */}
                 <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pt-6 sm:pt-16 pb-6 sm:pb-12 flex-1 flex flex-col justify-center">
 
-                    {/* Logo & Headline */}
-                    <div className="flex flex-col select-none mb-4 sm:mb-8">
-                        <div className="flex items-baseline font-black leading-none drop-shadow-lg">
-                            <span className="text-4xl sm:text-6xl md:text-8xl tracking-tight text-white font-extrabold">
-                                BIG
-                            </span>
-                            <span className="text-4xl sm:text-6xl md:text-8xl text-brand-orange tracking-tight animate-logo-b ml-1 font-extrabold">
-                                B
-                            </span>
-                        </div>
-                        <div className="flex items-center gap-2 sm:gap-3 mt-1.5 sm:mt-3">
+                    {/* Primary Title Container - Single Organized Header */}
+                    <div className="bg-slate-950/65 sm:bg-slate-950/80 backdrop-blur-sm sm:backdrop-blur-md p-5 sm:p-8 rounded-xl sm:rounded-2xl border border-brand-orange/40 shadow-2xl max-w-2xl mb-4 sm:mb-8">
+                        <div className="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3">
                             <div className="h-1 sm:h-1.5 w-6 sm:w-10 bg-brand-orange rounded-full"></div>
-                            <span className="text-xs sm:text-xl md:text-3xl font-black tracking-widest text-gray-100 uppercase drop-shadow">
-                                WAREHOUSE PARK
+                            <span className="text-xs sm:text-base font-black tracking-widest text-brand-orange uppercase drop-shadow font-mono">
+                                BIG B WAREHOUSE PARK
                             </span>
                         </div>
-                    </div>
-
-                    {/* Semi-Transparent Text Container for Mobile Background Visibility */}
-                    <div className="bg-slate-950/65 sm:bg-slate-950/80 backdrop-blur-sm sm:backdrop-blur-md p-4 sm:p-8 rounded-xl sm:rounded-2xl border border-brand-orange/40 shadow-2xl max-w-2xl mb-4 sm:mb-8">
-                        <h2 className="text-base sm:text-2xl md:text-3xl font-black text-brand-orange mb-1.5 sm:mb-3 uppercase tracking-wider leading-snug drop-shadow-md">
+                        <h1 className="text-lg sm:text-2xl md:text-3xl lg:text-4xl font-black text-white mb-2 sm:mb-3 uppercase tracking-wider leading-snug drop-shadow-md">
                             {company?.hero_title || 'Heavy-Duty Industrial Storage & Logistics Infrastructure'}
-                        </h2>
-                        <p className="text-xs sm:text-base md:text-lg text-gray-100 leading-relaxed font-medium drop-shadow-sm">
+                        </h1>
+                        <p className="text-xs sm:text-base md:text-lg text-gray-200 font-medium drop-shadow-sm leading-[1.6]">
                             {company?.hero_subtitle || 'Equipped with high-bay clearance, 50-ton weighbridge, active loading bays, 24/7 security, and in-house labor for seamless supply chain operations.'}
                         </p>
                     </div>
 
-                    {/* Hero Buttons - Mobile Flex */}
-                    <div className="flex flex-col sm:flex-row gap-2.5 sm:gap-4 items-stretch sm:items-center">
+                    {/* Hero Action Buttons - Identical Height, 8px Radius, 12px Vertical Spacing on Mobile */}
+                    <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-stretch sm:items-center">
                         <Link
                             to="/facilities"
-                            className="cta-light-sweep bg-brand-orange text-white px-5 sm:px-8 py-3 sm:py-4 rounded-xl font-black tracking-wider text-xs sm:text-sm uppercase hover:bg-orange-600 transition-all flex items-center justify-center gap-2 sm:gap-3 shadow-xl border border-orange-400/50"
+                            className="cta-light-sweep bg-brand-orange hover:bg-orange-600 text-white h-12 sm:h-14 px-6 sm:px-8 rounded-[8px] font-black tracking-wider text-xs sm:text-sm uppercase transition-all flex items-center justify-center gap-2 sm:gap-3 shadow-xl border border-orange-400/50 active:scale-[0.98]"
                         >
-                            EXPLORE FACILITIES <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
+                            <span>EXPLORE FACILITIES</span>
+                            <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
                         </Link>
                         <Link
                             to="/contact"
-                            className="bg-brand-dark/75 backdrop-blur-sm border border-gray-300/60 text-white px-5 sm:px-8 py-3 sm:py-4 rounded-xl font-bold text-xs sm:text-sm hover:border-brand-orange hover:text-brand-orange transition-all flex items-center justify-center gap-2 sm:gap-3"
+                            className="bg-slate-950/80 hover:bg-slate-900/90 backdrop-blur-sm border border-gray-300/60 hover:border-brand-orange text-white hover:text-brand-orange h-12 sm:h-14 px-6 sm:px-8 rounded-[8px] font-bold text-xs sm:text-sm uppercase tracking-wider transition-all flex items-center justify-center gap-2 sm:gap-3 shadow-xl active:scale-[0.98]"
                         >
-                            <PhoneCall className="w-4 h-4 sm:w-5 sm:h-5 text-brand-orange" /> CONTACT OPERATORS
+                            <PhoneCall className="w-4 h-4 sm:w-5 sm:h-5 text-brand-orange" />
+                            <span>CONTACT OPERATORS</span>
                         </Link>
                     </div>
 
-                    {/* 4 Feature Pillars Ribbon - Compact 2x2 Grid on Mobile for Maximum Background Area */}
-                    <div className="mt-4 sm:mt-8 grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-3 max-w-4xl">
-                        <div className="bg-slate-950/70 sm:bg-slate-950/85 backdrop-blur-sm border border-brand-orange/40 p-2.5 sm:p-3.5 rounded-xl flex items-center gap-2 sm:gap-3 shadow-lg">
-                            <ShieldCheck className="w-4 h-4 sm:w-6 sm:h-6 text-brand-orange shrink-0" />
+                    {/* Value Proposition Grid - Clean 2x2 Grid with Transparent Backgrounds & Crisp Drop Shadows */}
+                    <div className="mt-5 sm:mt-8 grid grid-cols-2 md:grid-cols-4 gap-3.5 sm:gap-6 max-w-4xl">
+                        <div className="bg-transparent flex items-center gap-2.5 sm:gap-3 drop-shadow-md">
+                            <ShieldCheck className="w-5 h-5 sm:w-6 sm:h-6 text-brand-orange shrink-0 drop-shadow" />
                             <div>
-                                <div className="text-[11px] sm:text-xs font-mono font-bold text-white uppercase tracking-tight">Strong & Durable</div>
-                                <div className="text-[9px] sm:text-[10px] text-gray-300">Long-Term Performance</div>
+                                <div className="text-[11px] sm:text-xs font-mono font-bold text-white uppercase tracking-tight drop-shadow">Strong & Durable</div>
+                                <div className="text-[9px] sm:text-[10px] text-gray-200 drop-shadow">Long-Term Performance</div>
                             </div>
                         </div>
-                        <div className="bg-slate-950/70 sm:bg-slate-950/85 backdrop-blur-sm border border-brand-orange/40 p-2.5 sm:p-3.5 rounded-xl flex items-center gap-2 sm:gap-3 shadow-lg">
-                            <Zap className="w-4 h-4 sm:w-6 sm:h-6 text-brand-orange shrink-0" />
+                        <div className="bg-transparent flex items-center gap-2.5 sm:gap-3 drop-shadow-md">
+                            <Zap className="w-5 h-5 sm:w-6 sm:h-6 text-brand-orange shrink-0 drop-shadow" />
                             <div>
-                                <div className="text-[11px] sm:text-xs font-mono font-bold text-white uppercase tracking-tight">High Capacity</div>
-                                <div className="text-[9px] sm:text-[10px] text-gray-300">Tackle Bigger Challenges</div>
+                                <div className="text-[11px] sm:text-xs font-mono font-bold text-white uppercase tracking-tight drop-shadow">High Capacity</div>
+                                <div className="text-[9px] sm:text-[10px] text-gray-200 drop-shadow">Tackle Bigger Challenges</div>
                             </div>
                         </div>
-                        <div className="bg-slate-950/70 sm:bg-slate-950/85 backdrop-blur-sm border border-brand-orange/40 p-2.5 sm:p-3.5 rounded-xl flex items-center gap-2 sm:gap-3 shadow-lg">
-                            <Layers className="w-4 h-4 sm:w-6 sm:h-6 text-brand-orange shrink-0" />
+                        <div className="bg-transparent flex items-center gap-2.5 sm:gap-3 drop-shadow-md">
+                            <Layers className="w-5 h-5 sm:w-6 sm:h-6 text-brand-orange shrink-0 drop-shadow" />
                             <div>
-                                <div className="text-[11px] sm:text-xs font-mono font-bold text-white uppercase tracking-tight">Smooth Operation</div>
-                                <div className="text-[9px] sm:text-[10px] text-gray-300">Maximum Efficiency</div>
+                                <div className="text-[11px] sm:text-xs font-mono font-bold text-white uppercase tracking-tight drop-shadow">Smooth Operation</div>
+                                <div className="text-[9px] sm:text-[10px] text-gray-200 drop-shadow">Maximum Efficiency</div>
                             </div>
                         </div>
-                        <div className="bg-slate-950/70 sm:bg-slate-950/85 backdrop-blur-sm border border-brand-orange/40 p-2.5 sm:p-3.5 rounded-xl flex items-center gap-2 sm:gap-3 shadow-lg">
-                            <Truck className="w-4 h-4 sm:w-6 sm:h-6 text-brand-orange shrink-0" />
+                        <div className="bg-transparent flex items-center gap-2.5 sm:gap-3 drop-shadow-md">
+                            <Truck className="w-5 h-5 sm:w-6 sm:h-6 text-brand-orange shrink-0 drop-shadow" />
                             <div>
-                                <div className="text-[11px] sm:text-xs font-mono font-bold text-white uppercase tracking-tight">Trusted in Field</div>
-                                <div className="text-[9px] sm:text-[10px] text-gray-300">Across Multiple Industries</div>
+                                <div className="text-[11px] sm:text-xs font-mono font-bold text-white uppercase tracking-tight drop-shadow">Trusted in Field</div>
+                                <div className="text-[9px] sm:text-[10px] text-gray-200 drop-shadow">Across Multiple Industries</div>
                             </div>
                         </div>
+                    </div>
+
+                    {/* Elegant Minimal Carousel Indicators */}
+                    <div className="mt-4 sm:mt-6 flex items-center gap-1.5 sm:gap-2 z-10">
+                        {heroSlides.map((slide, idx) => (
+                            <button
+                                key={idx}
+                                onClick={() => setCurrentSlide(idx)}
+                                aria-label={`Jump to slide ${idx + 1}: ${slide.title}`}
+                                className={`transition-all duration-300 rounded-full cursor-pointer ${
+                                    idx === currentSlide
+                                        ? 'w-6 h-1.5 sm:w-7 sm:h-1.5 bg-brand-orange shadow-[0_0_10px_rgba(240,116,9,0.7)]'
+                                        : 'w-1.5 h-1.5 bg-white/30 hover:bg-white/60'
+                                }`}
+                            />
+                        ))}
                     </div>
 
                 </div>
 
-                {/* Live Industrial Metrics Ticker */}
-                <div className="relative z-10 bg-black/60 overflow-hidden py-4 text-xs font-mono tracking-wider uppercase text-white">
-                    <div className="animate-ticker space-x-12 items-center">
+                {/* Live Industrial Metrics Ticker with Frosted Backdrop Blur & Breathing Room */}
+                <div className="relative z-10 bg-black/60 backdrop-blur-md border-t border-white/10 overflow-hidden py-3 sm:py-3.5 text-xs font-mono tracking-wider uppercase text-white">
+                    <div className="animate-ticker space-x-12 items-center justify-center">
                         <span className="inline-flex items-center gap-2 text-white font-bold">
-                            <Zap className="w-4 h-4 text-white" /> 50,000+ SQ. FT. HIGH-BAY STORAGE
+                            <Zap className="w-4 h-4 text-brand-orange" /> 50,000+ SQ. FT. HIGH-BAY STORAGE
                         </span>
                         <span className="text-gray-400">•</span>
                         <span className="inline-flex items-center gap-2 text-white font-bold">
-                            <Scale className="w-4 h-4 text-white" /> 50-TON WEIGHBRIDGE OPERATIONAL
+                            <Scale className="w-4 h-4 text-brand-orange" /> 50-TON WEIGHBRIDGE OPERATIONAL
                         </span>
                         <span className="text-gray-400">•</span>
                         <span className="inline-flex items-center gap-2 text-white font-bold">
-                            <Truck className="w-4 h-4 text-white" /> 24/7 DOCK LOADING & UNLOADING
+                            <Truck className="w-4 h-4 text-brand-orange" /> 24/7 DOCK LOADING & UNLOADING
                         </span>
                         <span className="text-gray-400">•</span>
                         <span className="inline-flex items-center gap-2 text-white font-bold">
-                            <ShieldCheck className="w-4 h-4 text-white" /> CCTV MONITORED GATED SECURITY
+                            <ShieldCheck className="w-4 h-4 text-brand-orange" /> CCTV MONITORED GATED SECURITY
                         </span>
                         <span className="text-gray-400">•</span>
                         <span className="inline-flex items-center gap-2 text-white font-bold">
-                            <Layers className="w-4 h-4 text-white" /> IN-HOUSE LABORS SUPPORT
+                            <Layers className="w-4 h-4 text-brand-orange" /> IN-HOUSE LABORS SUPPORT
                         </span>
                         <span className="text-gray-400">•</span>
                         {/* Duplicate for infinite ticker loop */}
                         <span className="inline-flex items-center gap-2 text-white font-bold">
-                            <Zap className="w-4 h-4 text-white" /> 50,000+ SQ. FT. HIGH-BAY STORAGE
+                            <Zap className="w-4 h-4 text-brand-orange" /> 50,000+ SQ. FT. HIGH-BAY STORAGE
                         </span>
                         <span className="text-gray-400">•</span>
                         <span className="inline-flex items-center gap-2 text-white font-bold">
-                            <Scale className="w-4 h-4 text-white" /> 50-TON WEIGHBRIDGE OPERATIONAL
+                            <Scale className="w-4 h-4 text-brand-orange" /> 50-TON WEIGHBRIDGE OPERATIONAL
                         </span>
                     </div>
                 </div>
@@ -299,40 +410,116 @@ const Home = () => {
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                        {coreFacilities.map((fac, idx) => (
-                            <div
-                                key={idx}
-                                className="bg-slate-50 border border-slate-200/90 rounded-xl overflow-hidden group transition-all duration-300 flex flex-col justify-between shadow-sm hover:shadow-xl hover:-translate-y-1"
-                            >
-                                <div className="relative h-48 overflow-hidden border-b border-slate-200">
-                                    <img
-                                        src={fac.image}
-                                        alt={fac.title}
-                                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                                    />
-                                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent"></div>
-                                    <div className="absolute top-3 right-3 bg-slate-900 text-white text-xs font-mono font-bold px-2.5 py-1 rounded shadow-sm border border-slate-700">
-                                        {fac.stat}
-                                    </div>
-                                </div>
+                    <div className="flex flex-wrap justify-center gap-6 lg:gap-8">
+                        {displayCoreFacilities.map((fac, idx) => {
+                            const isFlipped = !!flippedCards[idx];
+                            return (
+                                <div
+                                    key={idx}
+                                    className="perspective-1000 h-[490px] sm:h-[500px] w-full sm:w-[calc(50%-0.875rem)] lg:w-[calc(33.333%-1.375rem)] max-w-sm sm:max-w-none"
+                                >
+                                    <div
+                                        className={`relative w-full h-full duration-700 transform-style-preserve-3d transition-transform ${isFlipped ? 'rotate-y-180' : ''}`}
+                                    >
+                                        {/* FRONT FACE */}
+                                        <div className="absolute inset-0 backface-hidden bg-slate-50 border border-slate-200/90 rounded-2xl overflow-hidden flex flex-col justify-between shadow-sm hover:shadow-xl transition-all duration-300 group">
+                                            <div className="relative h-44 sm:h-48 overflow-hidden border-b border-slate-200 shrink-0">
+                                                <img
+                                                    src={fac.image}
+                                                    alt={fac.title}
+                                                    loading="lazy"
+                                                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                                                />
+                                                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent"></div>
+                                                <div className="absolute top-3 right-3 bg-slate-900/95 text-white text-[11px] sm:text-xs font-mono font-bold px-2.5 py-1 rounded shadow-sm border border-slate-700 backdrop-blur-sm">
+                                                    {fac.stat}
+                                                </div>
+                                            </div>
 
-                                <div className="p-6 flex-1 flex flex-col justify-between">
-                                    <div>
-                                        <div className="w-14 h-14 rounded-lg bg-orange-50 border border-orange-200 flex items-center justify-center mb-5 text-brand-orange group-hover:scale-110 transition-transform">
-                                            {fac.icon}
+                                            <div className="p-5 sm:p-6 flex-1 flex flex-col justify-between">
+                                                <div>
+                                                    <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-orange-50 border border-orange-200 flex items-center justify-center mb-3.5 sm:mb-4 text-brand-orange group-hover:scale-105 transition-transform">
+                                                        {fac.icon}
+                                                    </div>
+                                                    <h3 className="text-base sm:text-lg font-black text-slate-900 mb-2 sm:mb-2.5 uppercase tracking-wide group-hover:text-brand-orange transition-colors">
+                                                        {fac.title}
+                                                    </h3>
+                                                    <p className="text-slate-600 text-xs sm:text-sm leading-relaxed line-clamp-3 sm:line-clamp-none">
+                                                        {fac.desc}
+                                                    </p>
+                                                </div>
+
+                                                <button
+                                                    type="button"
+                                                    onClick={() => toggleFlip(idx)}
+                                                    className="mt-4 sm:mt-5 pt-3 sm:pt-4 border-t border-slate-200 flex items-center justify-between text-xs sm:text-sm font-mono text-brand-orange font-bold hover:text-orange-600 transition-colors w-full text-left cursor-pointer group-hover:translate-x-1 duration-200 py-1"
+                                                >
+                                                    <span>VIEW DETAILS</span>
+                                                    <ArrowRight className="w-4 h-4" />
+                                                </button>
+                                            </div>
                                         </div>
-                                        <h3 className="text-lg font-black text-slate-900 mb-3 uppercase tracking-wide group-hover:text-brand-orange transition-colors">{fac.title}</h3>
-                                        <p className="text-slate-600 text-sm leading-relaxed">{fac.desc}</p>
-                                    </div>
 
-                                    <div className="mt-6 pt-4 border-t border-slate-200 flex items-center justify-between text-xs font-mono text-brand-orange font-bold group-hover:translate-x-1 transition-transform">
-                                        <span>VIEW DETAILS</span>
-                                        <ArrowRight className="w-4 h-4" />
+                                        {/* BACK FACE */}
+                                        <div
+                                            onClick={() => toggleFlip(idx)}
+                                            className="absolute inset-0 backface-hidden rotate-y-180 bg-slate-950 text-white rounded-2xl border border-brand-orange/40 overflow-hidden flex flex-col justify-between p-5 sm:p-6 shadow-2xl cursor-pointer"
+                                        >
+                                            <div>
+                                                <div className="flex items-center justify-between border-b border-slate-800 pb-3 mb-3.5 sm:mb-4">
+                                                    <div className="flex items-center gap-2.5 min-w-0">
+                                                        <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-brand-orange/20 border border-brand-orange/40 flex items-center justify-center text-brand-orange shrink-0">
+                                                            {fac.icon}
+                                                        </div>
+                                                        <div className="min-w-0">
+                                                            <span className="text-[10px] font-mono text-brand-orange uppercase font-bold tracking-wider block">
+                                                                FACILITY SPECS
+                                                            </span>
+                                                            <h4 className="text-xs sm:text-sm font-black text-white uppercase tracking-tight truncate">
+                                                                {fac.title}
+                                                            </h4>
+                                                        </div>
+                                                    </div>
+                                                    <span className="text-[10px] sm:text-[11px] font-mono font-bold px-2 py-0.5 rounded bg-brand-orange text-white shrink-0 ml-2">
+                                                        {fac.stat}
+                                                    </span>
+                                                </div>
+
+                                                <div className="space-y-2 sm:space-y-2.5">
+                                                    <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-bold block">
+                                                        KEY CAPABILITIES & DETAILS
+                                                    </span>
+                                                    {fac.specs?.map((spec, sIdx) => (
+                                                        <div
+                                                            key={sIdx}
+                                                            className="flex items-start gap-2 sm:gap-2.5 bg-slate-900/90 p-2 sm:p-2.5 rounded-lg border border-slate-800/90 text-[11px] sm:text-xs font-mono text-slate-200"
+                                                        >
+                                                            <CheckCircle2 className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-brand-orange shrink-0 mt-0.5" />
+                                                            <span className="leading-snug">{spec}</span>
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                            </div>
+
+                                            <button
+                                                type="button"
+                                                onClick={(e) => {
+                                                    e.stopPropagation();
+                                                    toggleFlip(idx);
+                                                }}
+                                                className="pt-3 border-t border-slate-800 flex items-center justify-between text-xs sm:text-sm font-mono text-brand-orange font-bold hover:text-white transition-colors w-full cursor-pointer group/back py-1"
+                                            >
+                                                <span className="flex items-center gap-1.5">
+                                                    <RotateCcw className="w-3.5 h-3.5 transition-transform group-hover/back:-rotate-90 duration-300" />
+                                                    BACK TO SUMMARY
+                                                </span>
+                                                <ArrowRight className="w-4 h-4" />
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        ))}
+                            );
+                        })}
                     </div>
 
                 </div>
@@ -343,22 +530,35 @@ const Home = () => {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
 
-                        {/* Interactive Photorealistic Interior Image */}
-                        <div className="relative rounded-2xl overflow-hidden shadow-xl border-2 border-brand-orange/30 group">
-                            <img
-                                src={interiorImg}
-                                alt="BigB Warehouse Interior Racks"
-                                className="w-full h-[520px] object-cover transition-transform duration-700 group-hover:scale-105"
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent"></div>
+                        {/* Interactive Photorealistic Interior Image Card */}
+                        <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden shadow-xl hover:shadow-2xl border-2 border-brand-orange/30 hover:border-brand-orange/60 transition-all duration-300 group">
+                            {/* Image with adaptive height for seamless mobile, tablet, and desktop viewing */}
+                            <div className="relative w-full aspect-[4/3] sm:aspect-[4/3] lg:aspect-auto lg:h-[540px] overflow-hidden bg-slate-900">
+                                <img
+                                    src={interiorImg}
+                                    alt="BigB Warehouse Interior Racks"
+                                    loading="lazy"
+                                    className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                                />
+                                {/* Contrast vignette gradient */}
+                                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent opacity-90 transition-opacity"></div>
+                            </div>
 
-                            {/* Floating Specifications Badge */}
-                            <div className="absolute bottom-6 left-6 right-6 bg-slate-950/80 backdrop-blur-md p-5 rounded-xl border border-brand-orange/40 shadow-xl">
-                                <div className="flex items-center justify-between text-white font-mono text-xs mb-2">
-                                    <span className="text-brand-orange font-bold">INSIDE BIGB PARK</span>
-                                    <span className="text-emerald-400 font-bold">STATUS: FORKLIFT ACTIVE</span>
+                            {/* Floating Specifications Badge - Fully Responsive with Ambient Blur */}
+                            <div className="absolute bottom-3 left-3 right-3 sm:bottom-6 sm:left-6 sm:right-6 bg-[#0b0d17]/85 backdrop-blur-md p-3.5 sm:p-5 rounded-xl sm:rounded-2xl border border-brand-orange/40 group-hover:border-brand-orange/70 shadow-2xl transition-all duration-300">
+                                <div className="flex items-center justify-between flex-wrap gap-1.5 text-white font-mono text-[11px] sm:text-xs mb-1.5 sm:mb-2">
+                                    <span className="text-brand-orange font-black uppercase tracking-wider">
+                                        INSIDE BIGB PARK
+                                    </span>
+                                    <span className="text-emerald-400 font-bold flex items-center gap-1.5 uppercase tracking-wide">
+                                        <span className="relative flex h-2 w-2">
+                                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                                            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                                        </span>
+                                        STATUS: FORKLIFT ACTIVE
+                                    </span>
                                 </div>
-                                <div className="text-sm font-bold text-gray-100">
+                                <div className="text-xs sm:text-sm lg:text-base font-bold text-gray-100 leading-snug sm:leading-relaxed">
                                     High-bay pallet storage racks with 30ft vertical clearance & heavy-load epoxy floors.
                                 </div>
                             </div>

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import SectionTitle from '../components/SectionTitle';
 import api from '../api/axios';
-import { Warehouse, Scale, ShieldCheck, Truck, ParkingCircle, Users, Zap, CheckCircle2, Award, Sparkles, Maximize2, X } from 'lucide-react';
+import { Warehouse, Scale, ShieldCheck, Truck, ParkingCircle, Users, Zap, CheckCircle2, Award, Maximize2, X } from 'lucide-react';
 
 import interiorImg from '../assets/images/interior.png';
 import weighbridgeImg from '../assets/images/weighbridge.png';
@@ -91,7 +91,8 @@ const Facilities = () => {
             try {
                 const res = await api.get('/facilities/');
                 const data = res.data.results || res.data || [];
-                setFacilities(data.length > 0 ? data : defaultFacilities);
+                const activeData = data.filter(f => f.is_active !== false);
+                setFacilities(activeData.length > 0 ? activeData : defaultFacilities);
             } catch (err) {
                 setFacilities(defaultFacilities);
             } finally {
@@ -105,8 +106,44 @@ const Facilities = () => {
 
     if (loading) {
         return (
-            <div className="min-h-screen flex items-center justify-center bg-gray-50 text-blue-600 font-mono text-xl pt-20">
-                LOADING WAREHOUSE FACILITIES...
+            <div className="min-h-screen flex flex-col items-center justify-center bg-[#0b0d17] text-white relative overflow-hidden px-4 blueprint-grid-pattern select-none">
+                {/* Subtle Ambient Glow */}
+                <div className="absolute w-96 h-96 bg-brand-orange/15 rounded-full blur-3xl pointer-events-none animate-pulse"></div>
+
+                <div className="relative z-10 flex flex-col items-center max-w-sm text-center">
+                    {/* Industrial Rotating Spinner with Center Facility Icon */}
+                    <div className="relative mb-6 flex items-center justify-center">
+                        <div className="w-20 h-20 rounded-full border-2 border-slate-800 border-t-brand-orange border-r-brand-orange/50 animate-spin"></div>
+                        <div
+                            className="absolute w-14 h-14 rounded-full border border-slate-700 border-b-brand-orange/80 animate-spin"
+                            style={{ animationDirection: 'reverse', animationDuration: '2s' }}
+                        ></div>
+                        <div className="absolute flex items-center justify-center w-10 h-10 rounded-xl bg-brand-orange/15 border border-brand-orange/40 text-brand-orange shadow-lg shadow-brand-orange/20">
+                            <Warehouse className="w-5 h-5 animate-pulse" />
+                        </div>
+                    </div>
+
+                    {/* Status Badge */}
+                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900/90 border border-brand-orange/40 text-brand-orange text-[10px] font-mono font-bold uppercase tracking-wider mb-3 shadow-md">
+                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
+                        BIGB WAREHOUSE PARK
+                    </div>
+
+                    {/* Headline */}
+                    <h3 className="text-base sm:text-lg font-black uppercase tracking-widest text-white font-mono mb-2">
+                        LOADING FACILITIES & SPECS
+                    </h3>
+
+                    {/* Animated Progress Bar */}
+                    <div className="w-48 h-1 bg-slate-800/80 rounded-full overflow-hidden mb-3 border border-slate-700/60">
+                        <div className="h-full bg-gradient-to-r from-brand-orange via-amber-400 to-brand-orange rounded-full animate-pulse w-full"></div>
+                    </div>
+
+                    {/* Facility Ticker */}
+                    <p className="text-[11px] font-mono text-slate-400 uppercase tracking-wide">
+                        High-Bay • Weighbridge • Hydra Crane
+                    </p>
+                </div>
             </div>
         );
     }
@@ -115,8 +152,11 @@ const Facilities = () => {
         <div className="bg-white text-slate-900 min-h-screen font-sans">
 
             {/* Modern Header Banner */}
-            <div className="relative py-20 bg-slate-50 border-b border-slate-200 overflow-hidden blueprint-grid-pattern">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            <div className="relative py-20 bg-slate-50 border-b border-slate-200 overflow-hidden blueprint-grid-pattern text-center">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                    <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-orange/10 border border-brand-orange/30 text-brand-orange text-xs font-mono font-bold uppercase tracking-wider mb-3">
+                        <Award className="w-3.5 h-3.5" /> ON-SITE INFRASTRUCTURE & AMENITIES
+                    </div>
                     <h1 className="text-4xl sm:text-6xl font-black uppercase tracking-tight text-slate-900 mb-4">
                         FACILITIES & ADVANTAGES
                     </h1>
@@ -161,39 +201,44 @@ const Facilities = () => {
             </div>
 
             {/* Featured Hydra Crane Spotlight Showcase Banner */}
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-4">
-                <div className="bg-slate-950 text-white rounded-3xl overflow-hidden border-2 border-brand-orange/50 shadow-2xl grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-                    <div className="lg:col-span-7 relative h-[380px] sm:h-[450px] overflow-hidden cursor-pointer group" onClick={() => setSelectedImage({ url: hydraCraneImg, title: "Hydra Crane Heavy Lifting Services" })}>
+            <div className="hidden lg:block max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-4">
+                <div className="bg-[#0b0d17] text-white rounded-3xl overflow-hidden border border-brand-orange/40 shadow-2xl grid grid-cols-1 lg:grid-cols-2 transition-all duration-300">
+                    {/* Left Column: Crane image fills full height and width seamlessly */}
+                    <div
+                        className="relative w-full min-h-[300px] sm:min-h-[380px] lg:min-h-full overflow-hidden cursor-pointer group"
+                        onClick={() => setSelectedImage({ url: hydraCraneImg, title: "Hydra Crane Heavy Lifting Services" })}
+                    >
                         <img
                             src={hydraCraneImg}
                             alt="Hydra Crane Heavy Lifting Services"
                             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                            style={{ objectFit: 'cover' }}
                         />
-                        <div className="absolute inset-0 bg-gradient-to-r from-slate-950/60 via-transparent to-slate-950/80"></div>
-                        <div className="absolute bottom-4 left-4 bg-slate-900/90 border border-brand-orange/60 text-brand-orange text-xs font-mono font-bold px-3 py-1.5 rounded-xl flex items-center gap-2">
+                        <div className="absolute bottom-4 left-4 bg-slate-950/80 backdrop-blur-md border border-brand-orange/60 text-brand-orange text-xs font-mono font-bold px-3 py-1.5 rounded-xl flex items-center gap-2 shadow-lg transition-colors group-hover:bg-slate-900 group-hover:border-brand-orange">
                             <Maximize2 className="w-4 h-4" /> CLICK TO EXPAND FULL IMAGE
                         </div>
                     </div>
 
-                    <div className="lg:col-span-5 p-8 sm:p-10 space-y-5">
-                        <div className="inline-flex items-center gap-2 bg-brand-orange text-white px-3 py-1 rounded-full text-xs font-mono font-black uppercase tracking-wider shadow-md">
+                    {/* Right Column: Solid dark background (#0b0d17) with refined typography and badges */}
+                    <div className="bg-[#0b0d17] p-6 sm:p-10 lg:p-12 flex flex-col justify-center space-y-5">
+                        <div className="inline-flex items-center gap-2 self-start bg-brand-orange text-white px-3 py-1 rounded-full text-xs font-mono font-black uppercase tracking-wider shadow-md">
                             FEATURED EQUIPMENT
                         </div>
-                        <h2 className="text-3xl sm:text-4xl font-black uppercase tracking-tight text-white leading-tight">
+                        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black uppercase tracking-tight text-white leading-tight">
                             HYDRA CRANE HEAVY LIFTING SERVICES
                         </h2>
-                        <p className="text-gray-300 leading-relaxed text-sm sm:text-base">
+                        <p className="text-slate-200 leading-relaxed text-sm sm:text-base font-normal">
                             Equipped with an on-site heavy-duty industrial mobile Hydra Crane for fast unloading, precision positioning, and heavy machinery handling across the warehouse park.
                         </p>
 
-                        <div className="space-y-3 pt-2 font-mono text-xs text-gray-200">
-                            <div className="flex items-center gap-3 bg-slate-900 p-3 rounded-xl border border-slate-800">
+                        <div className="space-y-3 pt-2 font-mono text-xs sm:text-sm text-slate-200">
+                            <div className="flex items-center gap-3.5 bg-white/[0.04] p-3.5 sm:p-4 rounded-xl border border-white/10 transition-colors hover:border-brand-orange/40">
                                 <CheckCircle2 className="text-brand-orange w-5 h-5 shrink-0" />
-                                <span className="font-bold">HEAVY MACHINERY & CARGO UNLOADING</span>
+                                <span className="font-bold tracking-wide">HEAVY MACHINERY & CARGO UNLOADING</span>
                             </div>
-                            <div className="flex items-center gap-3 bg-slate-900 p-3 rounded-xl border border-slate-800">
+                            <div className="flex items-center gap-3.5 bg-white/[0.04] p-3.5 sm:p-4 rounded-xl border border-white/10 transition-colors hover:border-brand-orange/40">
                                 <CheckCircle2 className="text-brand-orange w-5 h-5 shrink-0" />
-                                <span className="font-bold">ON-SITE OPERATOR & RAPID TURNAROUND</span>
+                                <span className="font-bold tracking-wide">ON-SITE OPERATOR & RAPID TURNAROUND</span>
                             </div>
                         </div>
                     </div>
@@ -207,7 +252,10 @@ const Facilities = () => {
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                         {displayFacilities.map((facility) => {
                             const Icon = ICONS_MAP[facility.icon] || CheckCircle2;
-                            const cardImage = facility.image || interiorImg;
+                            const cardImage = (facility.image_display && facility.image_display.trim()) ||
+                                              (facility.image && facility.image.trim()) ||
+                                              (facility.image_url && facility.image_url.trim()) ||
+                                              interiorImg;
                             const badgeStyle = facility.badgeColor || "bg-blue-100 text-blue-800 border-blue-200";
 
                             return (
@@ -269,10 +317,10 @@ const Facilities = () => {
             {/* Photo Lightbox Modal */}
             {selectedImage && (
                 <div
-                    className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4"
+                    className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4 animate-fade-in"
                     onClick={() => setSelectedImage(null)}
                 >
-                    <div className="relative max-w-5xl w-full bg-slate-950 rounded-2xl overflow-hidden shadow-2xl border border-gray-800" onClick={e => e.stopPropagation()}>
+                    <div className="relative max-w-5xl w-full bg-slate-950 rounded-2xl overflow-hidden shadow-2xl border border-gray-800 animate-ios-pop" onClick={e => e.stopPropagation()}>
                         <div className="flex items-center justify-between p-4 border-b border-gray-800 bg-slate-900 text-white">
                             <h3 className="font-black text-lg uppercase tracking-wide text-brand-orange">{selectedImage.title}</h3>
                             <button
