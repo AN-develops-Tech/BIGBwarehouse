@@ -271,26 +271,26 @@ const Home = () => {
                 ))}
 
                 {/* Hero Main Content - Mobile View Optimized for Unobstructed Background */}
-                <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pt-6 sm:pt-16 pb-6 sm:pb-12 flex-1 flex flex-col justify-center">
+                <div className="relative z-10 w-full px-4 sm:px-8 lg:px-12 xl:px-16 2xl:px-20 pt-6 sm:pt-16 pb-6 sm:pb-12 flex-1 flex flex-col justify-center items-start">
 
                     {/* Primary Title Container - Single Organized Header */}
-                    <div className="bg-slate-950/65 sm:bg-slate-950/80 backdrop-blur-sm sm:backdrop-blur-md p-5 sm:p-8 rounded-xl sm:rounded-2xl border border-brand-orange/40 shadow-2xl max-w-2xl mb-4 sm:mb-8">
+                    <div className="w-full max-w-2xl lg:max-w-3xl xl:max-w-3xl bg-slate-950/90 sm:bg-slate-950/80 backdrop-blur-md p-5 sm:p-7 lg:p-9 xl:p-10 rounded-2xl border border-brand-orange/40 shadow-2xl mb-4 sm:mb-6 lg:mb-8 transition-all">
                         <div className="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3">
                             <div className="h-1 sm:h-1.5 w-6 sm:w-10 bg-brand-orange rounded-full"></div>
-                            <span className="text-xs sm:text-base font-black tracking-widest text-brand-orange uppercase drop-shadow font-mono">
+                            <span className="text-xs sm:text-sm lg:text-base font-black tracking-widest text-brand-orange uppercase drop-shadow font-mono">
                                 BIG B WAREHOUSE PARK
                             </span>
                         </div>
-                        <h1 className="text-lg sm:text-2xl md:text-3xl lg:text-4xl font-black text-white mb-2 sm:mb-3 uppercase tracking-wider leading-snug drop-shadow-md">
+                        <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-black text-white mb-2.5 sm:mb-4 uppercase tracking-tight sm:tracking-wider leading-tight sm:leading-snug drop-shadow-md">
                             {company?.hero_title || 'Heavy-Duty Industrial Storage & Logistics Infrastructure'}
                         </h1>
-                        <p className="text-xs sm:text-base md:text-lg text-gray-200 font-medium drop-shadow-sm leading-[1.6]">
+                        <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-100 font-medium drop-shadow-sm leading-relaxed max-w-2xl">
                             {company?.hero_subtitle || 'Equipped with high-bay clearance, 50-ton weighbridge, active loading bays, 24/7 security, and in-house labor for seamless supply chain operations.'}
                         </p>
                     </div>
 
                     {/* Hero Action Buttons - Identical Height, 8px Radius, 12px Vertical Spacing on Mobile */}
-                    <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-stretch sm:items-center">
+                    <div className="w-full max-w-2xl lg:max-w-3xl xl:max-w-3xl flex flex-col sm:flex-row gap-3 sm:gap-4 items-stretch sm:items-center">
                         <Link
                             to="/facilities"
                             className="cta-light-sweep bg-brand-orange hover:bg-orange-600 text-white h-12 sm:h-14 px-6 sm:px-8 rounded-[8px] font-black tracking-wider text-xs sm:text-sm uppercase transition-all flex items-center justify-center gap-2 sm:gap-3 shadow-xl border border-orange-400/50 active:scale-[0.98]"
@@ -307,34 +307,34 @@ const Home = () => {
                         </Link>
                     </div>
 
-                    {/* Value Proposition Grid - Clean 2x2 Grid with Transparent Backgrounds & Crisp Drop Shadows */}
-                    <div className="mt-5 sm:mt-8 grid grid-cols-2 md:grid-cols-4 gap-3.5 sm:gap-6 max-w-4xl">
-                        <div className="bg-transparent flex items-center gap-2.5 sm:gap-3 drop-shadow-md">
-                            <ShieldCheck className="w-5 h-5 sm:w-6 sm:h-6 text-brand-orange shrink-0 drop-shadow" />
+                    {/* Value Proposition Grid - Clear Readability on All Screens */}
+                    <div className="mt-5 sm:mt-7 lg:mt-9 grid grid-cols-2 md:grid-cols-4 gap-2.5 sm:gap-6 w-full max-w-2xl lg:max-w-3xl xl:max-w-3xl">
+                        <div className="bg-slate-950/80 sm:bg-transparent backdrop-blur-md sm:backdrop-blur-none p-2.5 sm:p-0 rounded-xl border border-white/10 sm:border-0 flex items-center gap-2 sm:gap-3 drop-shadow-md">
+                            <ShieldCheck className="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-brand-orange shrink-0 drop-shadow" />
                             <div>
-                                <div className="text-[11px] sm:text-xs font-mono font-bold text-white uppercase tracking-tight drop-shadow">Strong & Durable</div>
-                                <div className="text-[9px] sm:text-[10px] text-gray-200 drop-shadow">Long-Term Performance</div>
+                                <div className="text-[11px] sm:text-xs lg:text-sm font-mono font-bold text-white uppercase tracking-tight drop-shadow">Strong & Durable</div>
+                                <div className="text-[9.5px] sm:text-[10px] lg:text-xs text-slate-200 drop-shadow">Long-Term Performance</div>
                             </div>
                         </div>
-                        <div className="bg-transparent flex items-center gap-2.5 sm:gap-3 drop-shadow-md">
-                            <Zap className="w-5 h-5 sm:w-6 sm:h-6 text-brand-orange shrink-0 drop-shadow" />
+                        <div className="bg-slate-950/80 sm:bg-transparent backdrop-blur-md sm:backdrop-blur-none p-2.5 sm:p-0 rounded-xl border border-white/10 sm:border-0 flex items-center gap-2 sm:gap-3 drop-shadow-md">
+                            <Zap className="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-brand-orange shrink-0 drop-shadow" />
                             <div>
-                                <div className="text-[11px] sm:text-xs font-mono font-bold text-white uppercase tracking-tight drop-shadow">High Capacity</div>
-                                <div className="text-[9px] sm:text-[10px] text-gray-200 drop-shadow">Tackle Bigger Challenges</div>
+                                <div className="text-[11px] sm:text-xs lg:text-sm font-mono font-bold text-white uppercase tracking-tight drop-shadow">High Capacity</div>
+                                <div className="text-[9.5px] sm:text-[10px] lg:text-xs text-slate-200 drop-shadow">Tackle Bigger Challenges</div>
                             </div>
                         </div>
-                        <div className="bg-transparent flex items-center gap-2.5 sm:gap-3 drop-shadow-md">
-                            <Layers className="w-5 h-5 sm:w-6 sm:h-6 text-brand-orange shrink-0 drop-shadow" />
+                        <div className="bg-slate-950/80 sm:bg-transparent backdrop-blur-md sm:backdrop-blur-none p-2.5 sm:p-0 rounded-xl border border-white/10 sm:border-0 flex items-center gap-2 sm:gap-3 drop-shadow-md">
+                            <Layers className="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-brand-orange shrink-0 drop-shadow" />
                             <div>
-                                <div className="text-[11px] sm:text-xs font-mono font-bold text-white uppercase tracking-tight drop-shadow">Smooth Operation</div>
-                                <div className="text-[9px] sm:text-[10px] text-gray-200 drop-shadow">Maximum Efficiency</div>
+                                <div className="text-[11px] sm:text-xs lg:text-sm font-mono font-bold text-white uppercase tracking-tight drop-shadow">Smooth Operation</div>
+                                <div className="text-[9.5px] sm:text-[10px] lg:text-xs text-slate-200 drop-shadow">Maximum Efficiency</div>
                             </div>
                         </div>
-                        <div className="bg-transparent flex items-center gap-2.5 sm:gap-3 drop-shadow-md">
-                            <Truck className="w-5 h-5 sm:w-6 sm:h-6 text-brand-orange shrink-0 drop-shadow" />
+                        <div className="bg-slate-950/80 sm:bg-transparent backdrop-blur-md sm:backdrop-blur-none p-2.5 sm:p-0 rounded-xl border border-white/10 sm:border-0 flex items-center gap-2 sm:gap-3 drop-shadow-md">
+                            <Truck className="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-brand-orange shrink-0 drop-shadow" />
                             <div>
-                                <div className="text-[11px] sm:text-xs font-mono font-bold text-white uppercase tracking-tight drop-shadow">Trusted in Field</div>
-                                <div className="text-[9px] sm:text-[10px] text-gray-200 drop-shadow">Across Multiple Industries</div>
+                                <div className="text-[11px] sm:text-xs lg:text-sm font-mono font-bold text-white uppercase tracking-tight drop-shadow">Trusted in Field</div>
+                                <div className="text-[9.5px] sm:text-[10px] lg:text-xs text-slate-200 drop-shadow">Across Multiple Industries</div>
                             </div>
                         </div>
                     </div>
@@ -540,27 +540,6 @@ const Home = () => {
                                     loading="lazy"
                                     className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                                 />
-                                {/* Contrast vignette gradient */}
-                                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent opacity-90 transition-opacity"></div>
-                            </div>
-
-                            {/* Floating Specifications Badge - Fully Responsive with Ambient Blur */}
-                            <div className="absolute bottom-3 left-3 right-3 sm:bottom-6 sm:left-6 sm:right-6 bg-[#0b0d17]/85 backdrop-blur-md p-3.5 sm:p-5 rounded-xl sm:rounded-2xl border border-brand-orange/40 group-hover:border-brand-orange/70 shadow-2xl transition-all duration-300">
-                                <div className="flex items-center justify-between flex-wrap gap-1.5 text-white font-mono text-[11px] sm:text-xs mb-1.5 sm:mb-2">
-                                    <span className="text-brand-orange font-black uppercase tracking-wider">
-                                        INSIDE BIGB PARK
-                                    </span>
-                                    <span className="text-emerald-400 font-bold flex items-center gap-1.5 uppercase tracking-wide">
-                                        <span className="relative flex h-2 w-2">
-                                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                                            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-                                        </span>
-                                        STATUS: FORKLIFT ACTIVE
-                                    </span>
-                                </div>
-                                <div className="text-xs sm:text-sm lg:text-base font-bold text-gray-100 leading-snug sm:leading-relaxed">
-                                    High-bay pallet storage racks with 30ft vertical clearance & heavy-load epoxy floors.
-                                </div>
                             </div>
                         </div>
 

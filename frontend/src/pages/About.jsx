@@ -51,9 +51,6 @@ const About = () => {
             {/* Header Banner */}
             <div className="relative py-20 bg-slate-50 border-b border-slate-200 overflow-hidden blueprint-grid-pattern text-center">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                    <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-orange/10 border border-brand-orange/30 text-brand-orange text-xs font-mono font-bold uppercase tracking-wider mb-3">
-                        <Warehouse className="w-3.5 h-3.5" /> INDUSTRIAL STORAGE EXCELLENCE
-                    </div>
                     <h1 className="text-4xl sm:text-6xl font-black uppercase tracking-tight text-slate-900 mb-4">
                         ABOUT {company?.name || 'BIGB WAREHOUSE PARK'}
                     </h1>
@@ -76,20 +73,6 @@ const About = () => {
                             loading="lazy"
                             className="w-full h-[450px] sm:h-[520px] object-cover transition-transform duration-700 group-hover:scale-105 filter brightness-95 contrast-105"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
-                        
-                        <div className="absolute bottom-6 left-6 right-6 bg-slate-950/80 backdrop-blur-md p-5 rounded-xl border border-brand-orange/40 shadow-xl">
-                            <div className="flex items-center justify-between text-xs font-mono mb-1">
-                                <span className="text-brand-orange font-bold">KERALA LOGISTICS HUB</span>
-                                <span className="text-emerald-400 font-bold flex items-center gap-1.5">
-                                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                                    OPERATIONAL
-                                </span>
-                            </div>
-                            <div className="text-sm font-bold text-gray-200">
-                                {company?.description || 'High-bay industrial facility with 50-Ton weighbridge & heavy dock access in Parippally, Kerala.'}
-                            </div>
-                        </div>
                     </div>
 
                     {/* Right: Core Introduction Content */}
@@ -115,14 +98,10 @@ const About = () => {
                             From high-capacity storage and heavy-duty material handling to weighing, loading, and round-the-clock security, every facility is thoughtfully designed to make day-to-day warehouse operations smoother and more efficient.
                         </p>
 
-                        <div className="grid grid-cols-2 gap-4 pt-4">
-                            <div className="bg-slate-50 border border-slate-200 p-4 rounded-xl shadow-sm">
+                        <div className="pt-2 flex justify-center">
+                            <div className="bg-slate-50 border border-slate-200 p-4 px-8 rounded-xl shadow-sm text-center">
                                 <div className="text-brand-orange font-mono font-black text-xl sm:text-2xl">50,000+ SQ. FT.</div>
                                 <div className="text-xs text-slate-500 font-semibold uppercase tracking-wider mt-0.5">High-Bay Capacity</div>
-                            </div>
-                            <div className="bg-slate-50 border border-slate-200 p-4 rounded-xl shadow-sm">
-                                <div className="text-emerald-600 font-mono font-black text-xl sm:text-2xl">100% UNION-FREE</div>
-                                <div className="text-xs text-slate-500 font-semibold uppercase tracking-wider mt-0.5">Uninterrupted Loading</div>
                             </div>
                         </div>
 

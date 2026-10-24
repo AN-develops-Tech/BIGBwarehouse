@@ -24,14 +24,6 @@ const CtaBanner = () => {
                         
                         {/* Left: Value Proposition & Heading */}
                         <div className="w-full lg:max-w-xl text-center lg:text-left space-y-3">
-                            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700 text-xs font-mono font-bold tracking-wider">
-                                <span className="relative flex h-2 w-2">
-                                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                                    <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-                                </span>
-                                IMMEDIATE SPACE AVAILABILITY
-                            </div>
-
                             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black uppercase tracking-tight text-slate-900 leading-tight">
                                 HAVE A WAREHOUSE <span className="text-brand-orange">REQUIREMENT?</span>
                             </h2>

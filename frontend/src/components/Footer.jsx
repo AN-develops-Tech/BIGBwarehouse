@@ -1,3 +1,4 @@
+import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Phone, Mail, MapPin, ArrowUp, ExternalLink, ShieldCheck, CheckCircle2 } from 'lucide-react';
 import { useCompany } from '../context/CompanyContext';
@@ -6,6 +7,58 @@ import footerMapBgImg from '../assets/images/footer_map_bg.jpg';
 
 const Footer = () => {
     const { company } = useCompany();
+    const [curveProgress, setCurveProgress] = useState(0);
+    const footerRef = useRef(null);
+    const currentProgressRef = useRef(0);
+    const targetProgressRef = useRef(0);
+    const animFrameRef = useRef(null);
+
+    useEffect(() => {
+        const updateTarget = () => {
+            if (!footerRef.current) return;
+            const rect = footerRef.current.getBoundingClientRect();
+            const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+
+            // Trigger when footer enters viewport; reach full moon curve smoothly as it scrolls into view
+            const enterPoint = windowHeight;
+            const fullPoint = windowHeight * 0.35;
+
+            const rawProgress = (enterPoint - rect.top) / (enterPoint - fullPoint);
+            targetProgressRef.current = Math.max(0, Math.min(1, rawProgress));
+        };
+
+        const renderLoop = () => {
+            // Ultra-smooth physics dampening (lerp) for 60/120fps fluid response
+            const diff = targetProgressRef.current - currentProgressRef.current;
+            if (Math.abs(diff) > 0.0005) {
+                currentProgressRef.current += diff * 0.12;
+                setCurveProgress(currentProgressRef.current);
+            } else if (currentProgressRef.current !== targetProgressRef.current) {
+                currentProgressRef.current = targetProgressRef.current;
+                setCurveProgress(currentProgressRef.current);
+            }
+            animFrameRef.current = requestAnimationFrame(renderLoop);
+        };
+
+        const handleScroll = () => {
+            updateTarget();
+        };
+
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        window.addEventListener('resize', handleScroll, { passive: true });
+        updateTarget();
+        currentProgressRef.current = targetProgressRef.current;
+        setCurveProgress(targetProgressRef.current);
+        animFrameRef.current = requestAnimationFrame(renderLoop);
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+            window.removeEventListener('resize', handleScroll);
+            if (animFrameRef.current) {
+                cancelAnimationFrame(animFrameRef.current);
+            }
+        };
+    }, []);
 
     const scrollToTop = () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -16,8 +69,29 @@ const Footer = () => {
     const emailAddress = company?.email || 'contact@bigbwarehouse.com';
     const facilityAddress = company?.address || 'Ezhippuram, ESI Back Road, Parippally, Kerala 691574';
 
+    const curveHeightPx = (curveProgress * 56).toFixed(2);
+
     return (
-        <footer className="bg-[#050b14] text-white relative overflow-hidden border-t border-slate-800/80">
+        <footer ref={footerRef} className="bg-[#050b14] text-white relative overflow-hidden">
+            
+            {/* Scroll-driven Moon-Shaped White Curved Morph on Top Sides (No black line, perfectly smooth) */}
+            <div 
+                className="absolute -top-px left-0 right-0 z-20 pointer-events-none select-none overflow-hidden will-change-[height]"
+                style={{ height: `${curveHeightPx}px` }}
+                aria-hidden="true"
+            >
+                <svg
+                    viewBox="0 0 1200 60"
+                    preserveAspectRatio="none"
+                    className="w-full h-full block"
+                >
+                    {/* Seamless Moon-Shaped Curved Cutout */}
+                    <path
+                        d="M -2,-3 L 1202,-3 L 1202,60 Q 600,-3 -2,60 Z"
+                        fill="#ffffff"
+                    />
+                </svg>
+            </div>
             
             {/* Aerial Satellite Map Background with Vignette Gradient Overlay */}
             <div className="absolute inset-0 opacity-25 pointer-events-none overflow-hidden select-none z-0">
@@ -51,10 +125,6 @@ const Footer = () => {
                             <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-900/90 border border-slate-700/70 text-[11px] font-mono font-medium text-slate-300">
                                 <span className="w-1.5 h-1.5 rounded-full bg-brand-orange"></span>
                                 Hydra Crane
-                            </span>
-                            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-900/90 border border-slate-700/70 text-[11px] font-mono font-medium text-slate-300">
-                                <span className="w-1.5 h-1.5 rounded-full bg-brand-orange"></span>
-                                Union-Free Labor
                             </span>
                         </div>
                     </div>

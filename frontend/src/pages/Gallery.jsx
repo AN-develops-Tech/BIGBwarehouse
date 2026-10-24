@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { X, ZoomIn, ChevronLeft, ChevronRight, Camera, ArrowRight } from 'lucide-react';
+import { X, ZoomIn, ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
 import api from '../api/axios';
 
 import heroImg from '../assets/images/hero.png';
@@ -94,9 +94,6 @@ const Gallery = () => {
             {/* Unified Modern Header Banner */}
             <div className="relative py-16 sm:py-20 bg-slate-50 border-b border-slate-200 overflow-hidden blueprint-grid-pattern text-center">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-                    <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-brand-orange/10 border border-brand-orange/30 text-brand-orange text-xs font-mono font-bold uppercase tracking-wider mb-3">
-                        <Camera className="w-3.5 h-3.5" /> VISUAL TOUR & INFRASTRUCTURE
-                    </div>
                     <h1 className="text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tight text-slate-900 mb-3 sm:mb-4">
                         WAREHOUSE PARK GALLERY
                     </h1>
