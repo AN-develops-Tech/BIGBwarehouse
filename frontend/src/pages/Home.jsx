@@ -209,6 +209,8 @@ const Home = () => {
                         <img
                             src={slide.image}
                             alt={slide.title}
+                            decoding="async"
+                            loading={index === 0 ? "eager" : "lazy"}
                             className="w-full h-full object-cover animate-ken-burns filter brightness-95 contrast-105 opacity-65 md:opacity-[0.45]"
                         />
                         {/* Mobile Optimized Light Gradient Overlay for Maximum Image Visibility */}

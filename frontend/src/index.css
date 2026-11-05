@@ -8,9 +8,8 @@
   --color-steel-accent: #24364e;
 }
 
-/* iOS-Grade Smooth Momentum Scrolling & Anti-Aliasing */
+/* Native 120Hz High-Refresh Scrolling & Anti-Aliasing */
 html {
-  scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
   text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;

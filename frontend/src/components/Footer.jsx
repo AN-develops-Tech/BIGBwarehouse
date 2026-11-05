@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { Phone, Mail, MapPin, ArrowUp } from 'lucide-react';
 import { useCompany } from '../context/CompanyContext';
@@ -7,53 +7,61 @@ import footerMapBgImg from '../assets/images/footer_map_bg.jpg';
 
 const Footer = () => {
     const { company } = useCompany();
-    const [curveProgress, setCurveProgress] = useState(0);
     const footerRef = useRef(null);
+    const curveRef = useRef(null);
     const currentProgressRef = useRef(0);
     const targetProgressRef = useRef(0);
     const animFrameRef = useRef(null);
+    const isRunningRef = useRef(false);
 
     useEffect(() => {
+        const updateCurveHeight = (val) => {
+            if (curveRef.current) {
+                curveRef.current.style.height = `${(val * 56).toFixed(2)}px`;
+            }
+        };
+
+        const renderLoop = () => {
+            const diff = targetProgressRef.current - currentProgressRef.current;
+            if (Math.abs(diff) > 0.001) {
+                currentProgressRef.current += diff * 0.15;
+                updateCurveHeight(currentProgressRef.current);
+                animFrameRef.current = requestAnimationFrame(renderLoop);
+            } else {
+                currentProgressRef.current = targetProgressRef.current;
+                updateCurveHeight(currentProgressRef.current);
+                isRunningRef.current = false;
+                animFrameRef.current = null;
+            }
+        };
+
+        const startLoop = () => {
+            if (!isRunningRef.current) {
+                isRunningRef.current = true;
+                animFrameRef.current = requestAnimationFrame(renderLoop);
+            }
+        };
+
         const updateTarget = () => {
             if (!footerRef.current) return;
             const rect = footerRef.current.getBoundingClientRect();
             const windowHeight = window.innerHeight || document.documentElement.clientHeight;
 
-            // Trigger when footer enters viewport; reach full moon curve smoothly as it scrolls into view
             const enterPoint = windowHeight;
             const fullPoint = windowHeight * 0.35;
 
             const rawProgress = (enterPoint - rect.top) / (enterPoint - fullPoint);
             targetProgressRef.current = Math.max(0, Math.min(1, rawProgress));
+            startLoop();
         };
 
-        const renderLoop = () => {
-            // Ultra-smooth physics dampening (lerp) for 60/120fps fluid response
-            const diff = targetProgressRef.current - currentProgressRef.current;
-            if (Math.abs(diff) > 0.0005) {
-                currentProgressRef.current += diff * 0.12;
-                setCurveProgress(currentProgressRef.current);
-            } else if (currentProgressRef.current !== targetProgressRef.current) {
-                currentProgressRef.current = targetProgressRef.current;
-                setCurveProgress(currentProgressRef.current);
-            }
-            animFrameRef.current = requestAnimationFrame(renderLoop);
-        };
-
-        const handleScroll = () => {
-            updateTarget();
-        };
-
-        window.addEventListener('scroll', handleScroll, { passive: true });
-        window.addEventListener('resize', handleScroll, { passive: true });
         updateTarget();
-        currentProgressRef.current = targetProgressRef.current;
-        setCurveProgress(targetProgressRef.current);
-        animFrameRef.current = requestAnimationFrame(renderLoop);
+        window.addEventListener('scroll', updateTarget, { passive: true });
+        window.addEventListener('resize', updateTarget, { passive: true });
 
         return () => {
-            window.removeEventListener('scroll', handleScroll);
-            window.removeEventListener('resize', handleScroll);
+            window.removeEventListener('scroll', updateTarget);
+            window.removeEventListener('resize', updateTarget);
             if (animFrameRef.current) {
                 cancelAnimationFrame(animFrameRef.current);
             }
@@ -69,15 +77,14 @@ const Footer = () => {
     const emailAddress = company?.email || 'contact@bigbwarehouse.com';
     const facilityAddress = company?.address || 'Ezhippuram, ESI Back Road, Parippally, Kerala 691574';
 
-    const curveHeightPx = (curveProgress * 56).toFixed(2);
-
     return (
         <footer ref={footerRef} className="bg-[#050b14] text-white relative overflow-hidden">
             
             {/* Scroll-driven Moon-Shaped White Curved Morph on Top Sides (No black line, perfectly smooth) */}
             <div 
+                ref={curveRef}
                 className="absolute -top-px left-0 right-0 z-20 pointer-events-none select-none overflow-hidden will-change-[height]"
-                style={{ height: `${curveHeightPx}px` }}
+                style={{ height: '0px' }}
                 aria-hidden="true"
             >
                 <svg

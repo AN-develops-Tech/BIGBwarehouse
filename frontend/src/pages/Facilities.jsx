@@ -133,6 +133,7 @@ const Facilities = () => {
                                             src={cardImage}
                                             alt={facility.title}
                                             loading="lazy"
+                                            decoding="async"
                                             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                                         />
                                         <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent"></div>
