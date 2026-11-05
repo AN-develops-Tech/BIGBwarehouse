@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { Phone, Mail, MapPin, ArrowUp, ExternalLink, ShieldCheck, CheckCircle2 } from 'lucide-react';
+import { Phone, Mail, MapPin, ArrowUp } from 'lucide-react';
 import { useCompany } from '../context/CompanyContext';
 import Logo from './Logo';
 import footerMapBgImg from '../assets/images/footer_map_bg.jpg';

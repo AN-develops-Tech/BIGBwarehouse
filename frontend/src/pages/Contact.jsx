@@ -1,8 +1,7 @@
 import { useState } from 'react';
-import { Mail, Phone, MapPin, Loader2, CheckCircle2, AlertCircle, Clock, Navigation, Send, ArrowRight } from 'lucide-react';
+import { Mail, Phone, MapPin, Loader2, CheckCircle2, AlertCircle, Clock, Navigation } from 'lucide-react';
 import { useCompany } from '../context/CompanyContext';
 import WhatsAppIcon from '../components/WhatsAppIcon';
-import api from '../api/axios';
 
 const Contact = () => {
     const { company } = useCompany();
@@ -38,17 +37,11 @@ const Contact = () => {
         setWaLink(webUrl);
 
         try {
-            // Record enquiry in backend database
-            await api.post('/enquiries/', {
-                ...formData,
-                message: formData.message || 'None'
-            });
             setSuccess(true);
-            // Open WhatsApp smoothly in new tab
+            // Open WhatsApp securely in new tab with noopener, noreferrer
             window.open(webUrl, '_blank', 'noopener,noreferrer');
         } catch (err) {
-            console.warn('Backend enquiry record error:', err);
-            // Even if backend fails temporarily, still allow user to reach WhatsApp directly
+            console.error('Enquiry dispatch error:', err);
             setSuccess(true);
             window.open(webUrl, '_blank', 'noopener,noreferrer');
         } finally {
@@ -135,7 +128,7 @@ const Contact = () => {
                                         </div>
                                         <div>
                                             <h4 className="font-bold text-slate-900 text-sm uppercase tracking-wide">WhatsApp Desk</h4>
-                                            <a href={`https://wa.me/${(company?.whatsapp || '+91 7909294488').replace(/\D/g, '')}`} target="_blank" rel="noreferrer" className="text-emerald-700 font-bold mt-1 text-base hover:underline block font-mono">
+                                            <a href={`https://wa.me/${(company?.whatsapp || '+91 7909294488').replace(/\D/g, '')}`} target="_blank" rel="noopener noreferrer" className="text-emerald-700 font-bold mt-1 text-base hover:underline block font-mono">
                                                 {company?.whatsapp || '+91 7909294488'}
                                             </a>
                                             <p className="text-xs text-slate-400 mt-0.5 font-mono">24/7 Fast Response</p>

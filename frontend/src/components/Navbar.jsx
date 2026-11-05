@@ -34,7 +34,7 @@ const Navbar = () => {
 
     // Close mobile menu automatically on route change
     useEffect(() => {
-        setIsOpen(false);
+        setIsOpen(prev => (prev ? false : prev));
     }, [location.pathname]);
 
     // Handle outside click & escape key

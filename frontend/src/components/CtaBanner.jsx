@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { PhoneCall, ArrowRight, ShieldCheck, Clock } from 'lucide-react';
+import { PhoneCall, ArrowRight } from 'lucide-react';
 import { useCompany } from '../context/CompanyContext';
 import WhatsAppIcon from './WhatsAppIcon';
 

@@ -1,152 +1,17 @@
-import { useEffect, useState } from 'react';
-import SectionTitle from '../components/SectionTitle';
-import api from '../api/axios';
+import { useState } from 'react';
 import { Warehouse, Scale, ShieldCheck, Truck, ParkingCircle, Users, Zap, CheckCircle2, Maximize2, X } from 'lucide-react';
-
-import interiorImg from '../assets/images/interior.png';
-import weighbridgeImg from '../assets/images/weighbridge.png';
-import loadingDocksImg from '../assets/images/loading_docks.png';
-import parkingYardImg from '../assets/images/parking_yard.png';
-import laborOpsImg from '../assets/images/labor_ops.png';
-import powerElectricityImg from '../assets/images/power_electricity.png';
+import { facilitiesData } from '../data/facilitiesData';
 import hydraCraneImg from '../assets/images/hydra_crane.png';
+import interiorImg from '../assets/images/interior.png';
 
 const ICONS_MAP = {
     Warehouse, Scale, ShieldCheck, Truck, ParkingCircle, Users, Zap, CheckCircle2
 };
 
 const Facilities = () => {
-    const [facilities, setFacilities] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const facilities = facilitiesData;
     const [selectedImage, setSelectedImage] = useState(null);
-
-    const defaultFacilities = [
-        {
-            id: 1,
-            title: "High-Bay Warehouse Storage",
-            description: "Spacious heavy-duty warehouse bays with 30ft ceiling clearance, epoxy concrete flooring, and high pallet racking capacity suitable for commercial inventory.",
-            icon: "Warehouse",
-            image: interiorImg,
-            spec: "50,000+ SQ. FT. HIGH BAY",
-            badgeColor: "bg-blue-100 text-blue-800 border-blue-200"
-        },
-        {
-            id: 2,
-            title: "In-House 50-Ton Weighbridge",
-            description: "Dedicated heavy-duty 50-ton digital weighbridge scale on-site for fast, accurate gross & tare weight verification of all arriving and departing trucks.",
-            icon: "Scale",
-            image: weighbridgeImg,
-            spec: "50-TON WEIGHBRIDGE SCALE",
-            badgeColor: "bg-amber-100 text-amber-800 border-amber-200"
-        },
-        {
-            id: 3,
-            title: "Union-Free Loading & Unloading",
-            description: "100% union-interference-free operations. Enjoy smooth, uninterrupted 24/7 dock loading and unloading without external labor disputes or operational halts.",
-            icon: "ShieldCheck",
-            image: loadingDocksImg,
-            spec: "NO UNION INTERFERENCE",
-            badgeColor: "bg-emerald-100 text-emerald-800 border-emerald-200"
-        },
-        {
-            id: 4,
-            title: "Hydra Crane Heavy Lifting Services",
-            description: "On-site heavy industrial mobile Hydra Crane equipped for fast loading, unloading, and precision placement of heavy machinery, equipment, and bulk cargo.",
-            icon: "Truck",
-            image: hydraCraneImg,
-            spec: "ON-SITE HYDRA CRANE",
-            badgeColor: "bg-orange-100 text-orange-800 border-orange-200"
-        },
-        {
-            id: 5,
-            title: "In-House Labors",
-            description: "Dedicated trained in-house labor workforce available for rapid cargo handling, loading & unloading, and inventory stacking.",
-            icon: "Users",
-            image: laborOpsImg,
-            spec: "IN-HOUSE LABORS",
-            badgeColor: "bg-purple-100 text-purple-800 border-purple-200"
-        },
-        {
-            id: 6,
-            title: "Ample Industrial Power & Electricity",
-            description: "Uninterrupted 3-phase high-voltage electrical grid connection with high-capacity power backup to ensure continuous 24/7 operational lighting and machinery function.",
-            icon: "Zap",
-            image: powerElectricityImg,
-            spec: "3-PHASE AMPLE POWER",
-            badgeColor: "bg-indigo-100 text-indigo-800 border-indigo-200"
-        },
-        {
-            id: 7,
-            title: "Heavy Truck & Trailer Parking Yard",
-            description: "Expansive asphalt staging yard designed with wide turning radii for 18-wheeler articulated trailers, high-mast LED floodlights, and 24/7 security gates.",
-            icon: "ParkingCircle",
-            image: parkingYardImg,
-            spec: "AMPLE PARKING YARD",
-            badgeColor: "bg-slate-100 text-slate-800 border-slate-200"
-        }
-    ];
-
-    useEffect(() => {
-        const fetchFacilities = async () => {
-            try {
-                const res = await api.get('/facilities/');
-                const data = res.data.results || res.data || [];
-                const activeData = data.filter(f => f.is_active !== false);
-                setFacilities(activeData.length > 0 ? activeData : defaultFacilities);
-            } catch (err) {
-                setFacilities(defaultFacilities);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchFacilities();
-    }, []);
-
-    const displayFacilities = facilities.length > 0 ? facilities : defaultFacilities;
-
-    if (loading) {
-        return (
-            <div className="min-h-screen flex flex-col items-center justify-center bg-[#0b0d17] text-white relative overflow-hidden px-4 blueprint-grid-pattern select-none">
-                {/* Subtle Ambient Glow */}
-                <div className="absolute w-96 h-96 bg-brand-orange/15 rounded-full blur-3xl pointer-events-none animate-pulse"></div>
-
-                <div className="relative z-10 flex flex-col items-center max-w-sm text-center">
-                    {/* Industrial Rotating Spinner with Center Facility Icon */}
-                    <div className="relative mb-6 flex items-center justify-center">
-                        <div className="w-20 h-20 rounded-full border-2 border-slate-800 border-t-brand-orange border-r-brand-orange/50 animate-spin"></div>
-                        <div
-                            className="absolute w-14 h-14 rounded-full border border-slate-700 border-b-brand-orange/80 animate-spin"
-                            style={{ animationDirection: 'reverse', animationDuration: '2s' }}
-                        ></div>
-                        <div className="absolute flex items-center justify-center w-10 h-10 rounded-xl bg-brand-orange/15 border border-brand-orange/40 text-brand-orange shadow-lg shadow-brand-orange/20">
-                            <Warehouse className="w-5 h-5 animate-pulse" />
-                        </div>
-                    </div>
-
-                    {/* Status Badge */}
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-slate-900/90 border border-brand-orange/40 text-brand-orange text-[10px] font-mono font-bold uppercase tracking-wider mb-3 shadow-md">
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
-                        BIGB WAREHOUSE PARK
-                    </div>
-
-                    {/* Headline */}
-                    <h3 className="text-base sm:text-lg font-black uppercase tracking-widest text-white font-mono mb-2">
-                        LOADING FACILITIES & SPECS
-                    </h3>
-
-                    {/* Animated Progress Bar */}
-                    <div className="w-48 h-1 bg-slate-800/80 rounded-full overflow-hidden mb-3 border border-slate-700/60">
-                        <div className="h-full bg-gradient-to-r from-brand-orange via-amber-400 to-brand-orange rounded-full animate-pulse w-full"></div>
-                    </div>
-
-                    {/* Facility Ticker */}
-                    <p className="text-[11px] font-mono text-slate-400 uppercase tracking-wide">
-                        High-Bay • Weighbridge • Hydra Crane
-                    </p>
-                </div>
-            </div>
-        );
-    }
+    const displayFacilities = facilities;
 
     return (
         <div className="bg-white text-slate-900 min-h-screen font-sans">

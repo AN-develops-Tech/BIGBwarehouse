@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Warehouse, Scale, Truck, ParkingCircle, CheckCircle, CheckCircle2, RotateCcw, PhoneCall, MessageCircle, Mail, Zap, ShieldCheck, Layers, Users } from 'lucide-react';
+import { ArrowRight, Warehouse, Scale, Truck, ParkingCircle, CheckCircle, CheckCircle2, RotateCcw, PhoneCall, Zap, ShieldCheck, Layers, Users } from 'lucide-react';
 import { useCompany } from '../context/CompanyContext';
-import api from '../api/axios';
+import { facilitiesData } from '../data/facilitiesData';
+import { galleryData } from '../data/galleryData';
 import CtaBanner from '../components/CtaBanner';
 
 // Import photorealistic warehouse visual assets
 import bigbWarehouseImg from '../assets/images/bigb_warehouse.png';
 import orangeHydraCraneImg from '../assets/images/orange_hydra_crane.png';
-import heroImg from '../assets/images/hero.png';
 import interiorImg from '../assets/images/interior.png';
 import weighbridgeImg from '../assets/images/weighbridge.png';
 import loadingDocksImg from '../assets/images/loading_docks.png';
@@ -17,10 +17,9 @@ import laborOpsImg from '../assets/images/labor_ops.png';
 import hydraCraneImg from '../assets/images/hydra_crane.png';
 
 const Home = () => {
-    const { company, loading: companyLoading } = useCompany();
-    const [facilities, setFacilities] = useState([]);
-    const [gallery, setGallery] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const { company } = useCompany();
+    const [facilities] = useState(facilitiesData);
+    const [gallery] = useState(galleryData);
     const [flippedCards, setFlippedCards] = useState({});
 
     const toggleFlip = (index) => {
@@ -73,59 +72,7 @@ const Home = () => {
         return () => clearInterval(slideInterval);
     }, [heroSlides.length]);
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const [facRes, galRes] = await Promise.all([
-                    api.get('/facilities/'),
-                    api.get('/gallery/')
-                ]);
-                const facList = facRes.data.results || facRes.data || [];
-                setFacilities(facList.filter(f => f.is_active !== false));
-                const allImgs = (galRes.data.results || galRes.data || []).filter(img => img.is_active !== false);
-                setGallery(allImgs.slice(0, 6));
-            } catch (err) {
-                console.error('Failed to load data', err);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchData();
-    }, []);
 
-    if (companyLoading || loading) {
-        return (
-            <div className="h-screen w-screen flex flex-col items-center justify-center bg-[#07090e] text-white relative overflow-hidden px-4 blueprint-grid-pattern select-none">
-                {/* Ambient Brand Orange & Amber Glow */}
-                <div className="absolute w-[500px] h-[500px] bg-brand-orange/15 rounded-full blur-3xl pointer-events-none animate-pulse"></div>
-
-                <div className="relative z-10 flex flex-col items-center justify-center">
-                    {/* Glowing BigB Architectural Emblem */}
-                    <div className="relative">
-                        {/* Outer Orbiting Dashed Ring */}
-                        <div
-                            className="absolute -inset-3 sm:-inset-3.5 rounded-[28px] sm:rounded-[32px] border border-dashed border-brand-orange/40 animate-spin pointer-events-none"
-                            style={{ animationDuration: '14s' }}
-                        ></div>
-
-                        {/* Central Brand Badge */}
-                        <div className="w-28 h-28 sm:w-32 sm:h-32 rounded-2xl sm:rounded-3xl bg-gradient-to-b from-slate-900 to-[#07090e] border-2 border-brand-orange/60 shadow-[0_0_45px_-5px_rgba(240,116,9,0.4)] flex flex-col items-center justify-center relative overflow-hidden">
-                            {/* Subtle internal sweep glow */}
-                            <div className="absolute -top-10 -left-10 w-24 h-24 bg-brand-orange/20 rounded-full blur-xl pointer-events-none"></div>
-
-                            <div className="flex items-baseline font-black leading-none drop-shadow-md">
-                                <span className="text-4xl sm:text-5xl tracking-tighter text-white font-sans">BIG</span>
-                                <span className="text-4xl sm:text-5xl tracking-tighter text-brand-orange font-sans drop-shadow-[0_0_24px_rgba(240,116,9,0.9)] ml-0.5">B</span>
-                            </div>
-                            <span className="text-[9px] sm:text-[10px] font-mono font-black tracking-[0.28em] text-slate-300 uppercase mt-2">
-                                WAREHOUSE PARK
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        );
-    }
 
     const coreFacilities = [
         {
@@ -422,7 +369,7 @@ const Home = () => {
                                         className={`relative w-full h-full duration-700 transform-style-preserve-3d transition-transform ${isFlipped ? 'rotate-y-180' : ''}`}
                                     >
                                         {/* FRONT FACE */}
-                                        <div className="absolute inset-0 backface-hidden bg-slate-50 border border-slate-200/90 rounded-2xl overflow-hidden flex flex-col justify-between shadow-sm hover:shadow-xl transition-all duration-300 group">
+                                        <div className="absolute inset-0 h-full backface-hidden bg-slate-50 border border-slate-200/90 rounded-2xl overflow-hidden flex flex-col shadow-sm hover:shadow-xl transition-all duration-300 group">
                                             <div className="relative h-44 sm:h-48 overflow-hidden border-b border-slate-200 shrink-0">
                                                 <img
                                                     src={fac.image}
@@ -436,8 +383,8 @@ const Home = () => {
                                                 </div>
                                             </div>
 
-                                            <div className="p-5 sm:p-6 flex-1 flex flex-col justify-between">
-                                                <div>
+                                            <div className="p-5 sm:p-6 flex-1 flex flex-col min-h-0">
+                                                <div className="flex-1 flex flex-col grow">
                                                     <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-orange-50 border border-orange-200 flex items-center justify-center mb-3.5 sm:mb-4 text-brand-orange group-hover:scale-105 transition-transform">
                                                         {fac.icon}
                                                     </div>
@@ -452,7 +399,7 @@ const Home = () => {
                                                 <button
                                                     type="button"
                                                     onClick={() => toggleFlip(idx)}
-                                                    className="mt-4 sm:mt-5 pt-3 sm:pt-4 border-t border-slate-200 flex items-center justify-between text-xs sm:text-sm font-mono text-brand-orange font-bold hover:text-orange-600 transition-colors w-full text-left cursor-pointer group-hover:translate-x-1 duration-200 py-1"
+                                                    className="mt-auto pt-3 sm:pt-4 border-t border-slate-200 flex items-center justify-between text-xs sm:text-sm font-mono text-brand-orange font-bold hover:text-orange-600 transition-colors w-full text-left cursor-pointer group-hover:translate-x-1 duration-200 py-1"
                                                 >
                                                     <span>VIEW DETAILS</span>
                                                     <ArrowRight className="w-4 h-4" />

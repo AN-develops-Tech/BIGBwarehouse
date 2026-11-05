@@ -1,8 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useCompany } from '../context/CompanyContext';
-import { Warehouse, Scale, ShieldCheck, Truck, Users, ArrowRight, CheckCircle2, ShieldAlert } from 'lucide-react';
+import { Warehouse, Scale, ShieldCheck, Truck, Users, ArrowRight, CheckCircle2 } from 'lucide-react';
 import bigbWarehouseImg from '../assets/images/bigb_warehouse.png';
-import orangeHydraCraneImg from '../assets/images/orange_hydra_crane.png';
 
 const About = () => {
     const { company } = useCompany();

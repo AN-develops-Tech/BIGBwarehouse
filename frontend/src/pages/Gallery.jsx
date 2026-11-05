@@ -1,63 +1,34 @@
 import { useState, useEffect, useCallback } from 'react';
-import { X, ZoomIn, ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
-import api from '../api/axios';
-
+import { X, ZoomIn, ChevronLeft, ChevronRight } from 'lucide-react';
+import { galleryData } from '../data/galleryData';
 import heroImg from '../assets/images/hero.png';
-import interiorImg from '../assets/images/interior.png';
-import weighbridgeImg from '../assets/images/weighbridge.png';
-import loadingDocksImg from '../assets/images/loading_docks.png';
-import parkingYardImg from '../assets/images/parking_yard.png';
-import laborOpsImg from '../assets/images/labor_ops.png';
-import hydraCraneImg from '../assets/images/hydra_crane.png';
-import powerElectricityImg from '../assets/images/power_electricity.png';
 
 const Gallery = () => {
-    const [images, setImages] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const images = galleryData;
     const [filter, setFilter] = useState('All');
     const [lightboxOpen, setLightboxOpen] = useState(false);
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-    const defaultGalleryImages = [
-        { id: 1, title: "BigB Warehouse Dusk Exterior", category: "Warehouse", description: "High-bay LED illuminated exterior view of modern industrial warehouse bays and paved truck yard.", image: heroImg },
-        { id: 2, title: "High-Bay Pallet Racking", category: "Warehouse", description: "Multi-tier heavy duty industrial steel racking systems with electric forklift operating down aisle.", image: interiorImg },
-        { id: 3, title: "50-Ton Heavy Weighbridge", category: "Facilities", description: "Commercial scale platform with digital LED weight monitoring monitor and safety rails.", image: weighbridgeImg },
-        { id: 4, title: "Hydraulic Loading Dock Bays", category: "Loading", description: "Active loading dock shutter doors with hydraulic dock leveler for container trucks.", image: loadingDocksImg },
-        { id: 5, title: "Commercial Trailer Parking Yard", category: "Parking", description: "Spacious asphalt staging yard for heavy cargo logistics trailers and 18-wheelers.", image: parkingYardImg },
-        { id: 6, title: "Hydra Crane Heavy Lift Operations", category: "Facilities", description: "Industrial mobile crane equipment for precision heavy cargo loading and machinery placement.", image: hydraCraneImg },
-        { id: 7, title: "Dedicated Power Substation & Backup", category: "Facilities", description: "High-capacity electrical distribution system ensuring uninterrupted 24/7 cold and dry logistics.", image: powerElectricityImg },
-        { id: 8, title: "Logistics Fulfillment & Safety Team", category: "Operations", description: "High-visibility safety gear team managing inventory scanning and cargo handling.", image: laborOpsImg },
-    ];
-
     useEffect(() => {
-        const fetchGallery = async () => {
-            try {
-                const res = await api.get('/gallery/');
-                const fetched = res.data.results || res.data || [];
-                const activeList = fetched.filter(img => img.is_active !== false);
-                setImages(activeList.length > 0 ? activeList : defaultGalleryImages);
-            } catch (err) {
-                setImages(defaultGalleryImages);
-            } finally {
-                setLoading(false);
-            }
-        };
-        fetchGallery();
-    }, []);
+        if (lightboxOpen) {
+            document.body.style.overflow = 'hidden';
+            return () => {
+                document.body.style.overflow = 'unset';
+            };
+        }
+    }, [lightboxOpen]);
 
-    const displayImages = images.length > 0 ? images : defaultGalleryImages;
+    const displayImages = images;
     const categories = ['All', ...new Set(displayImages.map(img => img.category))];
     const filteredImages = filter === 'All' ? displayImages : displayImages.filter(img => img.category === filter);
 
     const openLightbox = (index) => {
         setCurrentImageIndex(index);
         setLightboxOpen(true);
-        document.body.style.overflow = 'hidden';
     };
 
     const closeLightbox = () => {
         setLightboxOpen(false);
-        document.body.style.overflow = 'unset';
     };
 
     const nextImage = useCallback(() => {
@@ -80,14 +51,6 @@ const Gallery = () => {
         window.addEventListener('keydown', handleKeyDown);
         return () => window.removeEventListener('keydown', handleKeyDown);
     }, [lightboxOpen, nextImage, prevImage]);
-
-    if (loading) {
-        return (
-            <div className="min-h-screen flex items-center justify-center bg-white text-brand-orange font-mono text-xl pt-20">
-                LOADING PHOTO GALLERY...
-            </div>
-        );
-    }
 
     return (
         <div className="bg-white text-slate-900 min-h-screen font-sans selection:bg-brand-orange selection:text-white">
