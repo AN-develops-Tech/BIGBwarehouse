@@ -8,7 +8,7 @@
   --color-steel-accent: #24364e;
 }
 
-/* Native 120Hz High-Refresh Scrolling & Anti-Aliasing */
+/* iOS-Grade Responsive Momentum Scrolling & Anti-Aliasing */
 html {
   -webkit-overflow-scrolling: touch;
   text-size-adjust: 100%;
@@ -87,7 +87,9 @@ img {
 .animate-ken-burns {
   animation: kenBurnsZoom 16s cubic-bezier(0.25, 1, 0.5, 1) infinite alternate;
   will-change: transform;
-  transform: translateZ(0);
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+  perspective: 1000px;
 }
 
 /* Continuous Horizontal Ticker for Industrial Stats */
@@ -104,6 +106,14 @@ img {
   display: flex;
   width: max-content;
   animation: tickerSlide 30s linear infinite;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
+}
+
+.hardware-accelerated {
+  transform: translate3d(0, 0, 0);
+  backface-visibility: hidden;
   will-change: transform;
 }
 

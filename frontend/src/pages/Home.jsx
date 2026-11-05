@@ -209,9 +209,8 @@ const Home = () => {
                         <img
                             src={slide.image}
                             alt={slide.title}
-                            decoding="async"
                             loading={index === 0 ? "eager" : "lazy"}
-                            className="w-full h-full object-cover animate-ken-burns filter brightness-95 contrast-105 opacity-65 md:opacity-[0.45]"
+                            className={`w-full h-full object-cover opacity-65 md:opacity-[0.45] will-change-transform ${index === currentSlide ? 'animate-ken-burns' : ''}`}
                         />
                         {/* Mobile Optimized Light Gradient Overlay for Maximum Image Visibility */}
                         <div className="absolute inset-0 bg-gradient-to-r from-brand-dark/70 via-brand-dark/35 to-transparent w-full"></div>
@@ -306,8 +305,8 @@ const Home = () => {
 
                 </div>
 
-                {/* Live Industrial Metrics Ticker with Frosted Backdrop Blur & Breathing Room */}
-                <div className="relative z-10 bg-black/60 backdrop-blur-md border-t border-white/10 overflow-hidden py-3 sm:py-3.5 text-xs font-mono tracking-wider uppercase text-white">
+                {/* Live Industrial Metrics Ticker with Clean High-Performance Dark Header */}
+                <div className="relative z-10 bg-[#070b12]/95 border-t border-white/10 overflow-hidden py-3 sm:py-3.5 text-xs font-mono tracking-wider uppercase text-white">
                     <div className="animate-ticker space-x-12 items-center justify-center">
                         <span className="inline-flex items-center gap-2 text-white font-bold">
                             <Zap className="w-4 h-4 text-brand-orange" /> 50,000+ SQ. FT. HIGH-BAY STORAGE
@@ -368,7 +367,7 @@ const Home = () => {
                                     className="perspective-1000 h-[490px] sm:h-[500px] w-full sm:w-[calc(50%-0.875rem)] lg:w-[calc(33.333%-1.375rem)] max-w-sm sm:max-w-none"
                                 >
                                     <div
-                                        className={`relative w-full h-full duration-700 transform-style-preserve-3d transition-transform ${isFlipped ? 'rotate-y-180' : ''}`}
+                                        className={`relative w-full h-full duration-700 transform-style-preserve-3d transition-transform will-change-transform ${isFlipped ? 'rotate-y-180' : ''}`}
                                     >
                                         {/* FRONT FACE */}
                                         <div className="absolute inset-0 h-full backface-hidden bg-slate-50 border border-slate-200/90 rounded-2xl overflow-hidden flex flex-col shadow-sm hover:shadow-xl transition-all duration-300 group">

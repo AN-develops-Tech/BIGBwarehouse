@@ -12,30 +12,30 @@ const Footer = () => {
     const currentProgressRef = useRef(0);
     const targetProgressRef = useRef(0);
     const animFrameRef = useRef(null);
+    const isVisibleRef = useRef(false);
     const isRunningRef = useRef(false);
 
     useEffect(() => {
-        const updateCurveHeight = (val) => {
+        const updateHeight = (progress) => {
             if (curveRef.current) {
-                curveRef.current.style.height = `${(val * 56).toFixed(2)}px`;
+                curveRef.current.style.height = `${(progress * 56).toFixed(2)}px`;
             }
         };
 
         const renderLoop = () => {
             const diff = targetProgressRef.current - currentProgressRef.current;
             if (Math.abs(diff) > 0.001) {
-                currentProgressRef.current += diff * 0.15;
-                updateCurveHeight(currentProgressRef.current);
+                currentProgressRef.current += diff * 0.16;
+                updateHeight(currentProgressRef.current);
                 animFrameRef.current = requestAnimationFrame(renderLoop);
             } else {
                 currentProgressRef.current = targetProgressRef.current;
-                updateCurveHeight(currentProgressRef.current);
+                updateHeight(currentProgressRef.current);
                 isRunningRef.current = false;
-                animFrameRef.current = null;
             }
         };
 
-        const startLoop = () => {
+        const startAnimation = () => {
             if (!isRunningRef.current) {
                 isRunningRef.current = true;
                 animFrameRef.current = requestAnimationFrame(renderLoop);
@@ -43,7 +43,7 @@ const Footer = () => {
         };
 
         const updateTarget = () => {
-            if (!footerRef.current) return;
+            if (!footerRef.current || !isVisibleRef.current) return;
             const rect = footerRef.current.getBoundingClientRect();
             const windowHeight = window.innerHeight || document.documentElement.clientHeight;
 
@@ -51,17 +51,47 @@ const Footer = () => {
             const fullPoint = windowHeight * 0.35;
 
             const rawProgress = (enterPoint - rect.top) / (enterPoint - fullPoint);
-            targetProgressRef.current = Math.max(0, Math.min(1, rawProgress));
-            startLoop();
+            const clamped = Math.max(0, Math.min(1, rawProgress));
+
+            if (Math.abs(targetProgressRef.current - clamped) > 0.005) {
+                targetProgressRef.current = clamped;
+                startAnimation();
+            }
         };
 
-        updateTarget();
-        window.addEventListener('scroll', updateTarget, { passive: true });
-        window.addEventListener('resize', updateTarget, { passive: true });
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                isVisibleRef.current = entry.isIntersecting;
+                if (entry.isIntersecting) {
+                    updateTarget();
+                }
+            },
+            { rootMargin: '100px 0px 0px 0px' }
+        );
+
+        if (footerRef.current) {
+            observer.observe(footerRef.current);
+        }
+
+        let ticking = false;
+        const handleScroll = () => {
+            if (!isVisibleRef.current) return;
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    updateTarget();
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        window.addEventListener('resize', handleScroll, { passive: true });
 
         return () => {
-            window.removeEventListener('scroll', updateTarget);
-            window.removeEventListener('resize', updateTarget);
+            observer.disconnect();
+            window.removeEventListener('scroll', handleScroll);
+            window.removeEventListener('resize', handleScroll);
             if (animFrameRef.current) {
                 cancelAnimationFrame(animFrameRef.current);
             }

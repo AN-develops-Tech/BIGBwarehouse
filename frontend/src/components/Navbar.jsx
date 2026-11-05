@@ -16,16 +16,12 @@ const Navbar = () => {
 
     // Track scroll for subtle border and shadow elevation with rAF throttling for 120Hz/60Hz smooth rendering
     useEffect(() => {
-        let lastScrolled = false;
         let ticking = false;
         const handleScroll = () => {
             if (!ticking) {
                 window.requestAnimationFrame(() => {
                     const isScrolled = window.scrollY > 15;
-                    if (isScrolled !== lastScrolled) {
-                        lastScrolled = isScrolled;
-                        setScrolled(isScrolled);
-                    }
+                    setScrolled(prev => prev !== isScrolled ? isScrolled : prev);
                     ticking = false;
                 });
                 ticking = true;
@@ -36,6 +32,10 @@ const Navbar = () => {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
+    // Close mobile menu automatically on route change
+    useEffect(() => {
+        setIsOpen(false);
+    }, [location.pathname]);
 
     // Handle outside click & escape key
     useEffect(() => {
