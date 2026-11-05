@@ -194,29 +194,34 @@ const Home = () => {
         : coreFacilities;
 
     return (
-        <div className="flex flex-col bg-gray-900 text-gray-100 font-sans">
+        <div className="flex flex-col bg-white text-slate-900 font-sans">
 
             {/* Hero Section with Dynamic Slideshow & Industrial Visual Overlay */}
             <section className="relative min-h-[90vh] flex flex-col justify-between bg-brand-dark overflow-hidden blueprint-grid-pattern border-b border-brand-orange/40">
 
                 {/* Ken-Burns Animated Background Slideshow - 65% Opacity on Mobile, 45% on Desktop */}
-                {heroSlides.map((slide, index) => (
-                    <div
-                        key={index}
-                        className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${index === currentSlide ? 'opacity-100 z-0' : 'opacity-0 z-0'
+                <div className="absolute inset-0 z-0 overflow-hidden">
+                    {heroSlides.map((slide, index) => (
+                        <div
+                            key={index}
+                            className={`absolute inset-0 transition-opacity duration-1000 ease-in-out ${
+                                index === currentSlide ? 'opacity-100' : 'opacity-0 pointer-events-none'
                             }`}
-                    >
-                        <img
-                            src={slide.image}
-                            alt={slide.title}
-                            loading={index === 0 ? "eager" : "lazy"}
-                            className={`w-full h-full object-cover opacity-65 md:opacity-[0.45] will-change-transform ${index === currentSlide ? 'animate-ken-burns' : ''}`}
-                        />
-                        {/* Mobile Optimized Light Gradient Overlay for Maximum Image Visibility */}
-                        <div className="absolute inset-0 bg-gradient-to-r from-brand-dark/70 via-brand-dark/35 to-transparent w-full"></div>
-                        <div className="absolute inset-0 bg-gradient-to-t from-brand-dark/75 via-transparent to-brand-dark/25"></div>
-                    </div>
-                ))}
+                        >
+                            <img
+                                src={slide.image}
+                                alt={slide.title}
+                                loading={index === 0 ? "eager" : "lazy"}
+                                className={`w-full h-full object-cover opacity-65 md:opacity-[0.45] ${
+                                    index === currentSlide ? 'animate-ken-burns' : ''
+                                }`}
+                            />
+                        </div>
+                    ))}
+                    {/* Mobile Optimized Light Gradient Overlay for Maximum Image Visibility */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-brand-dark/70 via-brand-dark/35 to-transparent w-full pointer-events-none"></div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-brand-dark/75 via-transparent to-brand-dark/25 pointer-events-none"></div>
+                </div>
 
                 {/* Hero Main Content - Mobile View Optimized for Unobstructed Background */}
                 <div className="relative z-10 w-full px-4 sm:px-8 lg:px-12 xl:px-16 2xl:px-20 pt-6 sm:pt-16 pb-6 sm:pb-12 flex-1 flex flex-col justify-center items-start">
@@ -342,7 +347,7 @@ const Home = () => {
             </section>
 
             {/* Core Facilities Section with Premium White Background */}
-            <section className="py-24 bg-white text-slate-900 relative border-b border-gray-200">
+            <section className="py-24 bg-white text-slate-900 relative border-b border-gray-200 section-contain">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
                     <div className="text-center mb-16">
@@ -367,7 +372,7 @@ const Home = () => {
                                     className="perspective-1000 h-[490px] sm:h-[500px] w-full sm:w-[calc(50%-0.875rem)] lg:w-[calc(33.333%-1.375rem)] max-w-sm sm:max-w-none"
                                 >
                                     <div
-                                        className={`relative w-full h-full duration-700 transform-style-preserve-3d transition-transform will-change-transform ${isFlipped ? 'rotate-y-180' : ''}`}
+                                        className={`relative w-full h-full duration-700 transform-style-preserve-3d transition-transform ${isFlipped ? 'rotate-y-180' : ''}`}
                                     >
                                         {/* FRONT FACE */}
                                         <div className="absolute inset-0 h-full backface-hidden bg-slate-50 border border-slate-200/90 rounded-2xl overflow-hidden flex flex-col shadow-sm hover:shadow-xl transition-all duration-300 group">
@@ -474,7 +479,7 @@ const Home = () => {
             </section>
 
             {/* About Section with Photorealistic Warehouse Interior Asset - White Theme */}
-            <section className="py-24 bg-white text-slate-900 border-y border-slate-200">
+            <section className="py-24 bg-white text-slate-900 border-y border-slate-200 section-contain">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
 
@@ -539,7 +544,7 @@ const Home = () => {
             </section>
 
             {/* Photorealistic Warehouse Gallery Preview with White Background */}
-            <section className="py-24 bg-white text-slate-900 border-t border-slate-200">
+            <section className="py-24 bg-white text-slate-900 border-t border-slate-200 section-contain">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
 
                     <div className="mb-16">

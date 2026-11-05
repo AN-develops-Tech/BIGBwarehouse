@@ -113,7 +113,7 @@ const Gallery = () => {
                                         src={imgSource}
                                         alt={img.title}
                                         loading="lazy"
-                                        className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-108 will-change-transform"
+                                        className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-108"
                                     />
                                     {/* Subtle gradient for contrast */}
                                     <div className="absolute inset-0 bg-gradient-to-t from-slate-950/40 via-transparent to-slate-950/15 opacity-60 group-hover:opacity-30 transition-opacity"></div>
