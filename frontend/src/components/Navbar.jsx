@@ -94,10 +94,10 @@ const Navbar = () => {
 
             <nav
                 ref={navRef}
-                className={`sticky top-0 z-50 w-full transition-colors duration-300 border-b ${
+                className={`sticky top-0 z-50 w-full transition-[box-shadow,border-color] duration-200 border-b bg-white/95 backdrop-blur-md ${
                     scrolled 
-                        ? 'bg-white/95 backdrop-blur-md shadow-md border-slate-200/90' 
-                        : 'bg-white/90 backdrop-blur-sm border-slate-200/60'
+                        ? 'shadow-md border-slate-200/90' 
+                        : 'border-slate-200/60'
                 }`}
             >
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -190,11 +190,11 @@ const Navbar = () => {
 
                 {/* Mobile Navigation Drawer */}
                 <div
-                    className={`md:hidden mobile-nav-drawer border-slate-100 ${
+                    className={`md:hidden absolute top-full left-0 right-0 mobile-nav-drawer bg-white border-slate-100 ${
                         isOpen ? 'open border-t shadow-xl' : ''
                     }`}
                 >
-                    <div className="mobile-nav-drawer-inner">
+                    <div className="mobile-nav-drawer-inner bg-white">
                         <div className="px-4 pt-3 pb-6 space-y-1.5 bg-white">
                             {navLinks.map((link) => {
                                 const active = isActive(link.path);
