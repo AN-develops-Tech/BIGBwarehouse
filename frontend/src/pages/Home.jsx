@@ -211,6 +211,7 @@ const Home = () => {
                             <img
                                 src={slide.image}
                                 alt={slide.title}
+                                decoding="async"
                                 loading={index === 0 ? "eager" : "lazy"}
                                 className={`w-full h-full object-cover opacity-65 md:opacity-[0.45] ${
                                     index === currentSlide ? 'animate-ken-burns' : ''
@@ -380,6 +381,7 @@ const Home = () => {
                                                 <img
                                                     src={fac.image}
                                                     alt={fac.title}
+                                                    decoding="async"
                                                     loading="lazy"
                                                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                                                 />
@@ -490,6 +492,7 @@ const Home = () => {
                                 <img
                                     src={interiorImg}
                                     alt="BigB Warehouse Interior Racks"
+                                    decoding="async"
                                     loading="lazy"
                                     className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                                 />
@@ -570,6 +573,7 @@ const Home = () => {
                                     <img
                                         src={imgSrc}
                                         alt={item.title || "Warehouse Gallery Image"}
+                                        decoding="async"
                                         loading="lazy"
                                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                                     />
