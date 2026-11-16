@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Warehouse, Scale, Truck, ParkingCircle, CheckCircle, CheckCircle2, RotateCcw, PhoneCall, Zap, ShieldCheck, Layers, Users } from 'lucide-react';
+import { ArrowRight, Warehouse, Scale, Truck, ParkingCircle, CheckCircle, CheckCircle2, RotateCcw, PhoneCall, Zap, ShieldCheck, Layers, Users, MapPin } from 'lucide-react';
 import { useCompany } from '../context/CompanyContext';
 import { facilitiesData } from '../data/facilitiesData';
 import { galleryData } from '../data/galleryData';
@@ -235,12 +235,22 @@ const Home = () => {
                                 BIG B WAREHOUSE PARK
                             </span>
                         </div>
-                        <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-black text-white mb-2.5 sm:mb-4 uppercase tracking-tight sm:tracking-wider leading-tight sm:leading-snug drop-shadow-md">
-                            {company?.hero_title || 'Heavy-Duty Industrial Storage & Logistics Infrastructure'}
+                        <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-black text-white mb-2 sm:mb-3 uppercase tracking-tight sm:tracking-wider leading-tight drop-shadow-md">
+                            BIGB WAREHOUSE PARK
                         </h1>
-                        <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-100 font-medium drop-shadow-sm leading-relaxed max-w-2xl">
-                            {company?.hero_subtitle || 'Equipped with 50-ton weighbridge, active loading bays, 24/7 security, and in-house labor for seamless supply chain operations. Highbay system can be done at your requirement.'}
+                        <h2 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-gray-200 mb-2.5 sm:mb-3.5 tracking-tight drop-shadow-sm">
+                            Strategically Located. Built for Business.
+                        </h2>
+                        <p className="text-sm sm:text-base md:text-lg text-gray-100 font-medium drop-shadow-sm leading-relaxed max-w-2xl mb-2 sm:mb-2.5">
+                            A state-of-the-art industrial warehousing and logistics hub in Parippally, strategically connecting Thiruvananthapuram and Kollam districts.
                         </p>
+                        <p className="text-xs sm:text-sm md:text-base text-gray-300 font-normal drop-shadow-sm leading-relaxed max-w-2xl mb-3 sm:mb-4">
+                            Flexible high-bay warehousing solutions designed to meet your business and storage requirements.
+                        </p>
+                        <div className="pt-3 border-t border-white/10 flex items-center gap-2 text-[11px] sm:text-xs md:text-sm font-mono font-semibold tracking-wider text-brand-orange/95 uppercase">
+                            <MapPin className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-brand-orange shrink-0" />
+                            <span>PARIPPALLY | THIRUVANANTHAPURAM – KOLLAM</span>
+                        </div>
                     </div>
 
                     {/* Hero Action Buttons - Identical Height, 8px Radius, 12px Vertical Spacing on Mobile */}
@@ -266,29 +276,29 @@ const Home = () => {
                         <div className="bg-slate-950/80 sm:bg-transparent backdrop-blur-md sm:backdrop-blur-none p-2.5 sm:p-0 rounded-xl border border-white/10 sm:border-0 flex items-center gap-2 sm:gap-3 drop-shadow-md">
                             <ShieldCheck className="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-brand-orange shrink-0 drop-shadow" />
                             <div>
-                                <div className="text-[11px] sm:text-xs lg:text-sm font-mono font-bold text-white uppercase tracking-tight drop-shadow">Strong & Durable</div>
-                                <div className="text-[9.5px] sm:text-[10px] lg:text-xs text-slate-200 drop-shadow">Long-Term Performance</div>
+                                <div className="text-[11px] sm:text-xs lg:text-sm font-mono font-bold text-white uppercase tracking-tight drop-shadow">BUILT FOR DURABILITY</div>
+                                <div className="text-[9.5px] sm:text-[10px] lg:text-xs text-slate-200 drop-shadow">Long-term Performance</div>
                             </div>
                         </div>
                         <div className="bg-slate-950/80 sm:bg-transparent backdrop-blur-md sm:backdrop-blur-none p-2.5 sm:p-0 rounded-xl border border-white/10 sm:border-0 flex items-center gap-2 sm:gap-3 drop-shadow-md">
                             <Zap className="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-brand-orange shrink-0 drop-shadow" />
                             <div>
-                                <div className="text-[11px] sm:text-xs lg:text-sm font-mono font-bold text-white uppercase tracking-tight drop-shadow">High Capacity</div>
-                                <div className="text-[9.5px] sm:text-[10px] lg:text-xs text-slate-200 drop-shadow">Tackle Bigger Challenges</div>
+                                <div className="text-[11px] sm:text-xs lg:text-sm font-mono font-bold text-white uppercase tracking-tight drop-shadow">HIGH-BAY STORAGE</div>
+                                <div className="text-[9.5px] sm:text-[10px] lg:text-xs text-slate-200 drop-shadow">Optimised Vertical Space</div>
                             </div>
                         </div>
                         <div className="bg-slate-950/80 sm:bg-transparent backdrop-blur-md sm:backdrop-blur-none p-2.5 sm:p-0 rounded-xl border border-white/10 sm:border-0 flex items-center gap-2 sm:gap-3 drop-shadow-md">
                             <Layers className="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-brand-orange shrink-0 drop-shadow" />
                             <div>
-                                <div className="text-[11px] sm:text-xs lg:text-sm font-mono font-bold text-white uppercase tracking-tight drop-shadow">Smooth Operation</div>
-                                <div className="text-[9.5px] sm:text-[10px] lg:text-xs text-slate-200 drop-shadow">Maximum Efficiency</div>
+                                <div className="text-[11px] sm:text-xs lg:text-sm font-mono font-bold text-white uppercase tracking-tight drop-shadow">OPERATIONAL EFFICIENCY</div>
+                                <div className="text-[9.5px] sm:text-[10px] lg:text-xs text-slate-200 drop-shadow">Designed for Seamless Operations</div>
                             </div>
                         </div>
                         <div className="bg-slate-950/80 sm:bg-transparent backdrop-blur-md sm:backdrop-blur-none p-2.5 sm:p-0 rounded-xl border border-white/10 sm:border-0 flex items-center gap-2 sm:gap-3 drop-shadow-md">
                             <Truck className="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-brand-orange shrink-0 drop-shadow" />
                             <div>
-                                <div className="text-[11px] sm:text-xs lg:text-sm font-mono font-bold text-white uppercase tracking-tight drop-shadow">Trusted in Field</div>
-                                <div className="text-[9.5px] sm:text-[10px] lg:text-xs text-slate-200 drop-shadow">Across Multiple Industries</div>
+                                <div className="text-[11px] sm:text-xs lg:text-sm font-mono font-bold text-white uppercase tracking-tight drop-shadow">MULTI-INDUSTRY READY</div>
+                                <div className="text-[9.5px] sm:text-[10px] lg:text-xs text-slate-200 drop-shadow">Solutions Across Industries</div>
                             </div>
                         </div>
                     </div>
