@@ -253,7 +253,7 @@ const Home = () => {
                                 </p>
                             </div>
 
-                            <div className="pt-2.5 sm:pt-3 flex items-center gap-1.5 text-[12px] sm:text-xs font-mono font-bold tracking-wider text-brand-orange uppercase drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
+                            <div className="pt-2.5 sm:pt-3 flex items-center gap-1.5 text-[12px] sm:text-xs font-mono font-bold tracking-wider text-slate-200 uppercase drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
                                 <MapPin className="w-4 h-4 sm:w-3.5 sm:h-3.5 text-brand-orange shrink-0" />
                                 <span>PARIPPALLY | THIRUVANANTHAPURAM – KOLLAM</span>
                             </div>
