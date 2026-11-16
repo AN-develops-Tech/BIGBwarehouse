@@ -1,17 +1,16 @@
-const Logo = ({ lightTheme = false }) => {
+import logoDark from '../assets/images/logo_dark.png';
+import logoLight from '../assets/images/logo_light.png';
+
+const Logo = ({ lightTheme = false, className = '' }) => {
   return (
-    <div className="flex flex-col select-none">
-      <div className="flex items-baseline font-black leading-none drop-shadow-sm">
-        <span className={`text-4xl tracking-tighter ${lightTheme ? 'text-white' : 'text-brand-blue'}`}>
-          BIG
-        </span>
-        <span className="text-4xl text-brand-orange tracking-tighter animate-logo-b ml-[1px]">
-          B
-        </span>
-      </div>
-      <span className={`text-[0.65rem] font-bold tracking-widest mt-0.5 ${lightTheme ? 'text-white' : 'text-gray-700'}`}>
-        WAREHOUSE PARK
-      </span>
+    <div className={`flex items-center select-none ${className}`}>
+      <img
+        src={lightTheme ? logoLight : logoDark}
+        alt="BIG B WAREHOUSE"
+        className="h-14 sm:h-16 w-auto object-contain animate-logo-b transition-transform duration-300 drop-shadow-xs"
+        loading="eager"
+        decoding="async"
+      />
     </div>
   );
 };
