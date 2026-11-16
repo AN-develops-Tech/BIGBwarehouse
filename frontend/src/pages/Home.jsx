@@ -521,7 +521,7 @@ const Home = () => {
                                     "24/7 Union-free loading bays",
                                     "Ample truck trailer parking",
                                     "In-house labors",
-                                    "Uninterrupted power supply",
+                                    "On-site Hydra Crane lifting",
                                     "24/7 CCTV & gated security",
                                     "Direct highway connectivity"
                                 ].map((item, idx) => (

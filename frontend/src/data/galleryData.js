@@ -5,7 +5,6 @@ import loadingDocksImg from '../assets/images/loading_docks.png';
 import parkingYardImg from '../assets/images/parking_yard.png';
 import laborOpsImg from '../assets/images/labor_ops.png';
 import hydraCraneImg from '../assets/images/hydra_crane.png';
-import powerElectricityImg from '../assets/images/power_electricity.png';
 
 export const galleryData = [
     {
@@ -52,13 +51,6 @@ export const galleryData = [
     },
     {
         id: 7,
-        title: "High-Voltage Power Infrastructure",
-        category: "Facilities",
-        description: "High-capacity electrical distribution system ensuring uninterrupted 24/7 cold and dry logistics.",
-        image: powerElectricityImg
-    },
-    {
-        id: 8,
         title: "Logistics Fulfillment & Safety Team",
         category: "Operations",
         description: "High-visibility safety gear team managing inventory scanning and cargo handling.",

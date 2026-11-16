@@ -3,7 +3,6 @@ import weighbridgeImg from '../assets/images/weighbridge.png';
 import loadingDocksImg from '../assets/images/loading_docks.png';
 import parkingYardImg from '../assets/images/parking_yard.png';
 import laborOpsImg from '../assets/images/labor_ops.png';
-import powerElectricityImg from '../assets/images/power_electricity.png';
 import hydraCraneImg from '../assets/images/hydra_crane.png';
 
 export const facilitiesData = [
@@ -54,15 +53,6 @@ export const facilitiesData = [
     },
     {
         id: 6,
-        title: "Ample Industrial Power & Electricity",
-        description: "Uninterrupted 3-phase high-voltage electrical grid connection with high-capacity power backup to ensure continuous 24/7 operational lighting and machinery function.",
-        icon: "Zap",
-        image: powerElectricityImg,
-        spec: "3-PHASE AMPLE POWER",
-        badgeColor: "bg-indigo-100 text-indigo-800 border-indigo-200"
-    },
-    {
-        id: 7,
         title: "Heavy Truck & Trailer Parking Yard",
         description: "Expansive asphalt staging yard designed with wide turning radii for 18-wheeler articulated trailers, high-mast LED floodlights, and 24/7 security gates.",
         icon: "ParkingCircle",

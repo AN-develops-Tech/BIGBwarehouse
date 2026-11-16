@@ -1,11 +1,11 @@
 import { useState } from 'react';
-import { Warehouse, Scale, ShieldCheck, Truck, ParkingCircle, Users, Zap, CheckCircle2, Maximize2, X } from 'lucide-react';
+import { Warehouse, Scale, ShieldCheck, Truck, ParkingCircle, Users, CheckCircle2, Maximize2, X } from 'lucide-react';
 import { facilitiesData } from '../data/facilitiesData';
 import hydraCraneImg from '../assets/images/hydra_crane.png';
 import interiorImg from '../assets/images/interior.png';
 
 const ICONS_MAP = {
-    Warehouse, Scale, ShieldCheck, Truck, ParkingCircle, Users, Zap, CheckCircle2
+    Warehouse, Scale, ShieldCheck, Truck, ParkingCircle, Users, CheckCircle2
 };
 
 const Facilities = () => {
@@ -23,7 +23,7 @@ const Facilities = () => {
                         FACILITIES & ADVANTAGES
                     </h1>
                     <p className="text-base sm:text-xl text-slate-600 max-w-3xl mx-auto font-medium leading-relaxed">
-                        Engineered for maximum supply chain efficiency with on-site Hydra Crane heavy lifting, 50-ton weighbridge, union-free loading docks, abundant power supply, and in-house labor workforce.
+                        Engineered for maximum supply chain efficiency with on-site Hydra Crane heavy lifting, 50-ton weighbridge, union-free loading docks, and in-house labor workforce.
                     </p>
                     <div className="mt-6 h-1.5 w-24 bg-brand-orange mx-auto rounded-full"></div>
                 </div>
@@ -32,7 +32,7 @@ const Facilities = () => {
             {/* Quick Key Advantages Ribbon */}
             <div className="bg-white border-b border-gray-200 shadow-sm py-8">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="grid grid-cols-2 md:grid-cols-5 gap-4 text-center">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
                         <div className="p-4 bg-slate-50 rounded-xl border border-slate-200/80 flex flex-col items-center hover:bg-slate-100 transition-colors">
                             <Truck className="w-7 h-7 text-brand-orange mb-2" />
                             <span className="font-black text-sm uppercase text-slate-900">HYDRA CRANE LIFTING</span>
@@ -47,11 +47,6 @@ const Facilities = () => {
                             <ShieldCheck className="w-7 h-7 text-emerald-600 mb-2" />
                             <span className="font-black text-sm uppercase text-slate-900">NO UNION INTERFERENCE</span>
                             <span className="text-xs text-gray-500 mt-0.5">Seamless 24/7 Loading</span>
-                        </div>
-                        <div className="p-4 bg-slate-50 rounded-xl border border-slate-200/80 flex flex-col items-center hover:bg-slate-100 transition-colors">
-                            <Zap className="w-7 h-7 text-indigo-600 mb-2" />
-                            <span className="font-black text-sm uppercase text-slate-900">AMPLE POWER SUPPLY</span>
-                            <span className="text-xs text-gray-500 mt-0.5">3-Phase High Voltage</span>
                         </div>
                         <div className="p-4 bg-slate-50 rounded-xl border border-slate-200/80 flex flex-col items-center hover:bg-slate-100 transition-colors">
                             <Users className="w-7 h-7 text-purple-600 mb-2" />
