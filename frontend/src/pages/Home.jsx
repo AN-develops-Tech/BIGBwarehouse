@@ -225,8 +225,8 @@ const Home = () => {
                     <div className="md:hidden absolute inset-0 bg-brand-dark/30 pointer-events-none"></div>
                 </div>
 
-                {/* Hero Main Content - Perfectly Aligned across Mobile, Tablet, and Desktop */}
-                <div className="relative z-10 w-full max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 xl:px-12 pt-7 sm:pt-12 lg:pt-14 pb-6 sm:pb-6 flex-1 flex flex-col justify-center md:justify-between">
+                {/* Hero Main Content - Left-Aligned on Large Screens, Perfectly Balanced across All Devices */}
+                <div className="relative z-10 w-full max-w-6xl xl:max-w-7xl mr-auto px-5 sm:px-6 lg:px-12 xl:px-16 pt-7 sm:pt-12 lg:pt-14 pb-6 sm:pb-6 flex-1 flex flex-col justify-center md:justify-between">
 
                     {/* Main Headline & Narrative Block */}
                     <div className="max-w-3xl my-auto py-3 sm:py-6">
@@ -274,8 +274,8 @@ const Home = () => {
                         </div>
                     </div>
 
-                    {/* Bottom Features & Carousel Section */}
-                    <div className="w-full mt-6 lg:mt-8">
+                    {/* Bottom Features & Carousel Section - Left-Aligned with content boundary */}
+                    <div className="w-full max-w-5xl xl:max-w-6xl mt-6 lg:mt-8">
                         {/* Industrial Feature Highlights Strip (Desktop & Tablet) */}
                         <div className="hidden md:grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-4 w-full pt-4 border-t border-white/10">
                             <div className="flex items-center gap-3 p-3 rounded-xl bg-slate-950/60 backdrop-blur-md border border-white/10 shadow-lg">
