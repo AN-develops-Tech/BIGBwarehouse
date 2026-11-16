@@ -242,14 +242,14 @@ const Home = () => {
                         </p>
 
                         {/* Description & Location */}
-                        <div className="space-y-2 sm:space-y-2 mb-6 sm:mb-7 max-w-2xl">
-                            <p className="text-[14.5px] sm:text-base text-white/95 font-medium leading-relaxed drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
+                        <div className="space-y-2 sm:space-y-2.5 mb-6 sm:mb-7 max-w-xl sm:max-w-2xl">
+                            <p className="text-[14px] sm:text-[15px] md:text-base text-gray-100 font-medium leading-relaxed drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
                                 Strategically located in Parippally, at the border of Thiruvananthapuram and Kollam districts, Kerala.
                             </p>
-                            <p className="text-[13.5px] sm:text-sm text-gray-200/90 font-normal leading-relaxed drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
+                            <p className="text-[14px] sm:text-[15px] md:text-base text-gray-100 font-medium leading-relaxed drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
                                 Flexible high-bay warehousing solutions designed to meet your business and storage requirements.
                             </p>
-                            <div className="pt-1 flex items-center gap-1.5 text-[12px] sm:text-xs font-mono font-bold tracking-wider text-brand-orange uppercase drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
+                            <div className="pt-1 sm:pt-1.5 flex items-center gap-1.5 text-[12px] sm:text-xs font-mono font-bold tracking-wider text-brand-orange uppercase drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
                                 <MapPin className="w-4 h-4 sm:w-3.5 sm:h-3.5 text-brand-orange shrink-0" />
                                 <span>PARIPPALLY | THIRUVANANTHAPURAM – KOLLAM</span>
                             </div>
