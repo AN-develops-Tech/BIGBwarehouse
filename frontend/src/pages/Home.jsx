@@ -226,10 +226,10 @@ const Home = () => {
                 </div>
 
                 {/* Hero Main Content - Left-Aligned on Large Screens, Perfectly Balanced across All Devices */}
-                <div className="relative z-10 w-full max-w-6xl xl:max-w-7xl mr-auto px-5 sm:px-6 lg:px-12 xl:px-16 pt-7 sm:pt-12 lg:pt-14 pb-6 sm:pb-6 flex-1 flex flex-col justify-center md:justify-between">
+                <div className="relative z-10 w-full max-w-6xl xl:max-w-7xl mr-auto px-5 sm:px-6 lg:px-12 xl:px-16 pt-6 sm:pt-12 lg:pt-14 pb-5 sm:pb-6 flex-1 flex flex-col justify-between">
 
                     {/* Main Headline & Narrative Block */}
-                    <div className="max-w-3xl my-auto py-4 sm:py-6">
+                    <div className="max-w-3xl my-auto py-2 sm:py-6">
                         {/* Architectural Main Heading - Responsive across all screens */}
                         <h1 className="text-[36px] sm:text-3.5xl md:text-4xl lg:text-5xl xl:text-[52px] font-black text-white uppercase tracking-tight leading-[1.06] sm:leading-[1.06] mb-3 sm:mb-3 drop-shadow-[0_2px_10px_rgba(0,0,0,0.85)]">
                             BIG<span className="text-brand-orange">B</span> <br />
@@ -275,49 +275,49 @@ const Home = () => {
                     </div>
 
                     {/* Bottom Features & Carousel Section - Left-Aligned with content boundary */}
-                    <div className="w-full max-w-5xl xl:max-w-6xl mt-6 lg:mt-8">
-                        {/* Industrial Feature Highlights Strip (Desktop & Tablet) */}
-                        <div className="hidden md:grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-4 w-full pt-4 border-t border-white/10">
-                            <div className="flex items-center gap-3 p-3 rounded-xl bg-slate-950/60 backdrop-blur-md border border-white/10 shadow-lg">
-                                <div className="w-9 h-9 rounded-lg bg-brand-orange/15 border border-brand-orange/30 flex items-center justify-center shrink-0">
-                                    <ShieldCheck className="w-5 h-5 text-brand-orange" />
+                    <div className="w-full max-w-5xl xl:max-w-6xl mt-4 sm:mt-6 lg:mt-8">
+                        {/* Industrial Feature Highlights Strip (Mobile 2x2, Tablet 2-Col, Desktop 4-Col) */}
+                        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3 lg:gap-4 w-full pt-3 sm:pt-4 border-t border-white/10">
+                            <div className="flex items-center gap-2 sm:gap-3 p-2 sm:p-3 rounded-xl bg-slate-950/60 backdrop-blur-md border border-white/10 shadow-lg">
+                                <div className="w-7 h-7 sm:w-9 sm:h-9 rounded-lg bg-brand-orange/15 border border-brand-orange/30 flex items-center justify-center shrink-0">
+                                    <ShieldCheck className="w-3.5 h-3.5 sm:w-5 sm:h-5 text-brand-orange" />
                                 </div>
                                 <div className="min-w-0">
-                                    <div className="text-xs font-mono font-bold text-white uppercase tracking-tight">BUILT FOR DURABILITY</div>
-                                    <div className="text-[11px] text-gray-300">Long-term Performance</div>
+                                    <div className="text-[10px] sm:text-xs font-mono font-bold text-white uppercase tracking-tight leading-tight">BUILT FOR DURABILITY</div>
+                                    <div className="text-[9px] sm:text-[11px] text-gray-300 leading-tight truncate">Long-term Performance</div>
                                 </div>
                             </div>
-                            <div className="flex items-center gap-3 p-3 rounded-xl bg-slate-950/60 backdrop-blur-md border border-white/10 shadow-lg">
-                                <div className="w-9 h-9 rounded-lg bg-brand-orange/15 border border-brand-orange/30 flex items-center justify-center shrink-0">
-                                    <Zap className="w-5 h-5 text-brand-orange" />
+                            <div className="flex items-center gap-2 sm:gap-3 p-2 sm:p-3 rounded-xl bg-slate-950/60 backdrop-blur-md border border-white/10 shadow-lg">
+                                <div className="w-7 h-7 sm:w-9 sm:h-9 rounded-lg bg-brand-orange/15 border border-brand-orange/30 flex items-center justify-center shrink-0">
+                                    <Zap className="w-3.5 h-3.5 sm:w-5 sm:h-5 text-brand-orange" />
                                 </div>
                                 <div className="min-w-0">
-                                    <div className="text-xs font-mono font-bold text-white uppercase tracking-tight">HIGH-BAY STORAGE</div>
-                                    <div className="text-[11px] text-gray-300">Optimised Vertical Space</div>
+                                    <div className="text-[10px] sm:text-xs font-mono font-bold text-white uppercase tracking-tight leading-tight">HIGH-BAY STORAGE</div>
+                                    <div className="text-[9px] sm:text-[11px] text-gray-300 leading-tight truncate">Optimised Vertical Space</div>
                                 </div>
                             </div>
-                            <div className="flex items-center gap-3 p-3 rounded-xl bg-slate-950/60 backdrop-blur-md border border-white/10 shadow-lg">
-                                <div className="w-9 h-9 rounded-lg bg-brand-orange/15 border border-brand-orange/30 flex items-center justify-center shrink-0">
-                                    <Layers className="w-5 h-5 text-brand-orange" />
+                            <div className="flex items-center gap-2 sm:gap-3 p-2 sm:p-3 rounded-xl bg-slate-950/60 backdrop-blur-md border border-white/10 shadow-lg">
+                                <div className="w-7 h-7 sm:w-9 sm:h-9 rounded-lg bg-brand-orange/15 border border-brand-orange/30 flex items-center justify-center shrink-0">
+                                    <Layers className="w-3.5 h-3.5 sm:w-5 sm:h-5 text-brand-orange" />
                                 </div>
                                 <div className="min-w-0">
-                                    <div className="text-xs font-mono font-bold text-white uppercase tracking-tight">OPERATIONAL EFFICIENCY</div>
-                                    <div className="text-[11px] text-gray-300">Designed for Seamless Operations</div>
+                                    <div className="text-[10px] sm:text-xs font-mono font-bold text-white uppercase tracking-tight leading-tight">OPERATIONAL EFFICIENCY</div>
+                                    <div className="text-[9px] sm:text-[11px] text-gray-300 leading-tight truncate">Designed for Seamless Operations</div>
                                 </div>
                             </div>
-                            <div className="flex items-center gap-3 p-3 rounded-xl bg-slate-950/60 backdrop-blur-md border border-white/10 shadow-lg">
-                                <div className="w-9 h-9 rounded-lg bg-brand-orange/15 border border-brand-orange/30 flex items-center justify-center shrink-0">
-                                    <Truck className="w-5 h-5 text-brand-orange" />
+                            <div className="flex items-center gap-2 sm:gap-3 p-2 sm:p-3 rounded-xl bg-slate-950/60 backdrop-blur-md border border-white/10 shadow-lg">
+                                <div className="w-7 h-7 sm:w-9 sm:h-9 rounded-lg bg-brand-orange/15 border border-brand-orange/30 flex items-center justify-center shrink-0">
+                                    <Truck className="w-3.5 h-3.5 sm:w-5 sm:h-5 text-brand-orange" />
                                 </div>
                                 <div className="min-w-0">
-                                    <div className="text-xs font-mono font-bold text-white uppercase tracking-tight">MULTI-INDUSTRY READY</div>
-                                    <div className="text-[11px] text-gray-300">Solutions Across Industries</div>
+                                    <div className="text-[10px] sm:text-xs font-mono font-bold text-white uppercase tracking-tight leading-tight">MULTI-INDUSTRY READY</div>
+                                    <div className="text-[9px] sm:text-[11px] text-gray-300 leading-tight truncate">Solutions Across Industries</div>
                                 </div>
                             </div>
                         </div>
 
                         {/* Carousel Slideshow Indicators */}
-                        <div className="flex items-center gap-2 mt-4 sm:mt-5 z-10">
+                        <div className="flex items-center gap-2 mt-3 sm:mt-5 z-10">
                             {heroSlides.map((slide, idx) => (
                                 <button
                                     key={idx}
