@@ -234,24 +234,22 @@ const Home = () => {
                         </h1>
 
                         {/* Supporting Headline */}
-                        <p className="text-sm sm:text-lg md:text-xl lg:text-2xl font-bold text-gray-100 tracking-tight mb-2 sm:mb-2.5 drop-shadow">
+                        <p className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-gray-100 tracking-tight mb-3 sm:mb-4 drop-shadow">
                             Strategically Located. Built for Business.
                         </p>
 
-                        {/* Location Indicator */}
-                        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-950/60 backdrop-blur-sm border border-white/10 text-[10px] sm:text-xs font-mono font-semibold tracking-wider text-brand-orange uppercase mb-4 sm:mb-5">
-                            <MapPin className="w-3.5 h-3.5 text-brand-orange shrink-0" />
-                            <span>PARIPPALLY | THIRUVANANTHAPURAM – KOLLAM</span>
-                        </div>
-
                         {/* Description & Additional Supporting Text */}
-                        <div className="space-y-1.5 sm:space-y-2 mb-6 sm:mb-7 max-w-2xl">
+                        <div className="space-y-2 mb-6 sm:mb-7 max-w-2xl">
                             <p className="text-sm sm:text-base text-gray-200 font-normal leading-relaxed drop-shadow-sm">
                                 Strategically located in Parippally, at the border of Thiruvananthapuram and Kollam districts, Kerala.
                             </p>
                             <p className="text-xs sm:text-sm text-gray-300 font-normal leading-relaxed drop-shadow-sm">
                                 Flexible high-bay warehousing solutions designed to meet your business and storage requirements.
                             </p>
+                            <div className="pt-1 flex items-center gap-1.5 text-[11px] sm:text-xs md:text-sm font-mono font-bold tracking-wider text-brand-orange uppercase">
+                                <MapPin className="w-3.5 h-3.5 text-brand-orange shrink-0" />
+                                <span>PARIPPALLY | THIRUVANANTHAPURAM – KOLLAM</span>
+                            </div>
                         </div>
 
                         {/* Hero Action Buttons */}
