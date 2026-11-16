@@ -270,11 +270,6 @@ const Footer = () => {
 
                     {/* Operational Status Info & Back-to-Top Button */}
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6 order-2 text-center flex-wrap">
-                        <span className="flex items-center gap-2 text-emerald-400 text-[11px]">
-                            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                            24/7 Operations Active
-                        </span>
-                        <span className="text-slate-600 hidden sm:inline">•</span>
                         <span className="text-slate-400 text-[11px]">Parippally, Kerala</span>
 
                         {/* Responsive Integrated Back-to-Top Button */}
