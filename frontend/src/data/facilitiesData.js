@@ -9,7 +9,7 @@ export const facilitiesData = [
     {
         id: 1,
         title: "High-Bay Warehouse Storage",
-        description: "Spacious heavy-duty warehouse bays with 30ft ceiling clearance, epoxy concrete flooring, and high pallet racking capacity suitable for commercial inventory.",
+        description: "Spacious heavy-duty warehouse bays with 30ft ceiling clearance and epoxy concrete flooring. Highbay system can be done at your requirement.",
         icon: "Warehouse",
         image: interiorImg,
         spec: "50,000+ SQ. FT. HIGH BAY",

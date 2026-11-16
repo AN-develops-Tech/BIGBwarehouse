@@ -9,7 +9,7 @@ const About = () => {
     const keyFacilities = [
         {
             title: "State-of-the-Art High-Bay Infrastructure",
-            description: "Spacious, high-ceiling storage designed to accommodate large-volume inventory and optimize warehouse capacity.",
+            description: "Spacious, high-ceiling storage designed to accommodate large-volume inventory and optimize warehouse capacity. Highbay system can be done at your requirement.",
             icon: Warehouse,
             stat: "50,000+ SQ. FT.",
             color: "border-orange-200 bg-orange-50 text-brand-orange"

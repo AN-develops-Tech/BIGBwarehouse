@@ -44,7 +44,7 @@ const Home = () => {
         {
             image: interiorImg,
             title: "High-Bay Steel Storage Racks",
-            subtitle: "Polished epoxy concrete aisles & electric forklift operations"
+            subtitle: "Polished epoxy concrete aisles & electric forklift operations. Highbay system can be done at your requirement."
         },
         {
             image: loadingDocksImg,
@@ -77,15 +77,15 @@ const Home = () => {
     const coreFacilities = [
         {
             title: "HIGH-BAY WAREHOUSE",
-            desc: "Spacious heavy-duty warehouse bays with high ceiling clearance suitable for pallet racking and bulk storage.",
+            desc: "Spacious heavy-duty warehouse bays with high ceiling clearance. Highbay system can be done at your requirement.",
             icon: <Warehouse className="w-9 h-9" />,
             image: interiorImg,
             stat: "50,000+ SQ. FT.",
             specs: [
+                "Highbay system can be done at your requirement",
                 "30 Ft clear vertical ceiling height",
                 "Epoxy heavy-duty load-bearing flooring",
-                "Industrial fire hydrants & safety sensors",
-                "Wide bays for forklift pallet maneuvering"
+                "Industrial fire hydrants & safety sensors"
             ]
         },
         {
@@ -239,7 +239,7 @@ const Home = () => {
                             {company?.hero_title || 'Heavy-Duty Industrial Storage & Logistics Infrastructure'}
                         </h1>
                         <p className="text-sm sm:text-base md:text-lg lg:text-xl text-gray-100 font-medium drop-shadow-sm leading-relaxed max-w-2xl">
-                            {company?.hero_subtitle || 'Equipped with high-bay clearance, 50-ton weighbridge, active loading bays, 24/7 security, and in-house labor for seamless supply chain operations.'}
+                            {company?.hero_subtitle || 'Equipped with 50-ton weighbridge, active loading bays, 24/7 security, and in-house labor for seamless supply chain operations. Highbay system can be done at your requirement.'}
                         </p>
                     </div>
 
@@ -516,7 +516,7 @@ const Home = () => {
 
                             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
                                 {[
-                                    "High-bay warehouse space",
+                                    "Highbay system can be done at your requirement",
                                     "50-Ton weighbridge scale",
                                     "24/7 Union-free loading bays",
                                     "Ample truck trailer parking",

@@ -61,7 +61,7 @@ const Gallery = () => {
                         WAREHOUSE PARK GALLERY
                     </h1>
                     <p className="text-sm sm:text-lg lg:text-xl text-slate-600 max-w-3xl mx-auto font-medium leading-relaxed px-2">
-                        Explore photorealistic visual tours of our high-bay storage bays, 50-ton weighbridge, active loading docks, and heavy trailer yard.
+                        Explore photorealistic visual tours of our warehouse storage bays, 50-ton weighbridge, active loading docks, and heavy trailer yard. Highbay system can be done at your requirement.
                     </p>
                     <div className="mt-5 sm:mt-6 h-1.5 w-20 sm:w-24 bg-brand-orange mx-auto rounded-full"></div>
                 </div>
