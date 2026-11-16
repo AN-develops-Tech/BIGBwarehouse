@@ -152,18 +152,6 @@ const Footer = () => {
                         <p className="text-slate-300 text-xs sm:text-sm leading-relaxed max-w-sm sm:max-w-xl lg:max-w-sm font-medium">
                             {company?.description || 'Modern, heavy-duty industrial storage, 50-Ton weighbridge scale, and logistics infrastructure in Parippally, Kerala.'}
                         </p>
-                        
-                        {/* Industrial Credibility Badges */}
-                        <div className="pt-2 flex flex-wrap gap-2">
-                            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-900/90 border border-slate-700/70 text-[11px] font-mono font-medium text-slate-300">
-                                <span className="w-1.5 h-1.5 rounded-full bg-brand-orange"></span>
-                                50T Weighbridge
-                            </span>
-                            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-slate-900/90 border border-slate-700/70 text-[11px] font-mono font-medium text-slate-300">
-                                <span className="w-1.5 h-1.5 rounded-full bg-brand-orange"></span>
-                                Hydra Crane
-                            </span>
-                        </div>
                     </div>
 
                     {/* Quick Links: Splits row below brand on tablet, middle column on desktop */}
