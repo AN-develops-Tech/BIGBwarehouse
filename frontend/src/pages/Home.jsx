@@ -238,15 +238,15 @@ const Home = () => {
                             Strategically Located. Built for Business.
                         </p>
 
-                        {/* Description & Additional Supporting Text */}
-                        <div className="space-y-2 mb-6 sm:mb-7 max-w-2xl">
-                            <p className="text-sm sm:text-base text-gray-200 font-normal leading-relaxed drop-shadow-sm">
+                        {/* Description & Location Panel - High Visibility Glassmorphic Scrim */}
+                        <div className="p-4 sm:p-5 rounded-xl bg-slate-950/75 sm:bg-slate-950/60 backdrop-blur-md border-l-2 sm:border-l-[3px] border-l-brand-orange border-y border-r border-white/10 shadow-xl max-w-2xl mb-6 sm:mb-7 space-y-2">
+                            <p className="text-sm sm:text-base text-white font-medium leading-relaxed drop-shadow-sm">
                                 Strategically located in Parippally, at the border of Thiruvananthapuram and Kollam districts, Kerala.
                             </p>
-                            <p className="text-xs sm:text-sm text-gray-300 font-normal leading-relaxed drop-shadow-sm">
+                            <p className="text-xs sm:text-sm text-gray-200 font-normal leading-relaxed drop-shadow-sm">
                                 Flexible high-bay warehousing solutions designed to meet your business and storage requirements.
                             </p>
-                            <div className="pt-1 flex items-center gap-1.5 text-[11px] sm:text-xs md:text-sm font-mono font-bold tracking-wider text-brand-orange uppercase">
+                            <div className="pt-2 border-t border-white/10 flex items-center gap-2 text-xs sm:text-sm font-mono font-bold tracking-wider text-brand-orange uppercase">
                                 <MapPin className="w-3.5 h-3.5 text-brand-orange shrink-0" />
                                 <span>PARIPPALLY | THIRUVANANTHAPURAM – KOLLAM</span>
                             </div>
