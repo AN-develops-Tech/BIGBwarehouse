@@ -231,8 +231,9 @@ const Home = () => {
                     {/* Main Headline & Narrative Block */}
                     <div className="max-w-3xl my-auto py-3 sm:py-6">
                         {/* Architectural Main Heading - Responsive across all screens */}
-                        <h1 className="text-[26px] sm:text-4xl md:text-5xl lg:text-6xl font-black text-white uppercase tracking-tight leading-[1.12] sm:leading-none mb-2 sm:mb-3 drop-shadow-[0_2px_8px_rgba(0,0,0,0.85)]">
-                            BIGB WAREHOUSE <span className="text-brand-orange">PARK</span>
+                        <h1 className="text-[28px] sm:text-4xl md:text-5xl lg:text-6xl font-black text-white uppercase tracking-tight leading-[1.1] sm:leading-[1.08] mb-2 sm:mb-3 drop-shadow-[0_2px_8px_rgba(0,0,0,0.85)]">
+                            BIGB <br />
+                            WAREHOUSE <span className="text-brand-orange">PARK</span>
                         </h1>
 
                         {/* Supporting Headline */}
