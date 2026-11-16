@@ -11,7 +11,7 @@ const Navbar = () => {
     const location = useLocation();
     const { company } = useCompany();
 
-    const phoneNumber = company?.phone || '+91 7909294488';
+    const phoneNumber = company?.phone || '+91 9995456882';
     const cleanPhone = phoneNumber.replace(/\s+/g, '');
 
     // Track scroll for subtle border and shadow elevation with rAF throttling for 120Hz/60Hz smooth rendering

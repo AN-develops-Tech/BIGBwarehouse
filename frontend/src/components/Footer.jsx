@@ -102,7 +102,7 @@ const Footer = () => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     };
 
-    const phoneNumber = company?.phone || '+91 7909294488';
+    const phoneNumber = company?.phone || '+91 9995456882';
     const cleanPhone = phoneNumber.replace(/\s+/g, '');
     const emailAddress = company?.email || 'contact@bigbwarehouse.com';
     const facilityAddress = company?.address || 'Ezhippuram, ESI Back Road, Parippally, Kerala 691574';

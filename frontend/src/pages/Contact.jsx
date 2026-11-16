@@ -24,7 +24,7 @@ const Contact = () => {
         setSubmitting(true);
         setError(null);
 
-        const targetPhone = company?.whatsapp?.replace(/\D/g, '') || '917909294488';
+        const targetPhone = company?.whatsapp?.replace(/\D/g, '') || '919995456882';
         const formattedMsg = `*NEW ENQUIRY - BIGB WAREHOUSE PARK*%0A%0A` +
             `👤 *Name:* ${encodeURIComponent(formData.full_name)}%0A` +
             `🏢 *Company:* ${encodeURIComponent(formData.company_name || 'N/A')}%0A` +
@@ -115,8 +115,8 @@ const Contact = () => {
                                         </div>
                                         <div>
                                             <h4 className="font-bold text-slate-900 text-sm uppercase tracking-wide">Phone Line</h4>
-                                            <a href={`tel:${(company?.phone || '+91 7909294488').replace(/\s+/g, '')}`} className="text-slate-900 font-bold mt-1 text-base hover:text-brand-orange block font-mono">
-                                                {company?.phone || '+91 7909294488'}
+                                            <a href={`tel:${(company?.phone || '+91 9995456882').replace(/\s+/g, '')}`} className="text-slate-900 font-bold mt-1 text-base hover:text-brand-orange block font-mono">
+                                                {company?.phone || '+91 9995456882'}
                                             </a>
                                             <p className="text-xs text-slate-400 mt-0.5 font-mono">Direct Facility Support</p>
                                         </div>
@@ -128,8 +128,8 @@ const Contact = () => {
                                         </div>
                                         <div>
                                             <h4 className="font-bold text-slate-900 text-sm uppercase tracking-wide">WhatsApp Desk</h4>
-                                            <a href={`https://wa.me/${(company?.whatsapp || '+91 7909294488').replace(/\D/g, '')}`} target="_blank" rel="noopener noreferrer" className="text-emerald-700 font-bold mt-1 text-base hover:underline block font-mono">
-                                                {company?.whatsapp || '+91 7909294488'}
+                                            <a href={`https://wa.me/${(company?.whatsapp || '+91 9995456882').replace(/\D/g, '')}`} target="_blank" rel="noopener noreferrer" className="text-emerald-700 font-bold mt-1 text-base hover:underline block font-mono">
+                                                {company?.whatsapp || '+91 9995456882'}
                                             </a>
                                             <p className="text-xs text-slate-400 mt-0.5 font-mono">24/7 Fast Response</p>
                                         </div>

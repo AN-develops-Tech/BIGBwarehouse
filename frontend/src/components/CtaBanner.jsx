@@ -6,7 +6,7 @@ import WhatsAppIcon from './WhatsAppIcon';
 const CtaBanner = () => {
     const { company } = useCompany();
 
-    const phoneNumber = company?.phone || '+91 7909294488';
+    const phoneNumber = company?.phone || '+91 9995456882';
     const cleanPhone = phoneNumber.replace(/\s+/g, '');
     const whatsappNumber = (company?.whatsapp || phoneNumber).replace(/\D/g, '');
 
