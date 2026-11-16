@@ -255,8 +255,8 @@ const Home = () => {
                             </div>
                         </div>
 
-                        {/* Hero Action Buttons */}
-                        <div className="w-full sm:w-auto flex flex-col sm:flex-row gap-3 sm:gap-4 items-stretch sm:items-center">
+                        {/* Hero Action Buttons - Positioned lower with comfortable separation */}
+                        <div className="w-full sm:w-auto flex flex-col sm:flex-row gap-3 sm:gap-4 items-stretch sm:items-center mt-3.5 sm:mt-4">
                             <Link
                                 to="/facilities"
                                 className="cta-light-sweep bg-brand-orange hover:bg-orange-600 text-white h-12 sm:h-12 px-6 rounded-lg font-black tracking-wider text-[13px] sm:text-sm uppercase transition-all flex items-center justify-center gap-2 shadow-xl shadow-orange-500/20 border border-orange-400/50 active:scale-[0.98]"
