@@ -222,49 +222,50 @@ const Home = () => {
                     {/* Directional Contrast Scrim: Dark on left to anchor text, completely clear on right to showcase warehouse architecture */}
                     <div className="absolute inset-0 bg-gradient-to-r from-brand-dark/90 via-brand-dark/55 to-transparent w-full pointer-events-none"></div>
                     <div className="absolute inset-0 bg-gradient-to-t from-brand-dark/85 via-transparent to-brand-dark/25 pointer-events-none"></div>
+                    <div className="md:hidden absolute inset-0 bg-brand-dark/30 pointer-events-none"></div>
                 </div>
 
-                {/* Hero Main Content */}
-                <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 pt-8 sm:pt-12 lg:pt-14 pb-5 sm:pb-6 flex-1 flex flex-col justify-between">
+                {/* Hero Main Content - Perfectly Aligned across Mobile, Tablet, and Desktop */}
+                <div className="relative z-10 w-full max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 xl:px-12 pt-7 sm:pt-12 lg:pt-14 pb-6 sm:pb-6 flex-1 flex flex-col justify-center md:justify-between">
 
                     {/* Main Headline & Narrative Block */}
-                    <div className="max-w-3xl my-auto py-4 sm:py-6">
+                    <div className="max-w-3xl my-auto py-3 sm:py-6">
                         {/* Architectural Main Heading - Responsive across all screens */}
-                        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white uppercase tracking-tight leading-tight sm:leading-none mb-2.5 sm:mb-3 drop-shadow-[0_2px_8px_rgba(0,0,0,0.85)]">
+                        <h1 className="text-[26px] sm:text-4xl md:text-5xl lg:text-6xl font-black text-white uppercase tracking-tight leading-[1.12] sm:leading-none mb-2 sm:mb-3 drop-shadow-[0_2px_8px_rgba(0,0,0,0.85)]">
                             BIGB WAREHOUSE <span className="text-brand-orange">PARK</span>
                         </h1>
 
                         {/* Supporting Headline */}
-                        <p className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-gray-100 tracking-tight mb-3 sm:mb-4 drop-shadow-[0_2px_6px_rgba(0,0,0,0.85)]">
+                        <p className="text-[14px] sm:text-lg md:text-xl lg:text-2xl font-bold text-gray-100 tracking-tight leading-snug mb-2.5 sm:mb-4 drop-shadow-[0_2px_6px_rgba(0,0,0,0.85)]">
                             Strategically Located. Built for Business.
                         </p>
 
                         {/* Description & Location */}
-                        <div className="space-y-2 mb-6 sm:mb-7 max-w-2xl">
-                            <p className="text-sm sm:text-base text-white font-medium leading-relaxed drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
+                        <div className="space-y-1.5 sm:space-y-2 mb-5 sm:mb-7 max-w-2xl">
+                            <p className="text-[13px] sm:text-base text-white/95 font-medium leading-relaxed drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
                                 Strategically located in Parippally, at the border of Thiruvananthapuram and Kollam districts, Kerala.
                             </p>
-                            <p className="text-xs sm:text-sm text-gray-200 font-normal leading-relaxed drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
+                            <p className="text-[12px] sm:text-sm text-gray-200/90 font-normal leading-relaxed drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
                                 Flexible high-bay warehousing solutions designed to meet your business and storage requirements.
                             </p>
-                            <div className="pt-1 flex items-center gap-1.5 text-xs sm:text-sm font-mono font-bold tracking-wider text-brand-orange uppercase drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
+                            <div className="pt-0.5 flex items-center gap-1.5 text-[11px] sm:text-xs font-mono font-bold tracking-wider text-brand-orange uppercase drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
                                 <MapPin className="w-3.5 h-3.5 text-brand-orange shrink-0" />
                                 <span>PARIPPALLY | THIRUVANANTHAPURAM – KOLLAM</span>
                             </div>
                         </div>
 
                         {/* Hero Action Buttons */}
-                        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-stretch sm:items-center">
+                        <div className="w-full sm:w-auto flex flex-col sm:flex-row gap-2.5 sm:gap-4 items-stretch sm:items-center">
                             <Link
                                 to="/facilities"
-                                className="cta-light-sweep bg-brand-orange hover:bg-orange-600 text-white h-12 px-7 rounded-[8px] font-black tracking-wider text-xs sm:text-sm uppercase transition-all flex items-center justify-center gap-2.5 shadow-xl shadow-orange-500/20 border border-orange-400/50 active:scale-[0.98]"
+                                className="cta-light-sweep bg-brand-orange hover:bg-orange-600 text-white h-11 sm:h-12 px-6 rounded-lg font-black tracking-wider text-xs sm:text-sm uppercase transition-all flex items-center justify-center gap-2 shadow-xl shadow-orange-500/20 border border-orange-400/50 active:scale-[0.98]"
                             >
                                 <span>EXPLORE FACILITIES</span>
                                 <ArrowRight className="w-4 h-4 shrink-0" />
                             </Link>
                             <Link
                                 to="/contact"
-                                className="bg-slate-950/80 hover:bg-slate-900/90 backdrop-blur-sm border border-white/20 hover:border-brand-orange text-white hover:text-brand-orange h-12 px-7 rounded-[8px] font-bold text-xs sm:text-sm uppercase tracking-wider transition-all flex items-center justify-center gap-2.5 shadow-xl active:scale-[0.98]"
+                                className="bg-slate-950/80 hover:bg-slate-900/90 backdrop-blur-sm border border-white/20 hover:border-brand-orange text-white hover:text-brand-orange h-11 sm:h-12 px-6 rounded-lg font-bold text-xs sm:text-sm uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-xl active:scale-[0.98]"
                             >
                                 <PhoneCall className="w-4 h-4 text-brand-orange shrink-0" />
                                 <span>CONTACT OPERATORS</span>
