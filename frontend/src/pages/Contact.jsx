@@ -19,12 +19,19 @@ const Contact = () => {
     const [error, setError] = useState(null);
     const [waLink, setWaLink] = useState(null);
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
         setSubmitting(true);
         setError(null);
 
-        const targetPhone = company?.whatsapp?.replace(/\D/g, '') || '919995456882';
+        if (formData.phone && formData.phone.length < 10) {
+            setError('Please enter a valid 10-digit contact phone number.');
+            setSubmitting(false);
+            return;
+        }
+
+        const rawWhatsapp = (company?.whatsapp || '9995456882').replace(/\D/g, '');
+        const targetPhone = rawWhatsapp.startsWith('91') ? rawWhatsapp : (rawWhatsapp.length === 10 ? `91${rawWhatsapp}` : rawWhatsapp);
         const formattedMsg = `*NEW ENQUIRY - BIGB WAREHOUSE PARK*%0A%0A` +
             `👤 *Name:* ${encodeURIComponent(formData.full_name)}%0A` +
             `🏢 *Company:* ${encodeURIComponent(formData.company_name || 'N/A')}%0A` +

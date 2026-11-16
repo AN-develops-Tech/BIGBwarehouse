@@ -32,10 +32,12 @@ const Gallery = () => {
     };
 
     const nextImage = useCallback(() => {
+        if (!filteredImages.length) return;
         setCurrentImageIndex((prev) => (prev + 1) % filteredImages.length);
     }, [filteredImages.length]);
 
     const prevImage = useCallback(() => {
+        if (!filteredImages.length) return;
         setCurrentImageIndex((prev) => (prev - 1 + filteredImages.length) % filteredImages.length);
     }, [filteredImages.length]);
 

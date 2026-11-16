@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Warehouse, Scale, ShieldCheck, Truck, ParkingCircle, Users, CheckCircle2, Maximize2, X } from 'lucide-react';
 import { facilitiesData } from '../data/facilitiesData';
 import hydraCraneImg from '../assets/images/hydra_crane.png';
@@ -12,6 +12,20 @@ const Facilities = () => {
     const facilities = facilitiesData;
     const [selectedImage, setSelectedImage] = useState(null);
     const displayFacilities = facilities;
+
+    // Accessibility: Keyboard Escape & body scroll lock for lightbox
+    useEffect(() => {
+        if (!selectedImage) return;
+        const handleKeyDown = (e) => {
+            if (e.key === 'Escape') setSelectedImage(null);
+        };
+        document.body.style.overflow = 'hidden';
+        window.addEventListener('keydown', handleKeyDown);
+        return () => {
+            document.body.style.overflow = 'unset';
+            window.removeEventListener('keydown', handleKeyDown);
+        };
+    }, [selectedImage]);
 
     return (
         <div className="bg-white text-slate-900 min-h-screen font-sans">

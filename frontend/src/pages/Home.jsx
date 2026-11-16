@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Warehouse, Scale, Truck, ParkingCircle, CheckCircle, CheckCircle2, RotateCcw, PhoneCall, Zap, ShieldCheck, Layers, Users, MapPin } from 'lucide-react';
 import { useCompany } from '../context/CompanyContext';
@@ -16,18 +16,117 @@ import parkingYardImg from '../assets/images/parking_yard.png';
 import laborOpsImg from '../assets/images/labor_ops.png';
 import hydraCraneImg from '../assets/images/hydra_crane.png';
 
+const CORE_FACILITIES = [
+    {
+        title: "HIGH-BAY WAREHOUSE",
+        desc: "Spacious heavy-duty warehouse bays with high ceiling clearance. Highbay system can be done at your requirement.",
+        icon: <Warehouse className="w-9 h-9" />,
+        image: interiorImg,
+        stat: "50,000+ SQ. FT.",
+        specs: [
+            "Highbay system can be done at your requirement",
+            "30 Ft clear vertical ceiling height",
+            "Epoxy heavy-duty load-bearing flooring",
+            "Industrial fire hydrants & safety sensors"
+        ]
+    },
+    {
+        title: "50-TON WEIGHBRIDGE",
+        desc: "In-house heavy capacity weighbridge for accurate truck gross & tare weight verification.",
+        icon: <Scale className="w-9 h-9" />,
+        image: weighbridgeImg,
+        stat: "50-TON CAPACITY",
+        specs: [
+            "50 Metric Ton max load capacity",
+            "12-Meter heavy industrial scale platform",
+            "Instant digital readout & printed slips",
+            "Govt Legal Metrology certified & calibrated"
+        ]
+    },
+    {
+        title: "HYDRA CRANE LIFTING",
+        desc: "On-site heavy mobile Hydra Crane for fast loading, unloading, and precision machinery placement.",
+        icon: <Truck className="w-9 h-9" />,
+        image: hydraCraneImg,
+        stat: "HEAVY LIFTING",
+        specs: [
+            "Heavy-duty mobile hydraulic crane on-site",
+            "Telescopic boom for precision positioning",
+            "Certified professional crane operator",
+            "Rapid turnaround for coils, sheets & machines"
+        ]
+    },
+    {
+        title: "LOADING & UNLOADING DOCKS",
+        desc: "Dedicated dock bays with hydraulic levelers and fork-lift assistance for rapid cargo turnaround.",
+        icon: <Truck className="w-9 h-9" />,
+        image: loadingDocksImg,
+        stat: "24/7 BAY ACCESS",
+        specs: [
+            "Dedicated multi-truck dock bays",
+            "Hydraulic dock levelers for seamless entry",
+            "Weather-protected canopy loading zones",
+            "Forklift & pallet truck accessibility"
+        ]
+    },
+    {
+        title: "LOGISTICS PARKING YARD",
+        desc: "Secure paved parking and trailer staging yard with wide turning radii and perimeter fencing.",
+        icon: <ParkingCircle className="w-9 h-9" />,
+        image: parkingYardImg,
+        stat: "AMPLE TRUCK BAYS",
+        specs: [
+            "Spacious paved truck staging yard",
+            "Accommodates multi-axle trailers & 18-wheelers",
+            "24/7 CCTV surveillance & perimeter lighting",
+            "Direct NH-66 highway entry & exit points"
+        ]
+    },
+];
+
+const FALLBACK_GALLERY_ITEMS = [
+    { id: 1, title: "High-Bay Pallet Racks", category: "Warehouse", image: interiorImg },
+    { id: 2, title: "50-Ton Industrial Scale", category: "Facilities", image: weighbridgeImg },
+    { id: 3, title: "Hydraulic Dock Levelers", category: "Loading", image: loadingDocksImg },
+    { id: 4, title: "Trailer Staging Yard", category: "Parking", image: parkingYardImg },
+    { id: 5, title: "Logistics Fulfillment Team", category: "Facilities", image: laborOpsImg },
+];
+
+const getFacilityIcon = (iconName) => {
+    switch (iconName?.toLowerCase()) {
+        case 'scale':
+            return <Scale className="w-9 h-9" />;
+        case 'truck':
+            return <Truck className="w-9 h-9" />;
+        case 'parkingcircle':
+        case 'parking':
+            return <ParkingCircle className="w-9 h-9" />;
+        case 'users':
+            return <Users className="w-9 h-9" />;
+        case 'zap':
+        case 'power':
+            return <Zap className="w-9 h-9" />;
+        case 'shieldcheck':
+        case 'shield':
+            return <ShieldCheck className="w-9 h-9" />;
+        case 'warehouse':
+        default:
+            return <Warehouse className="w-9 h-9" />;
+    }
+};
+
 const Home = () => {
     const { company } = useCompany();
     const [facilities] = useState(facilitiesData);
     const [gallery] = useState(galleryData);
     const [flippedCards, setFlippedCards] = useState({});
 
-    const toggleFlip = (index) => {
+    const toggleFlip = useCallback((index) => {
         setFlippedCards((prev) => (prev[index] ? {} : { [index]: true }));
-    };
+    }, []);
 
     // Hero slideshow sequence featuring official BigB Warehouse Park facilities
-    const heroSlides = [
+    const heroSlides = useMemo(() => [
         {
             image: (company?.hero_image_display && company.hero_image_display.trim()) ||
                    (company?.hero_image && company.hero_image.trim()) ||
@@ -61,7 +160,7 @@ const Home = () => {
             title: "Logistics Trailer Parking Yard",
             subtitle: "Spacious staging yard for heavy trailers and 18-wheelers"
         }
-    ];
+    ], [company]);
 
     const [currentSlide, setCurrentSlide] = useState(0);
 
@@ -74,124 +173,29 @@ const Home = () => {
 
 
 
-    const coreFacilities = [
-        {
-            title: "HIGH-BAY WAREHOUSE",
-            desc: "Spacious heavy-duty warehouse bays with high ceiling clearance. Highbay system can be done at your requirement.",
-            icon: <Warehouse className="w-9 h-9" />,
-            image: interiorImg,
-            stat: "50,000+ SQ. FT.",
-            specs: [
-                "Highbay system can be done at your requirement",
-                "30 Ft clear vertical ceiling height",
-                "Epoxy heavy-duty load-bearing flooring",
-                "Industrial fire hydrants & safety sensors"
-            ]
-        },
-        {
-            title: "50-TON WEIGHBRIDGE",
-            desc: "In-house heavy capacity weighbridge for accurate truck gross & tare weight verification.",
-            icon: <Scale className="w-9 h-9" />,
-            image: weighbridgeImg,
-            stat: "50-TON CAPACITY",
-            specs: [
-                "50 Metric Ton max load capacity",
-                "12-Meter heavy industrial scale platform",
-                "Instant digital readout & printed slips",
-                "Govt Legal Metrology certified & calibrated"
-            ]
-        },
-        {
-            title: "HYDRA CRANE LIFTING",
-            desc: "On-site heavy mobile Hydra Crane for fast loading, unloading, and precision machinery placement.",
-            icon: <Truck className="w-9 h-9" />,
-            image: hydraCraneImg,
-            stat: "HEAVY LIFTING",
-            specs: [
-                "Heavy-duty mobile hydraulic crane on-site",
-                "Telescopic boom for precision positioning",
-                "Certified professional crane operator",
-                "Rapid turnaround for coils, sheets & machines"
-            ]
-        },
-        {
-            title: "LOADING & UNLOADING DOCKS",
-            desc: "Dedicated dock bays with hydraulic levelers and fork-lift assistance for rapid cargo turnaround.",
-            icon: <Truck className="w-9 h-9" />,
-            image: loadingDocksImg,
-            stat: "24/7 BAY ACCESS",
-            specs: [
-                "Dedicated multi-truck dock bays",
-                "Hydraulic dock levelers for seamless entry",
-                "Weather-protected canopy loading zones",
-                "Forklift & pallet truck accessibility"
-            ]
-        },
-        {
-            title: "LOGISTICS PARKING YARD",
-            desc: "Secure paved parking and trailer staging yard with wide turning radii and perimeter fencing.",
-            icon: <ParkingCircle className="w-9 h-9" />,
-            image: parkingYardImg,
-            stat: "AMPLE TRUCK BAYS",
-            specs: [
-                "Spacious paved truck staging yard",
-                "Accommodates multi-axle trailers & 18-wheelers",
-                "24/7 CCTV surveillance & perimeter lighting",
-                "Direct NH-66 highway entry & exit points"
-            ]
-        },
-    ];
+    const displayGallery = useMemo(() => {
+        return gallery.length > 0 ? gallery : FALLBACK_GALLERY_ITEMS;
+    }, [gallery]);
 
-    const fallbackGalleryItems = [
-        { id: 1, title: "High-Bay Pallet Racks", category: "Warehouse", image: interiorImg },
-        { id: 2, title: "50-Ton Industrial Scale", category: "Facilities", image: weighbridgeImg },
-        { id: 3, title: "Hydraulic Dock Levelers", category: "Loading", image: loadingDocksImg },
-        { id: 4, title: "Trailer Staging Yard", category: "Parking", image: parkingYardImg },
-        { id: 5, title: "Logistics Fulfillment Team", category: "Facilities", image: laborOpsImg },
-    ];
-
-    const displayGallery = gallery.length > 0 ? gallery : fallbackGalleryItems;
-
-    const getFacilityIcon = (iconName) => {
-        switch (iconName?.toLowerCase()) {
-            case 'scale':
-                return <Scale className="w-9 h-9" />;
-            case 'truck':
-                return <Truck className="w-9 h-9" />;
-            case 'parkingcircle':
-            case 'parking':
-                return <ParkingCircle className="w-9 h-9" />;
-            case 'users':
-                return <Users className="w-9 h-9" />;
-            case 'zap':
-            case 'power':
-                return <Zap className="w-9 h-9" />;
-            case 'shieldcheck':
-            case 'shield':
-                return <ShieldCheck className="w-9 h-9" />;
-            case 'warehouse':
-            default:
-                return <Warehouse className="w-9 h-9" />;
-        }
-    };
-
-    const displayCoreFacilities = facilities.length > 0
-        ? facilities.map((fac, idx) => {
-            const fallback = coreFacilities[idx % coreFacilities.length] || coreFacilities[0];
-            return {
-                id: fac.id || idx,
-                title: fac.title,
-                desc: fac.description || fallback.desc,
-                icon: fac.icon ? getFacilityIcon(fac.icon) : fallback.icon,
-                image: (fac.image_display && fac.image_display.trim()) ||
-                       (fac.image && fac.image.trim()) ||
-                       (fac.image_url && fac.image_url.trim()) ||
-                       fallback.image,
-                stat: fac.spec || fallback.stat,
-                specs: fac.specs || fallback.specs
-            };
-        })
-        : coreFacilities;
+    const displayCoreFacilities = useMemo(() => {
+        return facilities.length > 0
+            ? facilities.map((fac, idx) => {
+                const fallback = CORE_FACILITIES[idx % CORE_FACILITIES.length] || CORE_FACILITIES[0];
+                return {
+                    id: fac.id || idx,
+                    title: fac.title,
+                    desc: fac.description || fallback.desc,
+                    icon: fac.icon ? getFacilityIcon(fac.icon) : fallback.icon,
+                    image: (fac.image_display && fac.image_display.trim()) ||
+                           (fac.image && fac.image.trim()) ||
+                           (fac.image_url && fac.image_url.trim()) ||
+                           fallback.image,
+                    stat: fac.spec || fallback.stat,
+                    specs: fac.specs || fallback.specs
+                };
+            })
+            : CORE_FACILITIES;
+    }, [facilities]);
 
     return (
         <div className="flex flex-col bg-white text-slate-900 font-sans">

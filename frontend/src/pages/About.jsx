@@ -3,46 +3,47 @@ import { useCompany } from '../context/CompanyContext';
 import { Warehouse, Scale, ShieldCheck, Truck, Users, ArrowRight, CheckCircle2 } from 'lucide-react';
 import bigbWarehouseImg from '../assets/images/bigb_warehouse.png';
 
+const KEY_FACILITIES = [
+    {
+        title: "State-of-the-Art High-Bay Infrastructure",
+        description: "Spacious, high-ceiling storage designed to accommodate large-volume inventory and optimize warehouse capacity. Highbay system can be done at your requirement.",
+        icon: Warehouse,
+        stat: "50,000+ SQ. FT.",
+        color: "border-orange-200 bg-orange-50 text-brand-orange"
+    },
+    {
+        title: "On-Site Heavy-Duty Hydra Crane",
+        description: "Convenient in-house lifting and handling support for heavy and oversized materials.",
+        icon: Truck,
+        stat: "MOBILE HYDRA CRANE",
+        color: "border-amber-200 bg-amber-50 text-amber-600"
+    },
+    {
+        title: "50-Ton Weighbridge",
+        description: "Reliable on-site weighing facility for efficient vehicle and cargo management.",
+        icon: Scale,
+        stat: "50-TON CAPACITY",
+        color: "border-blue-200 bg-blue-50 text-blue-600"
+    },
+    {
+        title: "24/7 CCTV Monitored Gated Security",
+        description: "Continuous surveillance and controlled access for enhanced protection of your goods.",
+        icon: ShieldCheck,
+        stat: "24/7 SURVEILLANCE",
+        color: "border-emerald-200 bg-emerald-50 text-emerald-600"
+    },
+    {
+        title: "Union-Free Loading Docks & In-House Labour Crew",
+        description: "Faster, organized loading and unloading supported by an in-house team, reducing operational delays and simplifying logistics.",
+        icon: Users,
+        stat: "NO UNION DELAYS",
+        color: "border-purple-200 bg-purple-50 text-purple-600"
+    }
+];
+
 const About = () => {
     const { company } = useCompany();
-
-    const keyFacilities = [
-        {
-            title: "State-of-the-Art High-Bay Infrastructure",
-            description: "Spacious, high-ceiling storage designed to accommodate large-volume inventory and optimize warehouse capacity. Highbay system can be done at your requirement.",
-            icon: Warehouse,
-            stat: "50,000+ SQ. FT.",
-            color: "border-orange-200 bg-orange-50 text-brand-orange"
-        },
-        {
-            title: "On-Site Heavy-Duty Hydra Crane",
-            description: "Convenient in-house lifting and handling support for heavy and oversized materials.",
-            icon: Truck,
-            stat: "MOBILE HYDRA CRANE",
-            color: "border-amber-200 bg-amber-50 text-amber-600"
-        },
-        {
-            title: "50-Ton Weighbridge",
-            description: "Reliable on-site weighing facility for efficient vehicle and cargo management.",
-            icon: Scale,
-            stat: "50-TON CAPACITY",
-            color: "border-blue-200 bg-blue-50 text-blue-600"
-        },
-        {
-            title: "24/7 CCTV Monitored Gated Security",
-            description: "Continuous surveillance and controlled access for enhanced protection of your goods.",
-            icon: ShieldCheck,
-            stat: "24/7 SURVEILLANCE",
-            color: "border-emerald-200 bg-emerald-50 text-emerald-600"
-        },
-        {
-            title: "Union-Free Loading Docks & In-House Labour Crew",
-            description: "Faster, organized loading and unloading supported by an in-house team, reducing operational delays and simplifying logistics.",
-            icon: Users,
-            stat: "NO UNION DELAYS",
-            color: "border-purple-200 bg-purple-50 text-purple-600"
-        }
-    ];
+    const keyFacilities = KEY_FACILITIES;
 
     return (
         <div className="bg-white text-slate-900 min-h-screen font-sans">

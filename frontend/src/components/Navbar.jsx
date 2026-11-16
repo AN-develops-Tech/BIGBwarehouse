@@ -32,10 +32,12 @@ const Navbar = () => {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
-    // Close mobile menu automatically on route change
-    useEffect(() => {
+    // Automatically close mobile menu when route changes (React-idiomatic render adjustment)
+    const [prevPath, setPrevPath] = useState(location.pathname);
+    if (prevPath !== location.pathname) {
+        setPrevPath(location.pathname);
         setIsOpen(false);
-    }, [location.pathname]);
+    }
 
     // Handle outside click & escape key
     useEffect(() => {
