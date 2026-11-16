@@ -229,44 +229,44 @@ const Home = () => {
                 <div className="relative z-10 w-full max-w-6xl xl:max-w-7xl mr-auto px-5 sm:px-6 lg:px-12 xl:px-16 pt-7 sm:pt-12 lg:pt-14 pb-6 sm:pb-6 flex-1 flex flex-col justify-center md:justify-between">
 
                     {/* Main Headline & Narrative Block */}
-                    <div className="max-w-3xl my-auto py-3 sm:py-6">
+                    <div className="max-w-3xl my-auto py-4 sm:py-6">
                         {/* Architectural Main Heading - Responsive across all screens */}
-                        <h1 className="text-[32px] sm:text-3.5xl md:text-4xl lg:text-5xl xl:text-[52px] font-black text-white uppercase tracking-tight leading-[1.08] sm:leading-[1.06] mb-2.5 sm:mb-3 drop-shadow-[0_2px_10px_rgba(0,0,0,0.85)]">
+                        <h1 className="text-[36px] sm:text-3.5xl md:text-4xl lg:text-5xl xl:text-[52px] font-black text-white uppercase tracking-tight leading-[1.06] sm:leading-[1.06] mb-3 sm:mb-3 drop-shadow-[0_2px_10px_rgba(0,0,0,0.85)]">
                             BIG<span className="text-brand-orange">B</span> <br />
                             <span className="whitespace-nowrap">WAREHOUSE <span className="text-brand-orange">PARK</span></span>
                         </h1>
 
                         {/* Supporting Headline */}
-                        <p className="text-[14px] sm:text-lg md:text-xl lg:text-2xl font-bold text-gray-100 tracking-tight leading-snug mb-2.5 sm:mb-4 drop-shadow-[0_2px_6px_rgba(0,0,0,0.85)]">
+                        <p className="text-[16px] sm:text-lg md:text-xl lg:text-2xl font-bold text-gray-100 tracking-tight leading-snug mb-3 sm:mb-4 drop-shadow-[0_2px_6px_rgba(0,0,0,0.85)]">
                             Strategically Located. Built for Business.
                         </p>
 
                         {/* Description & Location */}
-                        <div className="space-y-1.5 sm:space-y-2 mb-5 sm:mb-7 max-w-2xl">
-                            <p className="text-[13px] sm:text-base text-white/95 font-medium leading-relaxed drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
+                        <div className="space-y-2 sm:space-y-2 mb-6 sm:mb-7 max-w-2xl">
+                            <p className="text-[14.5px] sm:text-base text-white/95 font-medium leading-relaxed drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
                                 Strategically located in Parippally, at the border of Thiruvananthapuram and Kollam districts, Kerala.
                             </p>
-                            <p className="text-[12px] sm:text-sm text-gray-200/90 font-normal leading-relaxed drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
+                            <p className="text-[13.5px] sm:text-sm text-gray-200/90 font-normal leading-relaxed drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
                                 Flexible high-bay warehousing solutions designed to meet your business and storage requirements.
                             </p>
-                            <div className="pt-0.5 flex items-center gap-1.5 text-[11px] sm:text-xs font-mono font-bold tracking-wider text-brand-orange uppercase drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
-                                <MapPin className="w-3.5 h-3.5 text-brand-orange shrink-0" />
+                            <div className="pt-1 flex items-center gap-1.5 text-[12px] sm:text-xs font-mono font-bold tracking-wider text-brand-orange uppercase drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
+                                <MapPin className="w-4 h-4 sm:w-3.5 sm:h-3.5 text-brand-orange shrink-0" />
                                 <span>PARIPPALLY | THIRUVANANTHAPURAM – KOLLAM</span>
                             </div>
                         </div>
 
                         {/* Hero Action Buttons */}
-                        <div className="w-full sm:w-auto flex flex-col sm:flex-row gap-2.5 sm:gap-4 items-stretch sm:items-center">
+                        <div className="w-full sm:w-auto flex flex-col sm:flex-row gap-3 sm:gap-4 items-stretch sm:items-center">
                             <Link
                                 to="/facilities"
-                                className="cta-light-sweep bg-brand-orange hover:bg-orange-600 text-white h-11 sm:h-12 px-6 rounded-lg font-black tracking-wider text-xs sm:text-sm uppercase transition-all flex items-center justify-center gap-2 shadow-xl shadow-orange-500/20 border border-orange-400/50 active:scale-[0.98]"
+                                className="cta-light-sweep bg-brand-orange hover:bg-orange-600 text-white h-12 sm:h-12 px-6 rounded-lg font-black tracking-wider text-[13px] sm:text-sm uppercase transition-all flex items-center justify-center gap-2 shadow-xl shadow-orange-500/20 border border-orange-400/50 active:scale-[0.98]"
                             >
                                 <span>EXPLORE FACILITIES</span>
                                 <ArrowRight className="w-4 h-4 shrink-0" />
                             </Link>
                             <Link
                                 to="/contact"
-                                className="bg-slate-950/80 hover:bg-slate-900/90 backdrop-blur-sm border border-white/20 hover:border-brand-orange text-white hover:text-brand-orange h-11 sm:h-12 px-6 rounded-lg font-bold text-xs sm:text-sm uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-xl active:scale-[0.98]"
+                                className="bg-slate-950/80 hover:bg-slate-900/90 backdrop-blur-sm border border-white/20 hover:border-brand-orange text-white hover:text-brand-orange h-12 sm:h-12 px-6 rounded-lg font-bold text-[13px] sm:text-sm uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-xl active:scale-[0.98]"
                             >
                                 <PhoneCall className="w-4 h-4 text-brand-orange shrink-0" />
                                 <span>CONTACT OPERATORS</span>
