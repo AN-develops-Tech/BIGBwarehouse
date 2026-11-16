@@ -242,14 +242,18 @@ const Home = () => {
                         </p>
 
                         {/* Description & Location */}
-                        <div className="space-y-2 sm:space-y-2.5 mb-6 sm:mb-7 max-w-xl sm:max-w-2xl">
-                            <p className="text-[14px] sm:text-[15px] md:text-base text-gray-100 font-medium leading-relaxed drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
-                                Strategically located in Parippally, at the border of Thiruvananthapuram and Kollam districts, Kerala.
-                            </p>
-                            <p className="text-[14px] sm:text-[15px] md:text-base text-gray-100 font-medium leading-relaxed drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
-                                Flexible high-bay warehousing solutions designed to meet your business and storage requirements.
-                            </p>
-                            <div className="pt-1 sm:pt-1.5 flex items-center gap-1.5 text-[12px] sm:text-xs font-mono font-bold tracking-wider text-brand-orange uppercase drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
+                        <div className="mb-5 sm:mb-6 max-w-xl sm:max-w-2xl">
+                            {/* Liquid-Glassmorphism Card Container */}
+                            <div className="p-4 sm:p-5 rounded-2xl bg-gradient-to-br from-white/[0.08] via-slate-950/40 to-slate-950/60 backdrop-blur-md border border-white/15 shadow-[inset_0_1px_1px_rgba(255,255,255,0.2),0_8px_32px_rgba(0,0,0,0.37)] space-y-2 sm:space-y-2.5">
+                                <p className="text-[14px] sm:text-[15px] md:text-base text-gray-100 font-medium leading-relaxed drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+                                    Strategically located in Parippally, at the border of Thiruvananthapuram and Kollam districts, Kerala.
+                                </p>
+                                <p className="text-[14px] sm:text-[15px] md:text-base text-gray-100 font-medium leading-relaxed drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+                                    Flexible high-bay warehousing solutions designed to meet your business and storage requirements.
+                                </p>
+                            </div>
+
+                            <div className="pt-2.5 sm:pt-3 flex items-center gap-1.5 text-[12px] sm:text-xs font-mono font-bold tracking-wider text-brand-orange uppercase drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
                                 <MapPin className="w-4 h-4 sm:w-3.5 sm:h-3.5 text-brand-orange shrink-0" />
                                 <span>PARIPPALLY | THIRUVANANTHAPURAM – KOLLAM</span>
                             </div>
