@@ -197,10 +197,10 @@ const Home = () => {
         <div className="flex flex-col bg-white text-slate-900 font-sans">
 
             {/* Hero Section with Dynamic Slideshow & Industrial Visual Overlay */}
-            <section className="relative min-h-[90vh] flex flex-col justify-between bg-brand-dark overflow-hidden blueprint-grid-pattern border-b border-brand-orange/40">
+            <section className="relative min-h-[85vh] sm:min-h-[88vh] lg:min-h-[90vh] flex flex-col justify-between bg-brand-dark overflow-hidden blueprint-grid-pattern border-b border-brand-orange/40">
 
-                {/* Ken-Burns Animated Background Slideshow - 65% Opacity on Mobile, 45% on Desktop */}
-                <div className="absolute inset-0 z-0 overflow-hidden">
+                {/* Ken-Burns Animated Background Slideshow - High Visual Clarity on All Screens */}
+                <div className="absolute inset-0 z-0 overflow-hidden min-h-[540px]">
                     {heroSlides.map((slide, index) => (
                         <div
                             key={index}
@@ -213,92 +213,104 @@ const Home = () => {
                                 alt={slide.title}
                                 decoding="async"
                                 loading={index === 0 ? "eager" : "lazy"}
-                                className={`w-full h-full object-cover opacity-65 md:opacity-[0.45] ${
+                                className={`w-full h-full object-cover object-[center_35%] opacity-85 sm:opacity-75 md:opacity-55 lg:opacity-50 ${
                                     index === currentSlide ? 'animate-ken-burns' : ''
                                 }`}
                             />
                         </div>
                     ))}
-                    {/* Mobile Optimized Light Gradient Overlay for Maximum Image Visibility */}
-                    <div className="absolute inset-0 bg-gradient-to-r from-brand-dark/70 via-brand-dark/35 to-transparent w-full pointer-events-none"></div>
-                    <div className="absolute inset-0 bg-gradient-to-t from-brand-dark/75 via-transparent to-brand-dark/25 pointer-events-none"></div>
+                    {/* Balanced Overlays: Soft feathering on mobile to keep warehouse structures clearly visible; directional gradient on desktop for card readability */}
+                    <div className="hidden md:block absolute inset-0 bg-gradient-to-r from-brand-dark/90 via-brand-dark/50 to-transparent pointer-events-none"></div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-brand-dark/85 via-transparent to-brand-dark/35 pointer-events-none"></div>
+                    <div className="md:hidden absolute inset-0 bg-brand-dark/20 pointer-events-none"></div>
                 </div>
 
-                {/* Hero Main Content - Mobile View Optimized for Unobstructed Background */}
-                <div className="relative z-10 w-full px-4 sm:px-8 lg:px-12 xl:px-16 2xl:px-20 pt-6 sm:pt-16 pb-6 sm:pb-12 flex-1 flex flex-col justify-center items-start">
+                {/* Hero Main Content */}
+                <div className="relative z-10 w-full px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 pt-5 sm:pt-8 md:pt-10 lg:pt-12 pb-5 sm:pb-8 lg:pb-10 flex-1 flex flex-col justify-center items-start">
 
-                    {/* Primary Title Container - Single Organized Header */}
-                    <div className="w-full max-w-2xl lg:max-w-3xl xl:max-w-3xl bg-slate-950/90 sm:bg-slate-950/80 backdrop-blur-md p-5 sm:p-7 lg:p-9 xl:p-10 rounded-2xl border border-brand-orange/40 shadow-2xl mb-4 sm:mb-6 lg:mb-8 transition-all">
-                        <div className="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3">
-                            <div className="h-1 sm:h-1.5 w-6 sm:w-10 bg-brand-orange rounded-full"></div>
-                            <span className="text-xs sm:text-sm lg:text-base font-black tracking-widest text-brand-orange uppercase drop-shadow font-mono">
+                    {/* Compact Hero Content Card */}
+                    <div className="w-full max-w-[92%] sm:max-w-xl lg:max-w-lg xl:max-w-xl bg-slate-950/85 sm:bg-slate-950/80 backdrop-blur-md p-4 sm:p-5 md:p-6 lg:p-6 xl:p-7 rounded-2xl border border-brand-orange/40 shadow-2xl mb-3 sm:mb-4 lg:mb-5 transition-all">
+                        {/* Small orange eyebrow text */}
+                        <div className="flex items-center gap-2 mb-1.5 sm:mb-2">
+                            <div className="h-1 w-5 sm:w-6 bg-brand-orange rounded-full"></div>
+                            <span className="text-[10px] sm:text-xs font-black tracking-widest text-brand-orange uppercase drop-shadow font-mono">
                                 BIG B WAREHOUSE PARK
                             </span>
                         </div>
-                        <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-black text-white mb-2 sm:mb-3 uppercase tracking-tight sm:tracking-wider leading-tight drop-shadow-md">
+
+                        {/* Main heading */}
+                        <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-3xl xl:text-4xl font-black text-white mb-1.5 sm:mb-2 uppercase tracking-tight sm:tracking-wider leading-tight drop-shadow-md">
                             BIGB WAREHOUSE PARK
                         </h1>
-                        <h2 className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-gray-200 mb-2.5 sm:mb-3.5 tracking-tight drop-shadow-sm">
+
+                        {/* Supporting headline */}
+                        <h2 className="text-xs sm:text-sm md:text-base font-bold text-gray-200 mb-2 sm:mb-2.5 tracking-tight drop-shadow-sm">
                             Strategically Located. Built for Business.
                         </h2>
-                        <p className="text-sm sm:text-base md:text-lg text-gray-100 font-medium drop-shadow-sm leading-relaxed max-w-2xl mb-2 sm:mb-2.5">
+
+                        {/* Description */}
+                        <p className="text-xs sm:text-sm md:text-base text-gray-100 font-medium drop-shadow-sm leading-relaxed max-w-lg mb-1.5 sm:mb-2">
                             A state-of-the-art industrial warehousing and logistics hub in Parippally, strategically connecting Thiruvananthapuram and Kollam districts.
                         </p>
-                        <p className="text-xs sm:text-sm md:text-base text-gray-300 font-normal drop-shadow-sm leading-relaxed max-w-2xl mb-3 sm:mb-4">
+
+                        {/* Additional supporting text */}
+                        <p className="text-[11px] sm:text-xs md:text-sm text-gray-300 font-normal drop-shadow-sm leading-relaxed max-w-lg mb-2.5 sm:mb-3">
                             Flexible high-bay warehousing solutions designed to meet your business and storage requirements.
                         </p>
-                        <div className="pt-3 border-t border-white/10 flex items-center gap-2 text-[11px] sm:text-xs md:text-sm font-mono font-semibold tracking-wider text-brand-orange/95 uppercase">
-                            <MapPin className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-brand-orange shrink-0" />
+
+                        {/* Location highlight */}
+                        <div className="pt-2.5 sm:pt-3 border-t border-white/10 flex items-center gap-1.5 sm:gap-2 text-[10px] sm:text-xs font-mono font-semibold tracking-wider text-brand-orange/95 uppercase">
+                            <MapPin className="w-3.5 h-3.5 text-brand-orange shrink-0" />
                             <span>PARIPPALLY | THIRUVANANTHAPURAM – KOLLAM</span>
                         </div>
                     </div>
 
-                    {/* Hero Action Buttons - Identical Height, 8px Radius, 12px Vertical Spacing on Mobile */}
-                    <div className="w-full max-w-2xl lg:max-w-3xl xl:max-w-3xl flex flex-col sm:flex-row gap-3 sm:gap-4 items-stretch sm:items-center">
+                    {/* Hero Action Buttons - Responsive, no horizontal overflow */}
+                    <div className="w-full max-w-[92%] sm:max-w-xl flex flex-col min-[440px]:flex-row gap-2.5 sm:gap-3.5 items-stretch min-[440px]:items-center">
                         <Link
                             to="/facilities"
-                            className="cta-light-sweep bg-brand-orange hover:bg-orange-600 text-white h-12 sm:h-14 px-6 sm:px-8 rounded-[8px] font-black tracking-wider text-xs sm:text-sm uppercase transition-all flex items-center justify-center gap-2 sm:gap-3 shadow-xl border border-orange-400/50 active:scale-[0.98]"
+                            className="cta-light-sweep bg-brand-orange hover:bg-orange-600 text-white h-11 sm:h-12 px-5 sm:px-7 rounded-[8px] font-black tracking-wider text-xs sm:text-sm uppercase transition-all flex items-center justify-center gap-2 shadow-xl border border-orange-400/50 active:scale-[0.98] whitespace-nowrap"
                         >
                             <span>EXPLORE FACILITIES</span>
-                            <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
+                            <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
                         </Link>
                         <Link
                             to="/contact"
-                            className="bg-slate-950/80 hover:bg-slate-900/90 backdrop-blur-sm border border-gray-300/60 hover:border-brand-orange text-white hover:text-brand-orange h-12 sm:h-14 px-6 sm:px-8 rounded-[8px] font-bold text-xs sm:text-sm uppercase tracking-wider transition-all flex items-center justify-center gap-2 sm:gap-3 shadow-xl active:scale-[0.98]"
+                            className="bg-slate-950/80 hover:bg-slate-900/90 backdrop-blur-sm border border-gray-300/60 hover:border-brand-orange text-white hover:text-brand-orange h-11 sm:h-12 px-5 sm:px-7 rounded-[8px] font-bold text-xs sm:text-sm uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-xl active:scale-[0.98] whitespace-nowrap"
                         >
-                            <PhoneCall className="w-4 h-4 sm:w-5 sm:h-5 text-brand-orange" />
+                            <PhoneCall className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-brand-orange shrink-0" />
                             <span>CONTACT OPERATORS</span>
                         </Link>
                     </div>
 
-                    {/* Value Proposition Grid - Clear Readability on All Screens */}
-                    <div className="mt-5 sm:mt-7 lg:mt-9 grid grid-cols-2 md:grid-cols-4 gap-2.5 sm:gap-6 w-full max-w-2xl lg:max-w-3xl xl:max-w-3xl">
-                        <div className="bg-slate-950/80 sm:bg-transparent backdrop-blur-md sm:backdrop-blur-none p-2.5 sm:p-0 rounded-xl border border-white/10 sm:border-0 flex items-center gap-2 sm:gap-3 drop-shadow-md">
-                            <ShieldCheck className="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-brand-orange shrink-0 drop-shadow" />
-                            <div>
-                                <div className="text-[11px] sm:text-xs lg:text-sm font-mono font-bold text-white uppercase tracking-tight drop-shadow">BUILT FOR DURABILITY</div>
-                                <div className="text-[9.5px] sm:text-[10px] lg:text-xs text-slate-200 drop-shadow">Long-term Performance</div>
+                    {/* Value Proposition Highlights: 2-col on mobile/tablet, single horizontal row on desktop */}
+                    <div className="mt-5 sm:mt-7 lg:mt-9 grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-3.5 md:gap-4 lg:gap-6 w-full max-w-5xl">
+                        <div className="bg-slate-950/80 sm:bg-slate-950/70 lg:bg-transparent backdrop-blur-md lg:backdrop-blur-none p-2.5 sm:p-3 lg:p-0 rounded-xl border border-white/10 lg:border-0 flex items-center gap-2 sm:gap-2.5 lg:gap-3 drop-shadow-md min-w-0">
+                            <ShieldCheck className="w-5 h-5 sm:w-6 sm:h-6 text-brand-orange shrink-0 drop-shadow" />
+                            <div className="min-w-0 flex-1">
+                                <div className="text-[10px] sm:text-xs lg:text-xs xl:text-sm font-mono font-bold text-white uppercase tracking-tight truncate sm:whitespace-normal drop-shadow">BUILT FOR DURABILITY</div>
+                                <div className="text-[9px] sm:text-[10px] lg:text-[11px] xl:text-xs text-slate-200 leading-snug drop-shadow line-clamp-2">Long-term Performance</div>
                             </div>
                         </div>
-                        <div className="bg-slate-950/80 sm:bg-transparent backdrop-blur-md sm:backdrop-blur-none p-2.5 sm:p-0 rounded-xl border border-white/10 sm:border-0 flex items-center gap-2 sm:gap-3 drop-shadow-md">
-                            <Zap className="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-brand-orange shrink-0 drop-shadow" />
-                            <div>
-                                <div className="text-[11px] sm:text-xs lg:text-sm font-mono font-bold text-white uppercase tracking-tight drop-shadow">HIGH-BAY STORAGE</div>
-                                <div className="text-[9.5px] sm:text-[10px] lg:text-xs text-slate-200 drop-shadow">Optimised Vertical Space</div>
+                        <div className="bg-slate-950/80 sm:bg-slate-950/70 lg:bg-transparent backdrop-blur-md lg:backdrop-blur-none p-2.5 sm:p-3 lg:p-0 rounded-xl border border-white/10 lg:border-0 flex items-center gap-2 sm:gap-2.5 lg:gap-3 drop-shadow-md min-w-0">
+                            <Zap className="w-5 h-5 sm:w-6 sm:h-6 text-brand-orange shrink-0 drop-shadow" />
+                            <div className="min-w-0 flex-1">
+                                <div className="text-[10px] sm:text-xs lg:text-xs xl:text-sm font-mono font-bold text-white uppercase tracking-tight truncate sm:whitespace-normal drop-shadow">HIGH-BAY STORAGE</div>
+                                <div className="text-[9px] sm:text-[10px] lg:text-[11px] xl:text-xs text-slate-200 leading-snug drop-shadow line-clamp-2">Optimised Vertical Space</div>
                             </div>
                         </div>
-                        <div className="bg-slate-950/80 sm:bg-transparent backdrop-blur-md sm:backdrop-blur-none p-2.5 sm:p-0 rounded-xl border border-white/10 sm:border-0 flex items-center gap-2 sm:gap-3 drop-shadow-md">
-                            <Layers className="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-brand-orange shrink-0 drop-shadow" />
-                            <div>
-                                <div className="text-[11px] sm:text-xs lg:text-sm font-mono font-bold text-white uppercase tracking-tight drop-shadow">OPERATIONAL EFFICIENCY</div>
-                                <div className="text-[9.5px] sm:text-[10px] lg:text-xs text-slate-200 drop-shadow">Designed for Seamless Operations</div>
+                        <div className="bg-slate-950/80 sm:bg-slate-950/70 lg:bg-transparent backdrop-blur-md lg:backdrop-blur-none p-2.5 sm:p-3 lg:p-0 rounded-xl border border-white/10 lg:border-0 flex items-center gap-2 sm:gap-2.5 lg:gap-3 drop-shadow-md min-w-0">
+                            <Layers className="w-5 h-5 sm:w-6 sm:h-6 text-brand-orange shrink-0 drop-shadow" />
+                            <div className="min-w-0 flex-1">
+                                <div className="text-[10px] sm:text-xs lg:text-xs xl:text-sm font-mono font-bold text-white uppercase tracking-tight truncate sm:whitespace-normal drop-shadow">OPERATIONAL EFFICIENCY</div>
+                                <div className="text-[9px] sm:text-[10px] lg:text-[11px] xl:text-xs text-slate-200 leading-snug drop-shadow line-clamp-2">Designed for Seamless Operations</div>
                             </div>
                         </div>
-                        <div className="bg-slate-950/80 sm:bg-transparent backdrop-blur-md sm:backdrop-blur-none p-2.5 sm:p-0 rounded-xl border border-white/10 sm:border-0 flex items-center gap-2 sm:gap-3 drop-shadow-md">
-                            <Truck className="w-5 h-5 sm:w-6 sm:h-6 lg:w-7 lg:h-7 text-brand-orange shrink-0 drop-shadow" />
-                            <div>
-                                <div className="text-[11px] sm:text-xs lg:text-sm font-mono font-bold text-white uppercase tracking-tight drop-shadow">MULTI-INDUSTRY READY</div>
-                                <div className="text-[9.5px] sm:text-[10px] lg:text-xs text-slate-200 drop-shadow">Solutions Across Industries</div>
+                        <div className="bg-slate-950/80 sm:bg-slate-950/70 lg:bg-transparent backdrop-blur-md lg:backdrop-blur-none p-2.5 sm:p-3 lg:p-0 rounded-xl border border-white/10 lg:border-0 flex items-center gap-2 sm:gap-2.5 lg:gap-3 drop-shadow-md min-w-0">
+                            <Truck className="w-5 h-5 sm:w-6 sm:h-6 text-brand-orange shrink-0 drop-shadow" />
+                            <div className="min-w-0 flex-1">
+                                <div className="text-[10px] sm:text-xs lg:text-xs xl:text-sm font-mono font-bold text-white uppercase tracking-tight truncate sm:whitespace-normal drop-shadow">MULTI-INDUSTRY READY</div>
+                                <div className="text-[9px] sm:text-[10px] lg:text-[11px] xl:text-xs text-slate-200 leading-snug drop-shadow line-clamp-2">Solutions Across Industries</div>
                             </div>
                         </div>
                     </div>
