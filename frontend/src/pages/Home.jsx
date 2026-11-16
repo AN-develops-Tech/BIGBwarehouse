@@ -197,10 +197,10 @@ const Home = () => {
         <div className="flex flex-col bg-white text-slate-900 font-sans">
 
             {/* Hero Section with Dynamic Slideshow & Industrial Visual Overlay */}
-            <section className="relative min-h-[85vh] sm:min-h-[88vh] lg:min-h-[90vh] flex flex-col justify-between bg-brand-dark overflow-hidden blueprint-grid-pattern border-b border-brand-orange/40">
+            <section className="relative min-h-[90vh] lg:min-h-[92vh] flex flex-col justify-between bg-brand-dark overflow-hidden blueprint-grid-pattern border-b border-brand-orange/30">
 
                 {/* Ken-Burns Animated Background Slideshow - High Visual Clarity on All Screens */}
-                <div className="absolute inset-0 z-0 overflow-hidden min-h-[540px]">
+                <div className="absolute inset-0 z-0 overflow-hidden">
                     {heroSlides.map((slide, index) => (
                         <div
                             key={index}
@@ -219,104 +219,108 @@ const Home = () => {
                             />
                         </div>
                     ))}
-                    {/* Balanced Overlays: Soft feathering on mobile to keep warehouse structures clearly visible; directional gradient on desktop for card readability */}
-                    <div className="hidden md:block absolute inset-0 bg-gradient-to-r from-brand-dark/90 via-brand-dark/50 to-transparent pointer-events-none"></div>
-                    <div className="absolute inset-0 bg-gradient-to-t from-brand-dark/85 via-transparent to-brand-dark/35 pointer-events-none"></div>
-                    <div className="md:hidden absolute inset-0 bg-brand-dark/20 pointer-events-none"></div>
+                    {/* Sophisticated Dual Gradient Scrim: Darkened on the left for maximum text contrast, open on the right to showcase warehouse architecture */}
+                    <div className="absolute inset-0 bg-gradient-to-r from-brand-dark/95 via-brand-dark/80 md:via-brand-dark/60 to-brand-dark/40 md:to-transparent pointer-events-none"></div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-brand-dark/95 via-transparent to-brand-dark/40 pointer-events-none"></div>
                 </div>
 
                 {/* Hero Main Content */}
-                <div className="relative z-10 w-full px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 pt-6 sm:pt-8 md:pt-10 lg:pt-12 pb-6 sm:pb-8 lg:pb-10 flex-1 flex flex-col justify-center items-start">
+                <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 pt-8 sm:pt-12 lg:pt-16 pb-6 sm:pb-8 flex-1 flex flex-col justify-center">
 
-                    {/* Compact Hero Content Card */}
-                    <div className="w-full sm:max-w-xl lg:max-w-lg xl:max-w-xl bg-slate-950/85 sm:bg-slate-950/80 backdrop-blur-md p-4 sm:p-5 md:p-6 lg:p-6 xl:p-7 rounded-2xl border border-brand-orange/40 shadow-2xl mb-3 sm:mb-4 lg:mb-5 transition-all">
-                        {/* Small orange eyebrow text */}
-                        <div className="flex items-center gap-2 mb-1.5 sm:mb-2">
-                            <div className="h-1 w-5 sm:w-6 bg-brand-orange rounded-full"></div>
-                            <span className="text-[10px] sm:text-xs font-black tracking-widest text-brand-orange uppercase drop-shadow font-mono">
+                    <div className="max-w-3xl">
+                        {/* Status & Location Badges */}
+                        <div className="inline-flex flex-wrap items-center gap-2 sm:gap-2.5 mb-3 sm:mb-4">
+                            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-orange/15 border border-brand-orange/40 text-[11px] sm:text-xs font-mono font-bold tracking-wider text-brand-orange uppercase">
+                                <span className="w-1.5 h-1.5 rounded-full bg-brand-orange animate-pulse"></span>
                                 BIG B WAREHOUSE PARK
+                            </span>
+                            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-950/60 backdrop-blur-sm border border-white/10 text-[11px] sm:text-xs font-mono font-medium tracking-wider text-gray-300 uppercase">
+                                <MapPin className="w-3.5 h-3.5 text-brand-orange shrink-0" />
+                                PARIPPALLY | THIRUVANANTHAPURAM – KOLLAM
                             </span>
                         </div>
 
-                        {/* Main heading */}
-                        <h1 className="text-xl sm:text-2xl md:text-3xl lg:text-3xl xl:text-4xl font-black text-white mb-1.5 sm:mb-2 uppercase tracking-tight sm:tracking-wider leading-tight drop-shadow-md">
-                            BIGB WAREHOUSE PARK
+                        {/* Architectural Main Heading */}
+                        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white uppercase tracking-tight leading-none mb-2 sm:mb-3 drop-shadow-md">
+                            BIGB WAREHOUSE <span className="text-brand-orange">PARK</span>
                         </h1>
 
-                        {/* Supporting headline */}
-                        <h2 className="text-xs sm:text-sm md:text-base font-bold text-gray-200 mb-2 sm:mb-2.5 tracking-tight drop-shadow-sm">
+                        {/* Supporting Headline */}
+                        <p className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-gray-100 tracking-tight mb-3 sm:mb-4 drop-shadow">
                             Strategically Located. Built for Business.
-                        </h2>
-
-                        {/* Description */}
-                        <p className="text-xs sm:text-sm md:text-base text-gray-100 font-medium drop-shadow-sm leading-relaxed max-w-lg mb-1.5 sm:mb-2">
-                            Strategically located in Parippally, at the border of Thiruvananthapuram and Kollam districts, Kerala.
                         </p>
 
-                        {/* Additional supporting text */}
-                        <p className="text-[11px] sm:text-xs md:text-sm text-gray-300 font-normal drop-shadow-sm leading-relaxed max-w-lg mb-2.5 sm:mb-3">
-                            Flexible high-bay warehousing solutions designed to meet your business and storage requirements.
-                        </p>
+                        {/* Description & Additional Supporting Text */}
+                        <div className="space-y-1.5 sm:space-y-2 mb-6 sm:mb-7 max-w-2xl">
+                            <p className="text-sm sm:text-base text-gray-200 font-normal leading-relaxed drop-shadow-sm">
+                                Strategically located in Parippally, at the border of Thiruvananthapuram and Kollam districts, Kerala.
+                            </p>
+                            <p className="text-xs sm:text-sm text-gray-300 font-normal leading-relaxed drop-shadow-sm">
+                                Flexible high-bay warehousing solutions designed to meet your business and storage requirements.
+                            </p>
+                        </div>
 
-                        {/* Location highlight */}
-                        <div className="pt-2.5 sm:pt-3 border-t border-white/10 flex items-center gap-1.5 sm:gap-2 text-[10px] sm:text-xs font-mono font-semibold tracking-wider text-brand-orange/95 uppercase">
-                            <MapPin className="w-3.5 h-3.5 text-brand-orange shrink-0" />
-                            <span>PARIPPALLY | THIRUVANANTHAPURAM – KOLLAM</span>
+                        {/* Hero Action Buttons */}
+                        <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 items-stretch sm:items-center mb-6 sm:mb-8">
+                            <Link
+                                to="/facilities"
+                                className="cta-light-sweep bg-brand-orange hover:bg-orange-600 text-white h-12 px-7 rounded-[8px] font-black tracking-wider text-xs sm:text-sm uppercase transition-all flex items-center justify-center gap-2.5 shadow-xl shadow-orange-500/20 border border-orange-400/50 active:scale-[0.98]"
+                            >
+                                <span>EXPLORE FACILITIES</span>
+                                <ArrowRight className="w-4 h-4 shrink-0" />
+                            </Link>
+                            <Link
+                                to="/contact"
+                                className="bg-slate-950/80 hover:bg-slate-900/90 backdrop-blur-sm border border-white/20 hover:border-brand-orange text-white hover:text-brand-orange h-12 px-7 rounded-[8px] font-bold text-xs sm:text-sm uppercase tracking-wider transition-all flex items-center justify-center gap-2.5 shadow-xl active:scale-[0.98]"
+                            >
+                                <PhoneCall className="w-4 h-4 text-brand-orange shrink-0" />
+                                <span>CONTACT OPERATORS</span>
+                            </Link>
                         </div>
                     </div>
 
-                    {/* Hero Action Buttons - Responsive, no horizontal overflow */}
-                    <div className="w-full sm:max-w-xl flex flex-col min-[440px]:flex-row gap-2.5 sm:gap-3.5 items-stretch min-[440px]:items-center">
-                        <Link
-                            to="/facilities"
-                            className="cta-light-sweep bg-brand-orange hover:bg-orange-600 text-white h-11 sm:h-12 px-5 sm:px-7 rounded-[8px] font-black tracking-wider text-xs sm:text-sm uppercase transition-all flex items-center justify-center gap-2 shadow-xl border border-orange-400/50 active:scale-[0.98] whitespace-nowrap"
-                        >
-                            <span>EXPLORE FACILITIES</span>
-                            <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
-                        </Link>
-                        <Link
-                            to="/contact"
-                            className="bg-slate-950/80 hover:bg-slate-900/90 backdrop-blur-sm border border-gray-300/60 hover:border-brand-orange text-white hover:text-brand-orange h-11 sm:h-12 px-5 sm:px-7 rounded-[8px] font-bold text-xs sm:text-sm uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-xl active:scale-[0.98] whitespace-nowrap"
-                        >
-                            <PhoneCall className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-brand-orange shrink-0" />
-                            <span>CONTACT OPERATORS</span>
-                        </Link>
-                    </div>
-
-                    {/* Value Proposition Highlights: Hidden on mobile/small screens for background visibility, 2-col on tablet, single row on desktop */}
-                    <div className="hidden md:grid mt-5 sm:mt-7 lg:mt-9 grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-3.5 md:gap-4 lg:gap-6 w-full max-w-5xl">
-                        <div className="bg-slate-950/80 sm:bg-slate-950/70 lg:bg-transparent backdrop-blur-md lg:backdrop-blur-none p-2.5 sm:p-3 lg:p-0 rounded-xl border border-white/10 lg:border-0 flex items-center gap-2 sm:gap-2.5 lg:gap-3 drop-shadow-md min-w-0">
-                            <ShieldCheck className="w-5 h-5 sm:w-6 sm:h-6 text-brand-orange shrink-0 drop-shadow" />
-                            <div className="min-w-0 flex-1">
-                                <div className="text-[10px] sm:text-xs lg:text-xs xl:text-sm font-mono font-bold text-white uppercase tracking-tight truncate sm:whitespace-normal drop-shadow">BUILT FOR DURABILITY</div>
-                                <div className="text-[9px] sm:text-[10px] lg:text-[11px] xl:text-xs text-slate-200 leading-snug drop-shadow line-clamp-2">Long-term Performance</div>
+                    {/* Industrial Feature Highlights Strip (Desktop & Tablet) */}
+                    <div className="hidden md:grid grid-cols-2 lg:grid-cols-4 gap-3 lg:gap-4 w-full pt-5 border-t border-white/10 mt-auto">
+                        <div className="flex items-center gap-3 p-3 rounded-xl bg-slate-950/60 backdrop-blur-md border border-white/10 shadow-lg">
+                            <div className="w-9 h-9 rounded-lg bg-brand-orange/15 border border-brand-orange/30 flex items-center justify-center shrink-0">
+                                <ShieldCheck className="w-5 h-5 text-brand-orange" />
+                            </div>
+                            <div className="min-w-0">
+                                <div className="text-xs font-mono font-bold text-white uppercase tracking-tight">BUILT FOR DURABILITY</div>
+                                <div className="text-[11px] text-gray-300">Long-term Performance</div>
                             </div>
                         </div>
-                        <div className="bg-slate-950/80 sm:bg-slate-950/70 lg:bg-transparent backdrop-blur-md lg:backdrop-blur-none p-2.5 sm:p-3 lg:p-0 rounded-xl border border-white/10 lg:border-0 flex items-center gap-2 sm:gap-2.5 lg:gap-3 drop-shadow-md min-w-0">
-                            <Zap className="w-5 h-5 sm:w-6 sm:h-6 text-brand-orange shrink-0 drop-shadow" />
-                            <div className="min-w-0 flex-1">
-                                <div className="text-[10px] sm:text-xs lg:text-xs xl:text-sm font-mono font-bold text-white uppercase tracking-tight truncate sm:whitespace-normal drop-shadow">HIGH-BAY STORAGE</div>
-                                <div className="text-[9px] sm:text-[10px] lg:text-[11px] xl:text-xs text-slate-200 leading-snug drop-shadow line-clamp-2">Optimised Vertical Space</div>
+                        <div className="flex items-center gap-3 p-3 rounded-xl bg-slate-950/60 backdrop-blur-md border border-white/10 shadow-lg">
+                            <div className="w-9 h-9 rounded-lg bg-brand-orange/15 border border-brand-orange/30 flex items-center justify-center shrink-0">
+                                <Zap className="w-5 h-5 text-brand-orange" />
+                            </div>
+                            <div className="min-w-0">
+                                <div className="text-xs font-mono font-bold text-white uppercase tracking-tight">HIGH-BAY STORAGE</div>
+                                <div className="text-[11px] text-gray-300">Optimised Vertical Space</div>
                             </div>
                         </div>
-                        <div className="bg-slate-950/80 sm:bg-slate-950/70 lg:bg-transparent backdrop-blur-md lg:backdrop-blur-none p-2.5 sm:p-3 lg:p-0 rounded-xl border border-white/10 lg:border-0 flex items-center gap-2 sm:gap-2.5 lg:gap-3 drop-shadow-md min-w-0">
-                            <Layers className="w-5 h-5 sm:w-6 sm:h-6 text-brand-orange shrink-0 drop-shadow" />
-                            <div className="min-w-0 flex-1">
-                                <div className="text-[10px] sm:text-xs lg:text-xs xl:text-sm font-mono font-bold text-white uppercase tracking-tight truncate sm:whitespace-normal drop-shadow">OPERATIONAL EFFICIENCY</div>
-                                <div className="text-[9px] sm:text-[10px] lg:text-[11px] xl:text-xs text-slate-200 leading-snug drop-shadow line-clamp-2">Designed for Seamless Operations</div>
+                        <div className="flex items-center gap-3 p-3 rounded-xl bg-slate-950/60 backdrop-blur-md border border-white/10 shadow-lg">
+                            <div className="w-9 h-9 rounded-lg bg-brand-orange/15 border border-brand-orange/30 flex items-center justify-center shrink-0">
+                                <Layers className="w-5 h-5 text-brand-orange" />
+                            </div>
+                            <div className="min-w-0">
+                                <div className="text-xs font-mono font-bold text-white uppercase tracking-tight">OPERATIONAL EFFICIENCY</div>
+                                <div className="text-[11px] text-gray-300">Designed for Seamless Operations</div>
                             </div>
                         </div>
-                        <div className="bg-slate-950/80 sm:bg-slate-950/70 lg:bg-transparent backdrop-blur-md lg:backdrop-blur-none p-2.5 sm:p-3 lg:p-0 rounded-xl border border-white/10 lg:border-0 flex items-center gap-2 sm:gap-2.5 lg:gap-3 drop-shadow-md min-w-0">
-                            <Truck className="w-5 h-5 sm:w-6 sm:h-6 text-brand-orange shrink-0 drop-shadow" />
-                            <div className="min-w-0 flex-1">
-                                <div className="text-[10px] sm:text-xs lg:text-xs xl:text-sm font-mono font-bold text-white uppercase tracking-tight truncate sm:whitespace-normal drop-shadow">MULTI-INDUSTRY READY</div>
-                                <div className="text-[9px] sm:text-[10px] lg:text-[11px] xl:text-xs text-slate-200 leading-snug drop-shadow line-clamp-2">Solutions Across Industries</div>
+                        <div className="flex items-center gap-3 p-3 rounded-xl bg-slate-950/60 backdrop-blur-md border border-white/10 shadow-lg">
+                            <div className="w-9 h-9 rounded-lg bg-brand-orange/15 border border-brand-orange/30 flex items-center justify-center shrink-0">
+                                <Truck className="w-5 h-5 text-brand-orange" />
+                            </div>
+                            <div className="min-w-0">
+                                <div className="text-xs font-mono font-bold text-white uppercase tracking-tight">MULTI-INDUSTRY READY</div>
+                                <div className="text-[11px] text-gray-300">Solutions Across Industries</div>
                             </div>
                         </div>
                     </div>
 
-                    {/* Elegant Minimal Carousel Indicators */}
-                    <div className="mt-4 sm:mt-6 flex items-center gap-1.5 sm:gap-2 z-10">
+                    {/* Carousel Slideshow Indicators */}
+                    <div className="flex items-center gap-2 mt-4 sm:mt-5 z-10">
                         {heroSlides.map((slide, idx) => (
                             <button
                                 key={idx}
@@ -324,7 +328,7 @@ const Home = () => {
                                 aria-label={`Jump to slide ${idx + 1}: ${slide.title}`}
                                 className={`transition-all duration-300 rounded-full cursor-pointer ${
                                     idx === currentSlide
-                                        ? 'w-6 h-1.5 sm:w-7 sm:h-1.5 bg-brand-orange shadow-[0_0_10px_rgba(240,116,9,0.7)]'
+                                        ? 'w-7 h-1.5 bg-brand-orange shadow-[0_0_10px_rgba(240,116,9,0.7)]'
                                         : 'w-1.5 h-1.5 bg-white/30 hover:bg-white/60'
                                 }`}
                             />
