@@ -228,27 +228,21 @@ const Home = () => {
                 <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 xl:px-12 pt-8 sm:pt-12 lg:pt-16 pb-6 sm:pb-8 flex-1 flex flex-col justify-center">
 
                     <div className="max-w-3xl">
-                        {/* Status & Location Badges */}
-                        <div className="inline-flex flex-wrap items-center gap-2 sm:gap-2.5 mb-3 sm:mb-4">
-                            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-orange/15 border border-brand-orange/40 text-[11px] sm:text-xs font-mono font-bold tracking-wider text-brand-orange uppercase">
-                                <span className="w-1.5 h-1.5 rounded-full bg-brand-orange animate-pulse"></span>
-                                BIG B WAREHOUSE PARK
-                            </span>
-                            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-950/60 backdrop-blur-sm border border-white/10 text-[11px] sm:text-xs font-mono font-medium tracking-wider text-gray-300 uppercase">
-                                <MapPin className="w-3.5 h-3.5 text-brand-orange shrink-0" />
-                                PARIPPALLY | THIRUVANANTHAPURAM – KOLLAM
-                            </span>
-                        </div>
-
-                        {/* Architectural Main Heading */}
-                        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white uppercase tracking-tight leading-none mb-2 sm:mb-3 drop-shadow-md">
+                        {/* Architectural Main Heading - Responsive across all screens */}
+                        <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-black text-white uppercase tracking-tight leading-tight sm:leading-none mb-2 sm:mb-3 drop-shadow-md">
                             BIGB WAREHOUSE <span className="text-brand-orange">PARK</span>
                         </h1>
 
                         {/* Supporting Headline */}
-                        <p className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-gray-100 tracking-tight mb-3 sm:mb-4 drop-shadow">
+                        <p className="text-sm sm:text-lg md:text-xl lg:text-2xl font-bold text-gray-100 tracking-tight mb-2 sm:mb-2.5 drop-shadow">
                             Strategically Located. Built for Business.
                         </p>
+
+                        {/* Location Indicator */}
+                        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-950/60 backdrop-blur-sm border border-white/10 text-[10px] sm:text-xs font-mono font-semibold tracking-wider text-brand-orange uppercase mb-4 sm:mb-5">
+                            <MapPin className="w-3.5 h-3.5 text-brand-orange shrink-0" />
+                            <span>PARIPPALLY | THIRUVANANTHAPURAM – KOLLAM</span>
+                        </div>
 
                         {/* Description & Additional Supporting Text */}
                         <div className="space-y-1.5 sm:space-y-2 mb-6 sm:mb-7 max-w-2xl">
