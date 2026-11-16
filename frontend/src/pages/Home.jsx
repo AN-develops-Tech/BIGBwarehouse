@@ -250,7 +250,7 @@ const Home = () => {
 
                         {/* Description */}
                         <p className="text-xs sm:text-sm md:text-base text-gray-100 font-medium drop-shadow-sm leading-relaxed max-w-lg mb-1.5 sm:mb-2">
-                            A state-of-the-art industrial warehousing and logistics hub in Parippally, strategically connecting Thiruvananthapuram and Kollam districts.
+                            Strategically located in Parippally, at the border of Thiruvananthapuram and Kollam districts, Kerala.
                         </p>
 
                         {/* Additional supporting text */}
