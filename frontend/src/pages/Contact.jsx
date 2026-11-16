@@ -134,7 +134,7 @@ const Contact = () => {
                                             <WhatsAppIcon className="w-5 h-5 text-[#25D366]" />
                                         </div>
                                         <div>
-                                            <h4 className="font-bold text-slate-900 text-sm uppercase tracking-wide">WhatsApp Desk</h4>
+                                            <h4 className="font-bold text-slate-900 text-sm uppercase tracking-wide">WhatsApp</h4>
                                             <a href={`https://wa.me/${(company?.whatsapp || '+91 9995456882').replace(/\D/g, '')}`} target="_blank" rel="noopener noreferrer" className="text-emerald-700 font-bold mt-1 text-base hover:underline block font-mono">
                                                 {company?.whatsapp || '+91 9995456882'}
                                             </a>
@@ -278,7 +278,7 @@ const Contact = () => {
                                             required
                                             className="w-full px-4 py-3.5 rounded-xl border border-slate-200 focus:ring-2 focus:ring-brand-orange/20 focus:border-brand-orange outline-none transition-all font-mono text-sm bg-slate-50 focus:bg-white"
                                         />
-                                
+
                                     </div>
                                 </div>
 
