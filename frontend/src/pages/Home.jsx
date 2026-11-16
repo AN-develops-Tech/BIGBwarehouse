@@ -226,10 +226,10 @@ const Home = () => {
                 </div>
 
                 {/* Hero Main Content */}
-                <div className="relative z-10 w-full px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 pt-5 sm:pt-8 md:pt-10 lg:pt-12 pb-5 sm:pb-8 lg:pb-10 flex-1 flex flex-col justify-center items-start">
+                <div className="relative z-10 w-full px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16 pt-6 sm:pt-8 md:pt-10 lg:pt-12 pb-6 sm:pb-8 lg:pb-10 flex-1 flex flex-col justify-center items-start">
 
                     {/* Compact Hero Content Card */}
-                    <div className="w-full max-w-[92%] sm:max-w-xl lg:max-w-lg xl:max-w-xl bg-slate-950/85 sm:bg-slate-950/80 backdrop-blur-md p-4 sm:p-5 md:p-6 lg:p-6 xl:p-7 rounded-2xl border border-brand-orange/40 shadow-2xl mb-3 sm:mb-4 lg:mb-5 transition-all">
+                    <div className="w-full sm:max-w-xl lg:max-w-lg xl:max-w-xl bg-slate-950/85 sm:bg-slate-950/80 backdrop-blur-md p-4 sm:p-5 md:p-6 lg:p-6 xl:p-7 rounded-2xl border border-brand-orange/40 shadow-2xl mb-3 sm:mb-4 lg:mb-5 transition-all">
                         {/* Small orange eyebrow text */}
                         <div className="flex items-center gap-2 mb-1.5 sm:mb-2">
                             <div className="h-1 w-5 sm:w-6 bg-brand-orange rounded-full"></div>
@@ -266,7 +266,7 @@ const Home = () => {
                     </div>
 
                     {/* Hero Action Buttons - Responsive, no horizontal overflow */}
-                    <div className="w-full max-w-[92%] sm:max-w-xl flex flex-col min-[440px]:flex-row gap-2.5 sm:gap-3.5 items-stretch min-[440px]:items-center">
+                    <div className="w-full sm:max-w-xl flex flex-col min-[440px]:flex-row gap-2.5 sm:gap-3.5 items-stretch min-[440px]:items-center">
                         <Link
                             to="/facilities"
                             className="cta-light-sweep bg-brand-orange hover:bg-orange-600 text-white h-11 sm:h-12 px-5 sm:px-7 rounded-[8px] font-black tracking-wider text-xs sm:text-sm uppercase transition-all flex items-center justify-center gap-2 shadow-xl border border-orange-400/50 active:scale-[0.98] whitespace-nowrap"
@@ -283,8 +283,8 @@ const Home = () => {
                         </Link>
                     </div>
 
-                    {/* Value Proposition Highlights: 2-col on mobile/tablet, single horizontal row on desktop */}
-                    <div className="mt-5 sm:mt-7 lg:mt-9 grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-3.5 md:gap-4 lg:gap-6 w-full max-w-5xl">
+                    {/* Value Proposition Highlights: Hidden on mobile/small screens for background visibility, 2-col on tablet, single row on desktop */}
+                    <div className="hidden md:grid mt-5 sm:mt-7 lg:mt-9 grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-3.5 md:gap-4 lg:gap-6 w-full max-w-5xl">
                         <div className="bg-slate-950/80 sm:bg-slate-950/70 lg:bg-transparent backdrop-blur-md lg:backdrop-blur-none p-2.5 sm:p-3 lg:p-0 rounded-xl border border-white/10 lg:border-0 flex items-center gap-2 sm:gap-2.5 lg:gap-3 drop-shadow-md min-w-0">
                             <ShieldCheck className="w-5 h-5 sm:w-6 sm:h-6 text-brand-orange shrink-0 drop-shadow" />
                             <div className="min-w-0 flex-1">
