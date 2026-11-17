@@ -56,7 +56,7 @@ export const facilitiesData = [
     {
         id: 3,
         title: "Union-Free Loading & Unloading",
-        description: "100% union-interference-free operations. Enjoy smooth, uninterrupted 24/7 dock loading and unloading without external labor disputes or operational halts.",
+        description: "100% union-interference-free operations. Enjoy smooth, uninterrupted 24/7 dock loading and unloading without external labour disputes or operational halts.",
         icon: "ShieldCheck",
         image: loadingDocks1024,
         image640: loadingDocks640,
@@ -85,8 +85,8 @@ export const facilitiesData = [
     },
     {
         id: 5,
-        title: "In-House Labors",
-        description: "Dedicated trained in-house labor workforce available for rapid cargo handling, loading & unloading, and inventory stacking.",
+        title: "In-House Labour",
+        description: "Dedicated trained in-house labour workforce available for rapid cargo handling, loading & unloading, and inventory stacking.",
         icon: "Users",
         image: laborOps1024,
         image640: laborOps640,
@@ -95,7 +95,7 @@ export const facilitiesData = [
         srcSet: `${laborOps640} 640w, ${laborOps1024} 1024w, ${laborOps1600} 1600w`,
         width: 1024,
         height: 1024,
-        spec: "IN-HOUSE LABORS",
+        spec: "IN-HOUSE LABOUR",
         badgeColor: "bg-purple-100 text-purple-800 border-purple-200"
     },
     {

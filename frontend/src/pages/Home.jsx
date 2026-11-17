@@ -441,7 +441,7 @@ const Home = () => {
                         </span>
                         <span className="text-gray-400">•</span>
                         <span className="inline-flex items-center gap-2 text-white font-bold">
-                            <Layers className="w-4 h-4 text-brand-orange" /> IN-HOUSE LABORS SUPPORT
+                            <Layers className="w-4 h-4 text-brand-orange" /> IN-HOUSE LABOUR SUPPORT
                         </span>
                         <span className="text-gray-400">•</span>
                         {/* Duplicate for infinite ticker loop */}
@@ -641,7 +641,7 @@ const Home = () => {
                                     "50-Ton weighbridge scale",
                                     "24/7 Union-free loading bays",
                                     "Ample truck trailer parking",
-                                    "In-house labors",
+                                    "In-house labour",
                                     "On-site Hydra Crane lifting",
                                     "24/7 CCTV & gated security",
                                     "Direct highway connectivity"

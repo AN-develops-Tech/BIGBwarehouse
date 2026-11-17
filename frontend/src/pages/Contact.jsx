@@ -349,7 +349,7 @@ const Contact = () => {
                                         <option value="High-Bay Warehouse Space">High-Bay Warehouse Space</option>
                                         <option value="50-Ton Weighbridge">50-Ton Weighbridge Scale Usage</option>
                                         <option value="Hydra Crane Heavy Lifting">Hydra Crane Heavy Lifting Support</option>
-                                        <option value="Loading Docks & Labor">Union-Free Loading Docks & Labor</option>
+                                        <option value="Loading Docks & Labour">Union-Free Loading Docks & Labour</option>
                                         <option value="Truck Parking Yard">Heavy Truck & Trailer Parking Yard</option>
                                         <option value="Other">Custom Commercial Logistics Enquiry</option>
                                     </select>

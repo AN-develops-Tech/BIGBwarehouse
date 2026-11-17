@@ -83,7 +83,7 @@ const Facilities = () => {
                         FACILITIES & ADVANTAGES
                     </h1>
                     <p className="text-base sm:text-xl text-slate-600 max-w-3xl mx-auto font-medium leading-relaxed">
-                        Engineered for maximum supply chain efficiency with on-site Hydra Crane heavy lifting, 50-ton weighbridge, union-free loading docks, and in-house labor workforce.
+                        Engineered for maximum supply chain efficiency with on-site Hydra Crane heavy lifting, 50-ton weighbridge, union-free loading docks, and in-house labour workforce.
                     </p>
                     <div className="mt-6 h-1.5 w-24 bg-brand-orange mx-auto rounded-full"></div>
                 </div>
@@ -110,7 +110,7 @@ const Facilities = () => {
                         </div>
                         <div className="p-4 bg-slate-50 rounded-xl border border-slate-200/80 flex flex-col items-center hover:bg-slate-100 transition-colors">
                             <Users className="w-7 h-7 text-purple-600 mb-2" />
-                            <span className="font-black text-sm uppercase text-slate-900">IN-HOUSE LABORS</span>
+                            <span className="font-black text-sm uppercase text-slate-900">IN-HOUSE LABOUR</span>
                             <span className="text-xs text-gray-500 mt-0.5">Trained Crew Workforce</span>
                         </div>
                     </div>
