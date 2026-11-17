@@ -206,38 +206,5 @@ img {
   min-height: 0;
 }
 
-/* Prefers Reduced Motion Accessibility - Instant/Static States */
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
 
-  .animate-ken-burns {
-    animation: none !important;
-    transform: none !important;
-  }
-
-  .animate-ticker {
-    animation: none !important;
-    transform: none !important;
-  }
-
-  .transform-style-preserve-3d {
-    transition: none !important;
-  }
-
-  .cta-light-sweep::after {
-    display: none !important;
-  }
-
-  .animate-fade-in,
-  .animate-ios-pop {
-    animation: none !important;
-  }
-}
 
