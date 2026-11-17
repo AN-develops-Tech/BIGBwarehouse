@@ -423,7 +423,7 @@ const Home = () => {
 
                 {/* Live Industrial Metrics Ticker with Clean High-Performance Dark Header */}
                 <div className="relative z-10 bg-[#070b12]/95 border-t border-white/10 overflow-hidden py-3 sm:py-3.5 text-xs font-mono tracking-wider uppercase text-white">
-                    <div className="animate-ticker space-x-12 items-center justify-center">
+                    <div className="animate-ticker space-x-12 items-center">
                         <span className="inline-flex items-center gap-2 text-white font-bold">
                             <Zap className="w-4 h-4 text-brand-orange" /> 50,000+ SQ. FT. HIGH-BAY STORAGE
                         </span>

@@ -116,8 +116,10 @@ img {
   will-change: transform;
 }
 
-.animate-ticker:hover {
-  animation-play-state: paused;
+@media (hover: hover) and (pointer: fine) {
+  .animate-ticker:hover {
+    animation-play-state: paused;
+  }
 }
 
 /* Industrial Blueprint Grid Pattern */
