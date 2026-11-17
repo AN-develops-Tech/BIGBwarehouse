@@ -5,6 +5,8 @@
     "dev": "npm --prefix frontend run dev",
     "build": "npm --prefix frontend run build",
     "lint": "npm --prefix frontend run lint",
-    "preview": "npm --prefix frontend run preview"
+    "preview": "npm --prefix frontend run preview",
+    "snapshot": "npm --prefix frontend run snapshot",
+    "compare": "npm --prefix frontend run compare"
   }
 }

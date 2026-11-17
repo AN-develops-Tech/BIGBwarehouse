@@ -10,6 +10,13 @@ lerna-debug.log*
 node_modules
 dist
 dist-ssr
+dist-server
+.refactor
+.refactor/
+robots.txt
+sitemap.xml
+public/robots.txt
+public/sitemap.xml
 *.local
 
 # Editor directories and files
@@ -22,6 +29,8 @@ dist-ssr
 *.njsproj
 *.sln
 .env
+.env.*
+!.env.example
 
 *.sw?
 

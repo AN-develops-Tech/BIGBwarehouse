@@ -1,7 +1,9 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { X, ZoomIn, ChevronLeft, ChevronRight } from 'lucide-react';
 import { galleryData } from '../data/galleryData';
-import heroImg from '../assets/images/hero.png';
+import SEO from '../components/SEO';
+import bigbWarehouse640 from '../assets/images/bigb_warehouse-640.webp';
+import bigbWarehouse1600 from '../assets/images/bigb_warehouse-1600.webp';
 
 const Gallery = () => {
     const images = galleryData;
@@ -9,20 +11,16 @@ const Gallery = () => {
     const [lightboxOpen, setLightboxOpen] = useState(false);
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-    useEffect(() => {
-        if (lightboxOpen) {
-            document.body.style.overflow = 'hidden';
-            return () => {
-                document.body.style.overflow = 'unset';
-            };
-        }
-    }, [lightboxOpen]);
+    const openerRef = useRef(null);
+    const closeBtnRef = useRef(null);
+    const dialogRef = useRef(null);
 
     const displayImages = images;
     const categories = ['All', ...new Set(displayImages.map(img => img.category))];
     const filteredImages = filter === 'All' ? displayImages : displayImages.filter(img => img.category === filter);
 
-    const openLightbox = (index) => {
+    const openLightbox = (index, triggerEl) => {
+        openerRef.current = triggerEl || document.activeElement;
         setCurrentImageIndex(index);
         setLightboxOpen(true);
     };
@@ -41,21 +39,62 @@ const Gallery = () => {
         setCurrentImageIndex((prev) => (prev - 1 + filteredImages.length) % filteredImages.length);
     }, [filteredImages.length]);
 
-    // Keyboard navigation (Arrow keys + Escape)
+    // Accessibility: Keyboard navigation (Arrow keys + Escape + Tab trap + focus return)
     useEffect(() => {
+        if (!lightboxOpen) return;
+
+        document.body.style.overflow = 'hidden';
+        closeBtnRef.current?.focus();
+
         const handleKeyDown = (e) => {
-            if (!lightboxOpen) return;
-            if (e.key === 'Escape') closeLightbox();
-            if (e.key === 'ArrowRight') nextImage();
-            if (e.key === 'ArrowLeft') prevImage();
+            if (e.key === 'Escape') {
+                e.preventDefault();
+                closeLightbox();
+                return;
+            }
+            if (e.key === 'ArrowRight') {
+                e.preventDefault();
+                nextImage();
+                return;
+            }
+            if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                prevImage();
+                return;
+            }
+            if (e.key === 'Tab' && dialogRef.current) {
+                const focusables = dialogRef.current.querySelectorAll(
+                    'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+                );
+                if (focusables.length === 0) return;
+                const firstEl = focusables[0];
+                const lastEl = focusables[focusables.length - 1];
+
+                if (e.shiftKey) {
+                    if (document.activeElement === firstEl) {
+                        e.preventDefault();
+                        lastEl.focus();
+                    }
+                } else {
+                    if (document.activeElement === lastEl) {
+                        e.preventDefault();
+                        firstEl.focus();
+                    }
+                }
+            }
         };
 
         window.addEventListener('keydown', handleKeyDown);
-        return () => window.removeEventListener('keydown', handleKeyDown);
+        return () => {
+            document.body.style.overflow = 'unset';
+            window.removeEventListener('keydown', handleKeyDown);
+            openerRef.current?.focus();
+        };
     }, [lightboxOpen, nextImage, prevImage]);
 
     return (
         <div className="bg-white text-slate-900 min-h-screen font-sans selection:bg-brand-orange selection:text-white">
+            <SEO routeKey="/gallery" />
             {/* Unified Modern Header Banner */}
             <div className="relative py-16 sm:py-20 bg-slate-50 border-b border-slate-200 overflow-hidden blueprint-grid-pattern text-center">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -98,23 +137,38 @@ const Gallery = () => {
                 {/* Photo Grid - Perfectly Aligned, Responsive on all Screens */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 lg:gap-8">
                     {filteredImages.map((img, index) => {
-                        const imgSource = (img.image_display && img.image_display.trim()) ||
+                        const imgThumb = img.thumb || img.image640 ||
+                            (img.image_display && img.image_display.trim()) ||
                             (img.image && img.image.trim()) ||
                             (img.image_url && img.image_url.trim()) ||
-                            heroImg;
+                            bigbWarehouse640;
 
                         return (
                             <div
                                 key={img.id || index}
-                                onClick={() => openLightbox(index)}
-                                className="group bg-white rounded-2xl sm:rounded-3xl overflow-hidden border border-slate-200 hover:border-brand-orange/60 shadow-xs hover:shadow-xl transition-all duration-300 cursor-pointer flex flex-col justify-between h-full hover:-translate-y-1.5"
+                                role="button"
+                                tabIndex={0}
+                                aria-label={`View photo ${index + 1}: ${img.title}`}
+                                onClick={(e) => openLightbox(index, e.currentTarget)}
+                                onKeyDown={(e) => {
+                                    if (e.key === 'Enter' || e.key === ' ') {
+                                        e.preventDefault();
+                                        openLightbox(index, e.currentTarget);
+                                    }
+                                }}
+                                className="group bg-white rounded-2xl sm:rounded-3xl overflow-hidden border border-slate-200 hover:border-brand-orange/60 shadow-xs hover:shadow-xl transition-all duration-300 cursor-pointer flex flex-col justify-between h-full hover:-translate-y-1.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange"
                             >
                                 {/* Image Container with Crisp 16:10 Aspect Ratio */}
                                 <div className="relative aspect-[16/10] sm:aspect-[4/3] w-full bg-slate-100 overflow-hidden shrink-0">
                                     <img
-                                        src={imgSource}
+                                        src={imgThumb}
+                                        srcSet={img.srcSet || `${imgThumb} 640w`}
+                                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                                        width={img.width || 1024}
+                                        height={img.height || 1024}
                                         alt={img.title}
                                         loading="lazy"
+                                        decoding="async"
                                         className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-108"
                                     />
                                     {/* Subtle gradient for contrast */}
@@ -175,6 +229,10 @@ const Gallery = () => {
             {/* Lightbox Modal with Full Keyboard & Arrow Navigation */}
             {lightboxOpen && filteredImages[currentImageIndex] && (
                 <div 
+                    ref={dialogRef}
+                    role="dialog"
+                    aria-modal="true"
+                    aria-label={`${filteredImages[currentImageIndex]?.title || 'Gallery image'} lightbox`}
                     className="fixed inset-0 z-[100] bg-slate-950/95 backdrop-blur-md flex items-center justify-center p-3 sm:p-6 overflow-y-auto animate-fade-in"
                     onClick={(e) => {
                         if (e.target === e.currentTarget) closeLightbox();
@@ -182,9 +240,12 @@ const Gallery = () => {
                 >
                     {/* Close Button */}
                     <button
+                        ref={closeBtnRef}
+                        type="button"
                         onClick={closeLightbox}
                         className="fixed top-4 right-4 sm:top-6 sm:right-6 text-slate-300 hover:text-white p-2.5 rounded-full bg-slate-900/90 hover:bg-brand-orange transition-all z-30 cursor-pointer shadow-lg active:scale-95"
                         title="Close lightbox (Esc)"
+                        aria-label="Close lightbox"
                     >
                         <X className="w-6 h-6" />
                     </button>
@@ -192,12 +253,14 @@ const Gallery = () => {
                     {/* Previous Button */}
                     {filteredImages.length > 1 && (
                         <button
+                            type="button"
                             onClick={(e) => {
                                 e.stopPropagation();
                                 prevImage();
                             }}
                             className="fixed left-2 sm:left-6 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-slate-900/80 hover:bg-brand-orange text-white flex items-center justify-center transition-all z-30 cursor-pointer shadow-lg active:scale-90"
                             title="Previous image (Left Arrow)"
+                            aria-label="Previous image"
                         >
                             <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
                         </button>
@@ -206,12 +269,14 @@ const Gallery = () => {
                     {/* Next Button */}
                     {filteredImages.length > 1 && (
                         <button
+                            type="button"
                             onClick={(e) => {
                                 e.stopPropagation();
                                 nextImage();
                             }}
                             className="fixed right-2 sm:right-6 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-slate-900/80 hover:bg-brand-orange text-white flex items-center justify-center transition-all z-30 cursor-pointer shadow-lg active:scale-90"
                             title="Next image (Right Arrow)"
+                            aria-label="Next image"
                         >
                             <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
                         </button>
@@ -221,12 +286,17 @@ const Gallery = () => {
                         <div className="relative max-h-[60vh] sm:max-h-[70vh] flex items-center justify-center w-full">
                             <img
                                 src={
+                                    filteredImages[currentImageIndex].full ||
+                                    filteredImages[currentImageIndex].image1600 ||
                                     (filteredImages[currentImageIndex].image_display && filteredImages[currentImageIndex].image_display.trim()) ||
                                     (filteredImages[currentImageIndex].image && filteredImages[currentImageIndex].image.trim()) ||
                                     (filteredImages[currentImageIndex].image_url && filteredImages[currentImageIndex].image_url.trim()) ||
-                                    heroImg
+                                    bigbWarehouse1600
                                 }
+                                width={filteredImages[currentImageIndex].width || 1024}
+                                height={filteredImages[currentImageIndex].height || 1024}
                                 alt={filteredImages[currentImageIndex].title}
+                                decoding="async"
                                 className="max-h-[60vh] sm:max-h-[70vh] max-w-full object-contain rounded-2xl shadow-2xl border border-slate-800"
                             />
                         </div>

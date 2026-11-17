@@ -3,7 +3,9 @@ import { Link } from 'react-router-dom';
 import { Phone, Mail, MapPin, ArrowUp } from 'lucide-react';
 import { useCompany } from '../context/CompanyContext';
 import Logo from './Logo';
-import footerMapBgImg from '../assets/images/footer_map_bg.jpg';
+import footerMapBg640 from '../assets/images/footer_map_bg-640.webp';
+import footerMapBg1024 from '../assets/images/footer_map_bg-1024.webp';
+import footerMapBg1600 from '../assets/images/footer_map_bg-1600.webp';
 
 const Footer = () => {
     const { company } = useCompany();
@@ -16,6 +18,14 @@ const Footer = () => {
     const isRunningRef = useRef(false);
 
     useEffect(() => {
+        const motionQuery = typeof window !== 'undefined' && window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
+        if (motionQuery && motionQuery.matches) {
+            if (curveRef.current) {
+                curveRef.current.style.height = '56px';
+            }
+            return;
+        }
+
         const updateHeight = (progress) => {
             if (curveRef.current) {
                 curveRef.current.style.height = `${(progress * 56).toFixed(2)}px`;
@@ -104,7 +114,7 @@ const Footer = () => {
 
     const phoneNumber = company?.phone || '+91 9995456882';
     const cleanPhone = phoneNumber.replace(/\s+/g, '');
-    const emailAddress = company?.email || 'contact@bigbwarehouse.com';
+    const emailAddress = company?.email || 'bigbwarehousepark26@gmail.com';
     const facilityAddress = company?.address || 'Ezhippuram, ESI Back Road, Parippally, Kerala 691574';
 
     return (
@@ -131,10 +141,17 @@ const Footer = () => {
             </div>
             
             {/* Aerial Satellite Map Background with Vignette Gradient Overlay */}
-            <div className="absolute inset-0 opacity-25 pointer-events-none overflow-hidden select-none z-0">
+            <div className="absolute inset-0 opacity-25 pointer-events-none overflow-hidden select-none z-0" aria-hidden="true">
                 <img
-                    src={footerMapBgImg}
-                    alt="Big B Traders Location Map"
+                    src={footerMapBg1024}
+                    srcSet={`${footerMapBg640} 640w, ${footerMapBg1024} 1024w, ${footerMapBg1600} 1600w`}
+                    sizes="100vw"
+                    width="1024"
+                    height="449"
+                    loading="lazy"
+                    decoding="async"
+                    alt=""
+                    aria-hidden="true"
                     className="w-full h-full object-cover filter contrast-125 brightness-75 mix-blend-luminosity"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#050b14] via-[#050b14]/85 to-[#050b14]/90"></div>
@@ -251,10 +268,19 @@ const Footer = () => {
             {/* Bottom Bar: Auto-wrapping, sequentially center-stacked on mobile */}
             <div className="border-t border-slate-800/80 relative z-10 bg-[#03060c]/90 backdrop-blur-sm">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col md:flex-row items-center justify-between gap-4 text-xs font-mono tracking-wider text-slate-400 flex-wrap">
-                    {/* Copyright Line */}
-                    <p className="text-center md:text-left order-1">
-                        &copy; {new Date().getFullYear()} <span className="font-bold text-slate-300">BIGB WAREHOUSE PARK</span>. All Rights Reserved.
-                    </p>
+                    {/* Copyright & Legal Identity */}
+                    <div className="text-center md:text-left order-1 space-y-1">
+                        <p>
+                            &copy; {new Date().getFullYear()} <span className="font-bold text-slate-300">
+                                {company?.legalName && company.legalName.trim() !== '' ? company.legalName.trim() : 'BIGB WAREHOUSE PARK'}
+                            </span>. All Rights Reserved.
+                            {company?.gstin && company.gstin.trim() !== '' && (
+                                <span className="ml-2 pl-2 border-l border-slate-700 text-slate-400">
+                                    GSTIN: {company.gstin.trim()}
+                                </span>
+                            )}
+                        </p>
+                    </div>
 
                     {/* Operational Status Info & Back-to-Top Button */}
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6 order-2 text-center flex-wrap">
@@ -262,9 +288,11 @@ const Footer = () => {
 
                         {/* Responsive Integrated Back-to-Top Button */}
                         <button
+                            type="button"
                             onClick={scrollToTop}
                             className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700/80 hover:border-brand-orange text-slate-300 hover:text-brand-orange text-xs font-mono font-semibold transition-all cursor-pointer group active:scale-95 mt-1 sm:mt-0"
                             title="Back to Top"
+                            aria-label="Back to top"
                         >
                             <span>Top</span>
                             <ArrowUp className="w-3.5 h-3.5 text-brand-orange group-hover:-translate-y-0.5 transition-transform" />

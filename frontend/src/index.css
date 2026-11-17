@@ -179,10 +179,9 @@ img {
   -webkit-transform: rotateY(180deg);
 }
 
-/* Mobile-Grade Scroll Containment (Prevents GPU VRAM tile eviction on rapid scroll) */
+/* Mobile-Grade Scroll Containment */
 .section-contain {
-  content-visibility: auto;
-  contain-intrinsic-size: 1px 700px;
+  contain: paint;
 }
 
 /* 120fps Mobile Drawer Collapse (No max-height layout lag) */
@@ -190,6 +189,7 @@ img {
   display: grid;
   grid-template-rows: 0fr;
   opacity: 0;
+  overflow: hidden;
   transition: grid-template-rows 200ms cubic-bezier(0.16, 1, 0.3, 1), opacity 160ms ease-out;
   pointer-events: none;
   will-change: grid-template-rows, opacity;
@@ -205,3 +205,39 @@ img {
   overflow: hidden;
   min-height: 0;
 }
+
+/* Prefers Reduced Motion Accessibility - Instant/Static States */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .animate-ken-burns {
+    animation: none !important;
+    transform: none !important;
+  }
+
+  .animate-ticker {
+    animation: none !important;
+    transform: none !important;
+  }
+
+  .transform-style-preserve-3d {
+    transition: none !important;
+  }
+
+  .cta-light-sweep::after {
+    display: none !important;
+  }
+
+  .animate-fade-in,
+  .animate-ios-pop {
+    animation: none !important;
+  }
+}
+

@@ -1,8 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Warehouse, Scale, ShieldCheck, Truck, ParkingCircle, Users, CheckCircle2, Maximize2, X } from 'lucide-react';
 import { facilitiesData } from '../data/facilitiesData';
-import hydraCraneImg from '../assets/images/hydra_crane.png';
-import interiorImg from '../assets/images/interior.png';
+import SEO from '../components/SEO';
+import hydraCrane640 from '../assets/images/hydra_crane-640.webp';
+import hydraCrane1024 from '../assets/images/hydra_crane-1024.webp';
+import hydraCrane1600 from '../assets/images/hydra_crane-1600.webp';
+import interior1024 from '../assets/images/interior-1024.webp';
 
 const ICONS_MAP = {
     Warehouse, Scale, ShieldCheck, Truck, ParkingCircle, Users, CheckCircle2
@@ -13,22 +16,65 @@ const Facilities = () => {
     const [selectedImage, setSelectedImage] = useState(null);
     const displayFacilities = facilities;
 
-    // Accessibility: Keyboard Escape & body scroll lock for lightbox
+    const openerRef = useRef(null);
+    const closeBtnRef = useRef(null);
+    const dialogRef = useRef(null);
+
+    const openLightbox = (imgData, triggerEl) => {
+        openerRef.current = triggerEl || document.activeElement;
+        setSelectedImage(imgData);
+    };
+
+    const closeLightbox = () => {
+        setSelectedImage(null);
+    };
+
+    // Accessibility: Keyboard Escape, Tab trap & body scroll lock for lightbox
     useEffect(() => {
         if (!selectedImage) return;
-        const handleKeyDown = (e) => {
-            if (e.key === 'Escape') setSelectedImage(null);
-        };
+
         document.body.style.overflow = 'hidden';
+        closeBtnRef.current?.focus();
+
+        const handleKeyDown = (e) => {
+            if (e.key === 'Escape') {
+                e.preventDefault();
+                closeLightbox();
+                return;
+            }
+            if (e.key === 'Tab' && dialogRef.current) {
+                const focusables = dialogRef.current.querySelectorAll(
+                    'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+                );
+                if (focusables.length === 0) return;
+                const firstEl = focusables[0];
+                const lastEl = focusables[focusables.length - 1];
+
+                if (e.shiftKey) {
+                    if (document.activeElement === firstEl) {
+                        e.preventDefault();
+                        lastEl.focus();
+                    }
+                } else {
+                    if (document.activeElement === lastEl) {
+                        e.preventDefault();
+                        firstEl.focus();
+                    }
+                }
+            }
+        };
+
         window.addEventListener('keydown', handleKeyDown);
         return () => {
             document.body.style.overflow = 'unset';
             window.removeEventListener('keydown', handleKeyDown);
+            openerRef.current?.focus();
         };
     }, [selectedImage]);
 
     return (
         <div className="bg-white text-slate-900 min-h-screen font-sans">
+            <SEO routeKey="/facilities" />
 
             {/* Modern Header Banner */}
             <div className="relative py-20 bg-slate-50 border-b border-slate-200 overflow-hidden blueprint-grid-pattern text-center">
@@ -76,14 +122,28 @@ const Facilities = () => {
                 <div className="bg-[#0b0d17] text-white rounded-3xl overflow-hidden border border-brand-orange/40 shadow-2xl grid grid-cols-1 lg:grid-cols-2 transition-all duration-300">
                     {/* Left Column: Crane image fills full height and width seamlessly */}
                     <div
-                        className="relative w-full min-h-[300px] sm:min-h-[380px] lg:min-h-full overflow-hidden cursor-pointer group"
-                        onClick={() => setSelectedImage({ url: hydraCraneImg, title: "Hydra Crane Heavy Lifting Services" })}
+                        role="button"
+                        tabIndex={0}
+                        aria-label="Expand Hydra Crane Heavy Lifting Services photo"
+                        className="relative w-full min-h-[300px] sm:min-h-[380px] lg:min-h-full overflow-hidden cursor-pointer group focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange"
+                        onClick={(e) => openLightbox({ url: hydraCrane1600, title: "Hydra Crane Heavy Lifting Services" }, e.currentTarget)}
+                        onKeyDown={(e) => {
+                            if (e.key === 'Enter' || e.key === ' ') {
+                                e.preventDefault();
+                                openLightbox({ url: hydraCrane1600, title: "Hydra Crane Heavy Lifting Services" }, e.currentTarget);
+                            }
+                        }}
                     >
                         <img
-                            src={hydraCraneImg}
-                            alt="Hydra Crane Heavy Lifting Services"
+                            src={hydraCrane1024}
+                            srcSet={`${hydraCrane640} 640w, ${hydraCrane1024} 1024w, ${hydraCrane1600} 1600w`}
+                            sizes="(max-width: 1024px) 100vw, 50vw"
+                            width="1024"
+                            height="576"
+                            alt="Hydra Crane Heavy Lifting Services on-site mobile crane"
+                            loading="lazy"
+                            decoding="async"
                             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                            style={{ objectFit: 'cover' }}
                         />
                         <div className="absolute bottom-4 left-4 bg-slate-950/80 backdrop-blur-md border border-brand-orange/60 text-brand-orange text-xs font-mono font-bold px-3 py-1.5 rounded-xl flex items-center gap-2 shadow-lg transition-colors group-hover:bg-slate-900 group-hover:border-brand-orange">
                             <Maximize2 className="w-4 h-4" /> CLICK TO EXPAND FULL IMAGE
@@ -126,7 +186,10 @@ const Facilities = () => {
                             const cardImage = (facility.image_display && facility.image_display.trim()) ||
                                               (facility.image && facility.image.trim()) ||
                                               (facility.image_url && facility.image_url.trim()) ||
-                                              interiorImg;
+                                              facility.image1024 ||
+                                              interior1024;
+                            const cardThumb = facility.image640 || cardImage;
+                            const cardFull = facility.image1600 || facility.image1024 || cardImage;
                             const badgeStyle = facility.badgeColor || "bg-blue-100 text-blue-800 border-blue-200";
 
                             return (
@@ -135,13 +198,27 @@ const Facilities = () => {
                                     className="bg-white rounded-2xl border border-gray-200/80 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between group hover:-translate-y-1"
                                 >
                                     <div
-                                        className="relative h-60 overflow-hidden border-b border-gray-100 cursor-pointer"
-                                        onClick={() => setSelectedImage({ url: cardImage, title: facility.title })}
+                                        role="button"
+                                        tabIndex={0}
+                                        aria-label={`Expand ${facility.title} photo`}
+                                        className="relative h-60 overflow-hidden border-b border-gray-100 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange"
+                                        onClick={(e) => openLightbox({ url: cardFull, title: facility.title }, e.currentTarget)}
+                                        onKeyDown={(e) => {
+                                            if (e.key === 'Enter' || e.key === ' ') {
+                                                e.preventDefault();
+                                                openLightbox({ url: cardFull, title: facility.title }, e.currentTarget);
+                                            }
+                                        }}
                                     >
                                         <img
-                                            src={cardImage}
-                                            alt={facility.title}
+                                            src={cardThumb}
+                                            srcSet={facility.srcSet || `${cardThumb} 640w, ${cardFull} 1600w`}
+                                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                            width={facility.width || 1024}
+                                            height={facility.height || 1024}
+                                            alt={`${facility.title} - BIGB Warehouse facility`}
                                             loading="lazy"
+                                            decoding="async"
                                             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                                         />
                                         <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent"></div>
@@ -188,15 +265,22 @@ const Facilities = () => {
             {/* Photo Lightbox Modal */}
             {selectedImage && (
                 <div
+                    ref={dialogRef}
+                    role="dialog"
+                    aria-modal="true"
+                    aria-label={`${selectedImage.title} Lightbox`}
                     className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4 animate-fade-in"
-                    onClick={() => setSelectedImage(null)}
+                    onClick={closeLightbox}
                 >
                     <div className="relative max-w-5xl w-full bg-slate-950 rounded-2xl overflow-hidden shadow-2xl border border-gray-800 animate-ios-pop" onClick={e => e.stopPropagation()}>
                         <div className="flex items-center justify-between p-4 border-b border-gray-800 bg-slate-900 text-white">
                             <h3 className="font-black text-lg uppercase tracking-wide text-brand-orange">{selectedImage.title}</h3>
                             <button
-                                onClick={() => setSelectedImage(null)}
-                                className="p-2 text-gray-400 hover:text-white hover:bg-gray-800 rounded-lg transition-colors"
+                                ref={closeBtnRef}
+                                type="button"
+                                onClick={closeLightbox}
+                                aria-label="Close lightbox"
+                                className="p-2 text-gray-400 hover:text-white hover:bg-gray-800 rounded-lg transition-colors cursor-pointer"
                             >
                                 <X className="w-6 h-6" />
                             </button>

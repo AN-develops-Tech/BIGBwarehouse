@@ -1,7 +1,10 @@
 import { Link } from 'react-router-dom';
 import { useCompany } from '../context/CompanyContext';
 import { Warehouse, Scale, ShieldCheck, Truck, Users, ArrowRight, CheckCircle2 } from 'lucide-react';
-import bigbWarehouseImg from '../assets/images/bigb_warehouse.png';
+import SEO from '../components/SEO';
+import bigbWarehouse640 from '../assets/images/bigb_warehouse-640.webp';
+import bigbWarehouse1024 from '../assets/images/bigb_warehouse-1024.webp';
+import bigbWarehouse1600 from '../assets/images/bigb_warehouse-1600.webp';
 
 const KEY_FACILITIES = [
     {
@@ -47,6 +50,7 @@ const About = () => {
 
     return (
         <div className="bg-white text-slate-900 min-h-screen font-sans">
+            <SEO routeKey="/about" />
             
             {/* Header Banner */}
             <div className="relative py-20 bg-slate-50 border-b border-slate-200 overflow-hidden blueprint-grid-pattern text-center">
@@ -68,9 +72,14 @@ const About = () => {
                     {/* Left: Interactive Real-World Image */}
                     <div className="lg:col-span-6 relative rounded-2xl overflow-hidden shadow-xl border-2 border-brand-orange/30 group">
                         <img
-                            src={bigbWarehouseImg}
-                            alt="BigB Warehouse Park Kerala Exterior"
+                            src={bigbWarehouse1024}
+                            srcSet={`${bigbWarehouse640} 640w, ${bigbWarehouse1024} 1024w, ${bigbWarehouse1600} 1600w`}
+                            sizes="(max-width: 1024px) 100vw, 50vw"
+                            width="1024"
+                            height="1024"
+                            alt="BigB Warehouse Park Kerala Exterior daylight view"
                             loading="lazy"
+                            decoding="async"
                             className="w-full h-[450px] sm:h-[520px] object-cover transition-transform duration-700 group-hover:scale-105 filter brightness-95 contrast-105"
                         />
                     </div>

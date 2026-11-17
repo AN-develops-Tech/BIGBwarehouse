@@ -1,13 +1,25 @@
 # Dependencies & build outputs
 node_modules/
 dist/
+dist-server/
+.refactor/
+frontend/.refactor/
 frontend/node_modules/
 frontend/dist/
+frontend/dist-server/
+frontend/public/robots.txt
+frontend/public/sitemap.xml
+robots.txt
+sitemap.xml
 
 # Environment files & secrets
 .env
 *.env
+.env.*
 frontend/.env
+frontend/.env.*
+!.env.example
+!frontend/.env.example
 *.local
 
 # System files

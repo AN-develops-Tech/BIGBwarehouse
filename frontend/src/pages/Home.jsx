@@ -1,27 +1,50 @@
-import { useEffect, useState, useMemo, useCallback } from 'react';
+import { useEffect, useState, useMemo, useCallback, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, Warehouse, Scale, Truck, ParkingCircle, CheckCircle, CheckCircle2, RotateCcw, PhoneCall, Zap, ShieldCheck, Layers, Users, MapPin } from 'lucide-react';
 import { useCompany } from '../context/CompanyContext';
 import { facilitiesData } from '../data/facilitiesData';
 import { galleryData } from '../data/galleryData';
 import CtaBanner from '../components/CtaBanner';
+import SEO from '../components/SEO';
 
 // Import photorealistic warehouse visual assets
-import bigbWarehouseImg from '../assets/images/bigb_warehouse.png';
-import orangeHydraCraneImg from '../assets/images/orange_hydra_crane.png';
-import interiorImg from '../assets/images/interior.png';
-import weighbridgeImg from '../assets/images/weighbridge.png';
-import loadingDocksImg from '../assets/images/loading_docks.png';
-import parkingYardImg from '../assets/images/parking_yard.png';
-import laborOpsImg from '../assets/images/labor_ops.png';
-import hydraCraneImg from '../assets/images/hydra_crane.png';
+import bigbWarehouse640 from '../assets/images/bigb_warehouse-640.webp';
+import bigbWarehouse1024 from '../assets/images/bigb_warehouse-1024.webp';
+import bigbWarehouse1600 from '../assets/images/bigb_warehouse-1600.webp';
+
+import hydraCrane640 from '../assets/images/hydra_crane-640.webp';
+import hydraCrane1024 from '../assets/images/hydra_crane-1024.webp';
+import hydraCrane1600 from '../assets/images/hydra_crane-1600.webp';
+
+import interior640 from '../assets/images/interior-640.webp';
+import interior1024 from '../assets/images/interior-1024.webp';
+import interior1600 from '../assets/images/interior-1600.webp';
+
+import weighbridge640 from '../assets/images/weighbridge-640.webp';
+import weighbridge1024 from '../assets/images/weighbridge-1024.webp';
+import weighbridge1600 from '../assets/images/weighbridge-1600.webp';
+
+import loadingDocks640 from '../assets/images/loading_docks-640.webp';
+import loadingDocks1024 from '../assets/images/loading_docks-1024.webp';
+import loadingDocks1600 from '../assets/images/loading_docks-1600.webp';
+
+import parkingYard640 from '../assets/images/parking_yard-640.webp';
+import parkingYard1024 from '../assets/images/parking_yard-1024.webp';
+import parkingYard1600 from '../assets/images/parking_yard-1600.webp';
+
+import laborOps640 from '../assets/images/labor_ops-640.webp';
+import laborOps1024 from '../assets/images/labor_ops-1024.webp';
+import laborOps1600 from '../assets/images/labor_ops-1600.webp';
 
 const CORE_FACILITIES = [
     {
         title: "HIGH-BAY WAREHOUSE",
         desc: "Spacious heavy-duty warehouse bays with high ceiling clearance. Highbay system can be done at your requirement.",
         icon: <Warehouse className="w-9 h-9" />,
-        image: interiorImg,
+        image: interior1024,
+        srcSet: `${interior640} 640w, ${interior1024} 1024w, ${interior1600} 1600w`,
+        width: 1024,
+        height: 1024,
         stat: "50,000+ SQ. FT.",
         specs: [
             "Highbay system can be done at your requirement",
@@ -34,7 +57,10 @@ const CORE_FACILITIES = [
         title: "50-TON WEIGHBRIDGE",
         desc: "In-house heavy capacity weighbridge for accurate truck gross & tare weight verification.",
         icon: <Scale className="w-9 h-9" />,
-        image: weighbridgeImg,
+        image: weighbridge1024,
+        srcSet: `${weighbridge640} 640w, ${weighbridge1024} 1024w, ${weighbridge1600} 1600w`,
+        width: 1024,
+        height: 1024,
         stat: "50-TON CAPACITY",
         specs: [
             "50 Metric Ton max load capacity",
@@ -47,7 +73,10 @@ const CORE_FACILITIES = [
         title: "HYDRA CRANE LIFTING",
         desc: "On-site heavy mobile Hydra Crane for fast loading, unloading, and precision machinery placement.",
         icon: <Truck className="w-9 h-9" />,
-        image: hydraCraneImg,
+        image: hydraCrane1024,
+        srcSet: `${hydraCrane640} 640w, ${hydraCrane1024} 1024w, ${hydraCrane1600} 1600w`,
+        width: 1024,
+        height: 576,
         stat: "HEAVY LIFTING",
         specs: [
             "Heavy-duty mobile hydraulic crane on-site",
@@ -60,7 +89,10 @@ const CORE_FACILITIES = [
         title: "LOADING & UNLOADING DOCKS",
         desc: "Dedicated dock bays with hydraulic levelers and fork-lift assistance for rapid cargo turnaround.",
         icon: <Truck className="w-9 h-9" />,
-        image: loadingDocksImg,
+        image: loadingDocks1024,
+        srcSet: `${loadingDocks640} 640w, ${loadingDocks1024} 1024w, ${loadingDocks1600} 1600w`,
+        width: 1024,
+        height: 1024,
         stat: "24/7 BAY ACCESS",
         specs: [
             "Dedicated multi-truck dock bays",
@@ -73,7 +105,10 @@ const CORE_FACILITIES = [
         title: "LOGISTICS PARKING YARD",
         desc: "Secure paved parking and trailer staging yard with wide turning radii and perimeter fencing.",
         icon: <ParkingCircle className="w-9 h-9" />,
-        image: parkingYardImg,
+        image: parkingYard1024,
+        srcSet: `${parkingYard640} 640w, ${parkingYard1024} 1024w, ${parkingYard1600} 1600w`,
+        width: 1024,
+        height: 1024,
         stat: "AMPLE TRUCK BAYS",
         specs: [
             "Spacious paved truck staging yard",
@@ -85,11 +120,11 @@ const CORE_FACILITIES = [
 ];
 
 const FALLBACK_GALLERY_ITEMS = [
-    { id: 1, title: "High-Bay Pallet Racks", category: "Warehouse", image: interiorImg },
-    { id: 2, title: "50-Ton Industrial Scale", category: "Facilities", image: weighbridgeImg },
-    { id: 3, title: "Hydraulic Dock Levelers", category: "Loading", image: loadingDocksImg },
-    { id: 4, title: "Trailer Staging Yard", category: "Parking", image: parkingYardImg },
-    { id: 5, title: "Logistics Fulfillment Team", category: "Facilities", image: laborOpsImg },
+    { id: 1, title: "High-Bay Pallet Racks", category: "Warehouse", image: interior1024, thumb: interior640, srcSet: `${interior640} 640w, ${interior1024} 1024w, ${interior1600} 1600w`, width: 1024, height: 1024 },
+    { id: 2, title: "50-Ton Industrial Scale", category: "Facilities", image: weighbridge1024, thumb: weighbridge640, srcSet: `${weighbridge640} 640w, ${weighbridge1024} 1024w, ${weighbridge1600} 1600w`, width: 1024, height: 1024 },
+    { id: 3, title: "Hydraulic Dock Levelers", category: "Loading", image: loadingDocks1024, thumb: loadingDocks640, srcSet: `${loadingDocks640} 640w, ${loadingDocks1024} 1024w, ${loadingDocks1600} 1600w`, width: 1024, height: 1024 },
+    { id: 4, title: "Trailer Staging Yard", category: "Parking", image: parkingYard1024, thumb: parkingYard640, srcSet: `${parkingYard640} 640w, ${parkingYard1024} 1024w, ${parkingYard1600} 1600w`, width: 1024, height: 1024 },
+    { id: 5, title: "Logistics Fulfillment Team", category: "Facilities", image: laborOps1024, thumb: laborOps640, srcSet: `${laborOps640} 640w, ${laborOps1024} 1024w, ${laborOps1600} 1600w`, width: 1024, height: 1024 },
 ];
 
 const getFacilityIcon = (iconName) => {
@@ -131,38 +166,72 @@ const Home = () => {
             image: (company?.hero_image_display && company.hero_image_display.trim()) ||
                    (company?.hero_image && company.hero_image.trim()) ||
                    (company?.hero_image_url && company.hero_image_url.trim()) ||
-                   bigbWarehouseImg,
+                   bigbWarehouse1024,
+            srcSet: `${bigbWarehouse640} 640w, ${bigbWarehouse1024} 1024w, ${bigbWarehouse1600} 1600w`,
+            width: 1024,
+            height: 1024,
             title: company?.name || "BIGB WAREHOUSE PARK",
             subtitle: company?.hero_subtitle || "State-of-the-art high-bay industrial warehouse facility & logistics hub"
         },
         {
-            image: orangeHydraCraneImg,
+            image: hydraCrane1024,
+            srcSet: `${hydraCrane640} 640w, ${hydraCrane1024} 1024w, ${hydraCrane1600} 1600w`,
+            width: 1024,
+            height: 576,
             title: "POWER | PRECISION | PERFORMANCE",
             subtitle: "LIFTING YOUR TOMORROW - Heavy Industrial Hydra Crane Solutions for Machinery & Bulk Cargo Unloading"
         },
         {
-            image: interiorImg,
+            image: interior1024,
+            srcSet: `${interior640} 640w, ${interior1024} 1024w, ${interior1600} 1600w`,
+            width: 1024,
+            height: 1024,
             title: "High-Bay Steel Storage Racks",
             subtitle: "Polished epoxy concrete aisles & electric forklift operations. Highbay system can be done at your requirement."
         },
         {
-            image: loadingDocksImg,
+            image: loadingDocks1024,
+            srcSet: `${loadingDocks640} 640w, ${loadingDocks1024} 1024w, ${loadingDocks1600} 1600w`,
+            width: 1024,
+            height: 1024,
             title: "Active Heavy Loading Docks",
             subtitle: "Hydraulic dock levelers with automated roll-up shutters"
         },
         {
-            image: weighbridgeImg,
+            image: weighbridge1024,
+            srcSet: `${weighbridge640} 640w, ${weighbridge1024} 1024w, ${weighbridge1600} 1600w`,
+            width: 1024,
+            height: 1024,
             title: "50-Ton Heavy Duty Weighbridge",
             subtitle: "Digital weight monitor platform with safety guardrails"
         },
         {
-            image: parkingYardImg,
+            image: parkingYard1024,
+            srcSet: `${parkingYard640} 640w, ${parkingYard1024} 1024w, ${parkingYard1600} 1600w`,
+            width: 1024,
+            height: 1024,
             title: "Logistics Trailer Parking Yard",
             subtitle: "Spacious staging yard for heavy trailers and 18-wheelers"
         }
     ], [company]);
 
     const [currentSlide, setCurrentSlide] = useState(0);
+    const heroRef = useRef(null);
+    const [isHeroInView, setIsHeroInView] = useState(true);
+
+    useEffect(() => {
+        if (!heroRef.current || typeof IntersectionObserver === 'undefined') return;
+
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                setIsHeroInView(entry.isIntersecting);
+            },
+            { threshold: 0 }
+        );
+
+        observer.observe(heroRef.current);
+        return () => observer.disconnect();
+    }, []);
 
     useEffect(() => {
         const slideInterval = setInterval(() => {
@@ -199,9 +268,10 @@ const Home = () => {
 
     return (
         <div className="flex flex-col bg-white text-slate-900 font-sans">
+            <SEO routeKey="/" />
 
             {/* Hero Section with Dynamic Slideshow & Industrial Visual Overlay */}
-            <section className="relative min-h-[90vh] lg:min-h-[92vh] flex flex-col justify-between bg-brand-dark overflow-hidden blueprint-grid-pattern border-b border-brand-orange/30">
+            <section ref={heroRef} className="relative min-h-[90vh] lg:min-h-[92vh] flex flex-col justify-between bg-brand-dark overflow-hidden blueprint-grid-pattern border-b border-brand-orange/30">
 
                 {/* Ken-Burns Animated Background Slideshow - High Visual Clarity on All Screens */}
                 <div className="absolute inset-0 z-0 overflow-hidden">
@@ -214,11 +284,19 @@ const Home = () => {
                         >
                             <img
                                 src={slide.image}
+                                srcSet={slide.srcSet}
+                                sizes="100vw"
+                                width={slide.width || 1024}
+                                height={slide.height || 1024}
                                 alt={slide.title}
                                 decoding="async"
                                 loading={index === 0 ? "eager" : "lazy"}
+                                fetchPriority={index === 0 ? "high" : "auto"}
+                                style={{
+                                    animationPlayState: isHeroInView ? 'running' : 'paused'
+                                }}
                                 className={`w-full h-full object-cover object-[center_35%] opacity-90 sm:opacity-85 md:opacity-80 lg:opacity-80 ${
-                                    index === currentSlide ? 'animate-ken-burns' : ''
+                                    index === currentSlide && isHeroInView ? 'animate-ken-burns' : ''
                                 }`}
                             />
                         </div>
@@ -405,13 +483,31 @@ const Home = () => {
                                     className="perspective-1000 h-[490px] sm:h-[500px] w-full sm:w-[calc(50%-0.875rem)] lg:w-[calc(33.333%-1.375rem)] max-w-sm sm:max-w-none"
                                 >
                                     <div
-                                        className={`relative w-full h-full duration-700 transform-style-preserve-3d transition-transform ${isFlipped ? 'rotate-y-180' : ''}`}
+                                        role="button"
+                                        tabIndex={0}
+                                        aria-pressed={isFlipped}
+                                        aria-label={`${fac.title} - ${isFlipped ? 'Specifications active. Press Space or Enter to view summary.' : 'Summary active. Press Space or Enter to view specifications.'}`}
+                                        onClick={() => toggleFlip(idx)}
+                                        onKeyDown={(e) => {
+                                            if (e.key === 'Enter' || e.key === ' ') {
+                                                e.preventDefault();
+                                                toggleFlip(idx);
+                                            }
+                                        }}
+                                        className={`relative w-full h-full duration-700 transform-style-preserve-3d transition-transform rounded-2xl cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2 ${isFlipped ? 'rotate-y-180' : ''}`}
                                     >
                                         {/* FRONT FACE */}
-                                        <div className="absolute inset-0 h-full backface-hidden bg-slate-50 border border-slate-200/90 rounded-2xl overflow-hidden flex flex-col shadow-sm hover:shadow-xl transition-all duration-300 group">
+                                        <div
+                                            aria-hidden={isFlipped}
+                                            className="absolute inset-0 h-full backface-hidden bg-slate-50 border border-slate-200/90 rounded-2xl overflow-hidden flex flex-col shadow-sm hover:shadow-xl transition-all duration-300 group"
+                                        >
                                             <div className="relative h-44 sm:h-48 overflow-hidden border-b border-slate-200 shrink-0">
                                                 <img
                                                     src={fac.image}
+                                                    srcSet={fac.srcSet}
+                                                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                                                    width={fac.width || 1024}
+                                                    height={fac.height || 1024}
                                                     alt={fac.title}
                                                     decoding="async"
                                                     loading="lazy"
@@ -436,21 +532,17 @@ const Home = () => {
                                                     </p>
                                                 </div>
 
-                                                <button
-                                                    type="button"
-                                                    onClick={() => toggleFlip(idx)}
-                                                    className="mt-auto pt-3 sm:pt-4 border-t border-slate-200 flex items-center justify-between text-xs sm:text-sm font-mono text-brand-orange font-bold hover:text-orange-600 transition-colors w-full text-left cursor-pointer group-hover:translate-x-1 duration-200 py-1"
-                                                >
+                                                <div className="mt-auto pt-3 sm:pt-4 border-t border-slate-200 flex items-center justify-between text-xs sm:text-sm font-mono text-brand-orange font-bold hover:text-orange-600 transition-colors w-full text-left group-hover:translate-x-1 duration-200 py-1">
                                                     <span>VIEW DETAILS</span>
                                                     <ArrowRight className="w-4 h-4" />
-                                                </button>
+                                                </div>
                                             </div>
                                         </div>
 
                                         {/* BACK FACE */}
                                         <div
-                                            onClick={() => toggleFlip(idx)}
-                                            className="absolute inset-0 backface-hidden rotate-y-180 bg-slate-950 text-white rounded-2xl border border-brand-orange/40 overflow-hidden flex flex-col justify-between p-5 sm:p-6 shadow-2xl cursor-pointer"
+                                            aria-hidden={!isFlipped}
+                                            className="absolute inset-0 backface-hidden rotate-y-180 bg-slate-950 text-white rounded-2xl border border-brand-orange/40 overflow-hidden flex flex-col justify-between p-5 sm:p-6 shadow-2xl"
                                         >
                                             <div>
                                                 <div className="flex items-center justify-between border-b border-slate-800 pb-3 mb-3.5 sm:mb-4">
@@ -488,20 +580,13 @@ const Home = () => {
                                                 </div>
                                             </div>
 
-                                            <button
-                                                type="button"
-                                                onClick={(e) => {
-                                                    e.stopPropagation();
-                                                    toggleFlip(idx);
-                                                }}
-                                                className="pt-3 border-t border-slate-800 flex items-center justify-between text-xs sm:text-sm font-mono text-brand-orange font-bold hover:text-white transition-colors w-full cursor-pointer group/back py-1"
-                                            >
+                                            <div className="pt-3 border-t border-slate-800 flex items-center justify-between text-xs sm:text-sm font-mono text-brand-orange font-bold hover:text-white transition-colors w-full group/back py-1">
                                                 <span className="flex items-center gap-1.5">
                                                     <RotateCcw className="w-3.5 h-3.5 transition-transform group-hover/back:-rotate-90 duration-300" />
                                                     BACK TO SUMMARY
                                                 </span>
                                                 <ArrowRight className="w-4 h-4" />
-                                            </button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -522,8 +607,12 @@ const Home = () => {
                             {/* Image with adaptive height for seamless mobile, tablet, and desktop viewing */}
                             <div className="relative w-full aspect-[4/3] sm:aspect-[4/3] lg:aspect-auto lg:h-[540px] overflow-hidden bg-slate-900">
                                 <img
-                                    src={interiorImg}
-                                    alt="BigB Warehouse Interior Racks"
+                                    src={interior1024}
+                                    srcSet={`${interior640} 640w, ${interior1024} 1024w, ${interior1600} 1600w`}
+                                    sizes="(max-width: 1024px) 100vw, 50vw"
+                                    width="1024"
+                                    height="1024"
+                                    alt="BigB Warehouse Interior high-bay racking and storage bays"
                                     decoding="async"
                                     loading="lazy"
                                     className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
@@ -596,14 +685,18 @@ const Home = () => {
                             const imgSrc = (item.image_display && item.image_display.trim()) || 
                                            (item.image && item.image.trim()) || 
                                            (item.image_url && item.image_url.trim()) || 
-                                           interiorImg;
+                                           interior1024;
                             return (
                                 <div
                                     key={item.id || idx}
                                     className="group relative rounded-xl overflow-hidden border border-slate-200 shadow-md hover:shadow-2xl transition-all duration-300 aspect-video bg-slate-900 cursor-pointer"
                                 >
                                     <img
-                                        src={imgSrc}
+                                        src={item.thumb || item.image640 || imgSrc}
+                                        srcSet={item.srcSet}
+                                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                                        width={item.width || 1024}
+                                        height={item.height || 1024}
                                         alt={item.title || "Warehouse Gallery Image"}
                                         decoding="async"
                                         loading="lazy"

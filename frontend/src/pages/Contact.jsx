@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { Mail, Phone, MapPin, Loader2, CheckCircle2, AlertCircle, Clock, Navigation } from 'lucide-react';
 import { useCompany } from '../context/CompanyContext';
 import WhatsAppIcon from '../components/WhatsAppIcon';
+import { submitEnquiry } from '../lib/submitEnquiry';
+import SEO from '../components/SEO';
 
 const Contact = () => {
     const { company } = useCompany();
@@ -12,17 +14,20 @@ const Contact = () => {
         phone: '',
         email: '',
         requirement: '',
-        message: ''
+        message: '',
+        website: ''
     });
     const [submitting, setSubmitting] = useState(false);
     const [success, setSuccess] = useState(false);
+    const [postFailed, setPostFailed] = useState(false);
     const [error, setError] = useState(null);
     const [waLink, setWaLink] = useState(null);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         setSubmitting(true);
         setError(null);
+        setPostFailed(false);
 
         if (formData.phone && formData.phone.length < 10) {
             setError('Please enter a valid 10-digit contact phone number.');
@@ -30,6 +35,25 @@ const Contact = () => {
             return;
         }
 
+        // Honeypot check: if filled by a bot, silently skip POST and show normal success state
+        if (formData.website && formData.website.trim() !== '') {
+            setSuccess(true);
+            setSubmitting(false);
+            return;
+        }
+
+        // 1. First POST enquiry to the configured endpoint before opening WhatsApp
+        try {
+            const result = await submitEnquiry(formData);
+            if (!result.success && !result.fallback) {
+                setPostFailed(true);
+            }
+        } catch (err) {
+            console.error('Enquiry dispatch error:', err);
+            setPostFailed(true);
+        }
+
+        // 2. Format WhatsApp URL
         const rawWhatsapp = (company?.whatsapp || '9995456882').replace(/\D/g, '');
         const targetPhone = rawWhatsapp.startsWith('91') ? rawWhatsapp : (rawWhatsapp.length === 10 ? `91${rawWhatsapp}` : rawWhatsapp);
         const formattedMsg = `*NEW ENQUIRY - BIGB WAREHOUSE PARK*%0A%0A` +
@@ -43,14 +67,13 @@ const Contact = () => {
         const webUrl = `https://wa.me/${targetPhone}?text=${formattedMsg}`;
         setWaLink(webUrl);
 
+        // 3. Open WhatsApp whether or not POST succeeded (network failure must never block WhatsApp)
         try {
             setSuccess(true);
-            // Open WhatsApp securely in new tab with noopener, noreferrer
             window.open(webUrl, '_blank', 'noopener,noreferrer');
         } catch (err) {
-            console.error('Enquiry dispatch error:', err);
+            console.error('Window open error:', err);
             setSuccess(true);
-            window.open(webUrl, '_blank', 'noopener,noreferrer');
         } finally {
             setSubmitting(false);
         }
@@ -79,9 +102,11 @@ const Contact = () => {
             phone: '',
             email: '',
             requirement: '',
-            message: ''
+            message: '',
+            website: ''
         });
         setSuccess(false);
+        setPostFailed(false);
         setWaLink(null);
     };
 
@@ -89,6 +114,7 @@ const Contact = () => {
 
     return (
         <div className="bg-slate-50 text-slate-900 min-h-screen font-sans">
+            <SEO />
             {/* Unified Modern Header Banner */}
             <div className="relative py-20 bg-slate-50 border-b border-slate-200 overflow-hidden blueprint-grid-pattern text-center">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -148,8 +174,8 @@ const Contact = () => {
                                         </div>
                                         <div>
                                             <h4 className="font-bold text-slate-900 text-sm uppercase tracking-wide">Email</h4>
-                                            <a href={`mailto:${company?.email || 'contact@bigbwarehouse.com'}`} className="text-slate-700 font-mono text-sm hover:text-brand-orange block mt-1">
-                                                {company?.email || 'contact@bigbwarehouse.com'}
+                                            <a href={`mailto:${company?.email || 'bigbwarehousepark26@gmail.com'}`} className="text-slate-700 font-mono text-sm hover:text-brand-orange block mt-1">
+                                                {company?.email || 'bigbwarehousepark26@gmail.com'}
                                             </a>
                                         </div>
                                     </div>
@@ -197,6 +223,11 @@ const Contact = () => {
                                             <span className="text-xs sm:text-sm text-emerald-800">
                                                 Your requirement is recorded, and WhatsApp chat has been prepared.
                                             </span>
+                                            {postFailed && (
+                                                <p role="alert" className="text-xs text-emerald-900/80 mt-1.5 font-medium">
+                                                    Your message is opening in WhatsApp. If it doesn't, call {company?.phone || '+91 9995456882'}.
+                                                </p>
+                                            )}
                                         </div>
                                     </div>
                                     <div className="flex items-center gap-2 shrink-0">
@@ -222,7 +253,7 @@ const Contact = () => {
                             )}
 
                             {error && (
-                                <div className="mb-8 bg-red-50 text-red-800 p-4 rounded-xl flex items-start gap-3 border border-red-200 animate-fade-in">
+                                <div role="alert" aria-live="polite" className="mb-8 bg-red-50 text-red-800 p-4 rounded-xl flex items-start gap-3 border border-red-200 animate-fade-in">
                                     <AlertCircle className="w-5 h-5 text-red-600 shrink-0 mt-0.5" />
                                     <div>
                                         <strong className="block font-bold text-sm">Submission Error</strong>
@@ -232,12 +263,27 @@ const Contact = () => {
                             )}
 
                             <form onSubmit={handleSubmit} className="space-y-6">
+                                {/* Honeypot field for bot suppression */}
+                                <div className="hidden" aria-hidden="true" style={{ display: 'none' }}>
+                                    <label htmlFor="website">Website</label>
+                                    <input
+                                        type="text"
+                                        id="website"
+                                        name="website"
+                                        value={formData.website}
+                                        onChange={handleChange}
+                                        tabIndex={-1}
+                                        autoComplete="off"
+                                    />
+                                </div>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div>
-                                        <label className="block text-xs font-mono font-bold uppercase text-slate-700 mb-2">Full Name *</label>
+                                        <label htmlFor="full_name" className="block text-xs font-mono font-bold uppercase text-slate-700 mb-2">Full Name *</label>
                                         <input
                                             type="text"
+                                            id="full_name"
                                             name="full_name"
+                                            autoComplete="name"
                                             value={formData.full_name}
                                             onChange={handleChange}
                                             required
@@ -245,20 +291,24 @@ const Contact = () => {
                                         />
                                     </div>
                                     <div>
-                                        <label className="block text-xs font-mono font-bold uppercase text-slate-700 mb-2">Company Name</label>
+                                        <label htmlFor="company_name" className="block text-xs font-mono font-bold uppercase text-slate-700 mb-2">Company Name</label>
                                         <input
                                             type="text"
+                                            id="company_name"
                                             name="company_name"
+                                            autoComplete="organization"
                                             value={formData.company_name}
                                             onChange={handleChange}
                                             className="w-full px-4 py-3.5 rounded-xl border border-slate-200 focus:ring-2 focus:ring-brand-orange/20 focus:border-brand-orange outline-none transition-all text-sm bg-slate-50 focus:bg-white"
                                         />
                                     </div>
                                     <div>
-                                        <label className="block text-xs font-mono font-bold uppercase text-slate-700 mb-2">Email Address *</label>
+                                        <label htmlFor="email" className="block text-xs font-mono font-bold uppercase text-slate-700 mb-2">Email Address *</label>
                                         <input
                                             type="email"
+                                            id="email"
                                             name="email"
+                                            autoComplete="email"
                                             value={formData.email}
                                             onChange={handleChange}
                                             required
@@ -266,10 +316,13 @@ const Contact = () => {
                                         />
                                     </div>
                                     <div>
-                                        <label className="block text-xs font-mono font-bold uppercase text-slate-700 mb-2">Phone Number *</label>
+                                        <label htmlFor="phone" className="block text-xs font-mono font-bold uppercase text-slate-700 mb-2">Phone Number *</label>
                                         <input
                                             type="tel"
+                                            id="phone"
                                             name="phone"
+                                            autoComplete="tel"
+                                            inputMode="numeric"
                                             value={formData.phone}
                                             onChange={handleChange}
                                             maxLength={10}
@@ -283,8 +336,9 @@ const Contact = () => {
                                 </div>
 
                                 <div>
-                                    <label className="block text-xs font-mono font-bold uppercase text-slate-700 mb-2">Requirement Type *</label>
+                                    <label htmlFor="requirement" className="block text-xs font-mono font-bold uppercase text-slate-700 mb-2">Requirement Type *</label>
                                     <select
+                                        id="requirement"
                                         name="requirement"
                                         value={formData.requirement}
                                         onChange={handleChange}
@@ -302,8 +356,9 @@ const Contact = () => {
                                 </div>
 
                                 <div>
-                                    <label className="block text-xs font-mono font-bold uppercase text-slate-700 mb-2">Additional Message (Optional)</label>
+                                    <label htmlFor="message" className="block text-xs font-mono font-bold uppercase text-slate-700 mb-2">Additional Message (Optional)</label>
                                     <textarea
+                                        id="message"
                                         name="message"
                                         value={formData.message}
                                         onChange={handleChange}

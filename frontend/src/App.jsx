@@ -7,10 +7,11 @@ import About from './pages/About';
 import Facilities from './pages/Facilities';
 import Gallery from './pages/Gallery';
 import Contact from './pages/Contact';
+import NotFound from './pages/NotFound';
 
-function App() {
+export function AppRoutes() {
   return (
-    <Router>
+    <>
       <ScrollToTop />
       <CompanyProvider>
         <Routes>
@@ -21,11 +22,20 @@ function App() {
             <Route path="gallery" element={<Gallery />} />
             <Route path="location" element={<Contact />} />
             <Route path="contact" element={<Contact />} />
+            <Route path="privacy" element={<Navigate to="/" replace />} />
+            <Route path="privacy/*" element={<Navigate to="/" replace />} />
+            <Route path="*" element={<NotFound />} />
           </Route>
-          {/* Catch-all Fallback */}
-          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </CompanyProvider>
+    </>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <AppRoutes />
     </Router>
   );
 }
